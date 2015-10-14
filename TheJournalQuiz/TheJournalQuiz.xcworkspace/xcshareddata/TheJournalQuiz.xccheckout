@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>5D424DFC-3D81-42F4-BA95-7C54C1313E04</string>
+	<key>IDESourceControlProjectName</key>
+	<string>TheJournalQuiz</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>F63B563C039E33EA928805B445FBF2988BD8A7AE</key>
+		<string>https://bitbucket.org/jhapankajkumar/thejournalquiz.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>TheJournalQuiz/TheJournalQuiz.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>F63B563C039E33EA928805B445FBF2988BD8A7AE</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://bitbucket.org/jhapankajkumar/thejournalquiz.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>F63B563C039E33EA928805B445FBF2988BD8A7AE</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F63B563C039E33EA928805B445FBF2988BD8A7AE</string>
+			<key>IDESourceControlWCCName</key>
+			<string>thejournalquiz</string>
+		</dict>
+	</array>
+</dict>
+</plist>
