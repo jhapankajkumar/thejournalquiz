@@ -14,6 +14,7 @@
 #import "ViewController.h"
 #import <UIImageView+WebCache.h>
 #import "Constant.h"
+#import "ViewController.h"
 
 
 #define HEAD_LINE_FONT_SIZE             18
@@ -34,6 +35,20 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    
+    _resultHeadLine.numberOfLines = 0;
+    _resultHeadLine.lineBreakMode =  NSLineBreakByWordWrapping;
+    [_resultHeadLine setFont:[UIFont systemFontOfSize:QUESTION_FONT_SIZE]];
+    _resultHeadLine.layer.cornerRadius = 5.0;
+    _resultHeadLine.userInteractionEnabled = YES;
+    _resultHeadLine.numberOfLines = 0;
+    
+    _resultText.numberOfLines = 0;
+    _resultText.lineBreakMode =  NSLineBreakByWordWrapping;
+    [_resultText setFont:[UIFont systemFontOfSize:QUESTION_FONT_SIZE]];
+    _resultText.layer.cornerRadius = 5.0;
+    _resultText.userInteractionEnabled = YES;
+    _resultText.numberOfLines = 0;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -53,15 +68,10 @@
     totalHeight = THUMB_HEIGHT+1;
     CGSize maximumLabelSize = CGSizeMake(screenWidth-20,FLT_MAX);
     CGSize expectedLabelSize;
-    if (viewController.answerDictionary.allKeys.count == viewController.questionCount) {
+    if (viewController.answerDictionary.allKeys.count != viewController.questionCount) {
         
         //Headline Text
-        CGRect rect =  [persona.title boundingRectWithSize:maximumLabelSize
-                                                              options:NSStringDrawingUsesLineFragmentOrigin
-                                                           attributes:@{
-                                                                        NSFontAttributeName : [UIFont systemFontOfSize:HEAD_LINE_FONT_SIZE]
-                                                                        }
-                                                              context:nil];
+        CGRect rect =  [persona.title boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:HEAD_LINE_FONT_SIZE]} context:nil];
         expectedLabelSize = rect.size;
         if (expectedLabelSize.height<70) {
             expectedLabelSize.height = 70;
@@ -69,29 +79,20 @@
         totalHeight = totalHeight + 10 + expectedLabelSize.height;
         
         //Descrptive Text
-         rect =  [persona.text boundingRectWithSize:maximumLabelSize
-                                                   options:NSStringDrawingUsesLineFragmentOrigin
-                                                attributes:@{
-                                                             NSFontAttributeName : [UIFont systemFontOfSize:HEAD_LINE_FONT_SIZE]
-                                                             }
-                                                   context:nil];
+         rect =  [persona.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:HEAD_LINE_FONT_SIZE]} context:nil];
+        
         expectedLabelSize = rect.size;
         if (expectedLabelSize.height<70) {
             expectedLabelSize.height = 70;
         }
         totalHeight = totalHeight + 10 + expectedLabelSize.height;
-        
         //Share Button/ Try Again Button
         totalHeight = totalHeight + 10 + 40;
     }
     else {
         //Headline Text
-        CGRect rect =  [PERSONA_INFORMATION_TEXT boundingRectWithSize:maximumLabelSize
-                                                   options:NSStringDrawingUsesLineFragmentOrigin
-                                                attributes:@{
-                                                             NSFontAttributeName : [UIFont systemFontOfSize:HEAD_LINE_FONT_SIZE]
-                                                             }
-                                                   context:nil];
+        CGRect rect =  [PERSONA_INFORMATION_TEXT boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:HEAD_LINE_FONT_SIZE] } context:nil];
+        
         expectedLabelSize = rect.size;
         if (expectedLabelSize.height<70) {
             expectedLabelSize.height = 70;
@@ -117,7 +118,7 @@
     
     ViewController *viewController = (ViewController *)controller;
     Personas *persona = (Personas*)aData;
-    if (viewController.answerDictionary.allKeys.count == viewController.questionCount) {
+    if (viewController.answerDictionary.allKeys.count != viewController.questionCount) {
         
         //Get Persona Image
         self.resultImage.hidden = NO;
@@ -141,19 +142,14 @@
                                          {
                                              //Need to
                                          }
-                                         
                                      }];
         
         totalHeight = totalHeight + 8 ;
         
         
         //Headline Text
-        CGRect rect =  [persona.title boundingRectWithSize:maximumLabelSize
-                                                   options:NSStringDrawingUsesLineFragmentOrigin
-                                                attributes:@{
-                                                             NSFontAttributeName : [UIFont systemFontOfSize:HEAD_LINE_FONT_SIZE]
-                                                             }
-                                                context:nil];
+        CGRect rect =  [persona.title boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:HEAD_LINE_FONT_SIZE] } context:nil];
+        
         expectedLabelSize = rect.size;
         if (expectedLabelSize.height<70) {
             expectedLabelSize.height = 70;
@@ -164,12 +160,8 @@
         totalHeight = totalHeight + 10 + expectedLabelSize.height;
         
         //Descrptive Text
-        rect =  [persona.text boundingRectWithSize:maximumLabelSize
-                                           options:NSStringDrawingUsesLineFragmentOrigin
-                                        attributes:@{
-                                                     NSFontAttributeName : [UIFont systemFontOfSize:HEAD_LINE_FONT_SIZE]
-                                                     }
-                                           context:nil];
+        rect =  [persona.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:HEAD_LINE_FONT_SIZE]} context:nil];
+        
         expectedLabelSize = rect.size;
         if (expectedLabelSize.height<70) {
             expectedLabelSize.height = 70;
@@ -180,8 +172,20 @@
         self.resultText.frame = CGRectMake(8, totalHeight, screenWidth, expectedLabelSize.height);
         totalHeight = totalHeight + 10 + expectedLabelSize.height;
         
+        UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        shareButton.frame = CGRectMake(8, totalHeight, 100, 35);
+        [shareButton setTitle:@"Share" forState:UIControlStateNormal];
+        [shareButton addTarget:self action:@selector(shareQuiz:) forControlEvents:UIControlEventTouchUpInside];
+        [self.contentView addSubview:shareButton];
+        
+        UIButton *tryAgaginQuiz = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        tryAgaginQuiz.frame = CGRectMake(screenWidth-108, totalHeight, 100, 35);
+        [tryAgaginQuiz setTitle:@"Try Again" forState:UIControlStateNormal];
+        [tryAgaginQuiz addTarget:controller action:@selector(tryAgainQuiz:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.contentView addSubview:tryAgaginQuiz];
+        
         //Share Button/ Try Again Button
-        totalHeight = totalHeight + 10 + 40;
     }
     else {
         
@@ -228,6 +232,6 @@
 }
 
 
-- (IBAction)shareResult:(id)sender {
+- (void)shareQuiz:(UIButton *)sender {
 }
 @end

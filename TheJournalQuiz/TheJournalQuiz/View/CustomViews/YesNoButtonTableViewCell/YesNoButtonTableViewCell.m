@@ -202,6 +202,10 @@
         }
     }
     
+
+        _choiceOne.backgroundColor = RGB(249, 249, 249);
+    _choiceTwo.backgroundColor = RGB(249, 249, 249);
+    
     for (NSString  *questionID in homeViewController.answerDictionary.allKeys) {
         if ([questionID integerValue] == question.questionID) {
             UserAnswer *userAnswer = [homeViewController.answerDictionary objectForKey:questionID];
@@ -227,10 +231,6 @@
                     break;
                 }
             }
-        }
-        else {
-            _choiceOne.backgroundColor = RGB(249, 249, 249);
-            _choiceTwo.backgroundColor = RGB(249, 249, 249);
         }
     }
     
