@@ -9,45 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TheJournalQuiz/View/CustomViews/MultipleChoiceButtonTableViewCell/MultipleChoiceButtonTableViewCell.m"
-            timestampString = "466623935.803386"
+            filePath = "TheJournalQuiz/Controller/HomeViewController/ViewController.m"
+            timestampString = "466636039.367048"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
-            landmarkName = "+rowHeightForData:tableView:indexPath:controller:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TheJournalQuiz/View/CustomViews/MultipleChoiceButtonTableViewCell/MultipleChoiceButtonTableViewCell.m"
-            timestampString = "466624040.043159"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
-            landmarkName = "-createCellForData:tableView:indexPath:controller:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TheJournalQuiz/View/CustomViews/MultipleChoiceButtonTableViewCell/MultipleChoiceButtonTableViewCell.m"
-            timestampString = "466624071.115254"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "262"
-            endingLineNumber = "262"
-            landmarkName = "-createCellForData:tableView:indexPath:controller:"
+            startingLineNumber = "182"
+            endingLineNumber = "182"
+            landmarkName = "-answerSelectedFromCell:atIndePath:forQuestion:withAnswer:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

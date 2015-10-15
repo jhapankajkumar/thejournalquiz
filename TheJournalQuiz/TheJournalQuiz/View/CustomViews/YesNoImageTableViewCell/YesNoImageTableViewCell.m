@@ -7,15 +7,19 @@
 //
 
 #import "YesNoImageTableViewCell.h"
-#import "Quesiton.h"
+#import "Question.h"
 #import "Answers.h"
 #import "Image.h"
 #import <UIImageView+WebCache.h>
+#import "Constant.h"
+#import "ViewController.h"
+#import "UserAnswer.h"
 
 
 #define HEAD_LINE_FONT_SIZE             22
 #define CAPTION_FONT_SIZE               14
 #define QUESTION_FONT_SIZE              12
+#define IMAGE_RESIZE_VALUE              CGSizeMake(130,105)
 
 
 
@@ -41,7 +45,7 @@
 + (CGFloat)rowHeightForData:(id)aData tableView:(UITableView*)aTableView indexPath:(NSIndexPath *)anIndexPath controller:(id)controller {
     
     CGFloat screenWidth = aTableView.superview.frame.size.width;
-    Quesiton *question = (Quesiton*)aData;
+    Question *question = (Question*)aData;
     // Init with base padding
     float totalHeight = 10;
     
@@ -61,25 +65,29 @@
     // Add Padding
     totalHeight += 10;
     
-    if (question.image && question.image.src) {
-        totalHeight = THUMB_HEIGHT+1;
-        // new implementation it will always remian open
-    }
-    totalHeight = totalHeight + ANSWER_THUMB_HEIGHT + 8 ;
-    totalHeight += 8;
+//    if (question.image && question.image.src) {
+//        totalHeight = THUMB_HEIGHT+1;
+//        // new implementation it will always remian open
+//    }
+    totalHeight = totalHeight + 8 + ANSWER_THUMB_HEIGHT + 8 ;
+    totalHeight += 20;
     return totalHeight;
 }
 
 - (void)createCellForData:(id)aData tableView:(UITableView *)aTableView indexPath:(NSIndexPath *)anIndexPath controller:(id)controller {
     
     [super createCellForData:aData tableView:aTableView indexPath:anIndexPath controller:controller];
-    //self.contentView.frame = CGRectMake(0, self.contentView.frame.origin.y, aTableView.frame.size.width, self.contentView.frame.size.height);
+
     CGFloat screenWidth = aTableView.superview.frame.size.width;
-    Quesiton *question = (Quesiton*)aData;
+    Question *question = (Question*)aData;
     self.tableView = aTableView;
     __weak __typeof(&*self)weakSelf = self;
     self.data = aData;
     self.indexPath = anIndexPath;
+    
+    homeViewController = (ViewController *)controller;
+    
+    
     CGFloat totalHeight = 8;
     CGSize maximumLabelSize = CGSizeMake(screenWidth - 20,FLT_MAX);
     CGSize expectedLabelSize;
@@ -110,39 +118,39 @@
     totalHeight = totalHeight + expectedLabelSize.height;
     totalHeight = totalHeight + 8;
     
-    if (question.image && question.image.src ) {
-        self.questionImage.hidden = NO;
-        self.questionImage.frame = CGRectMake(8, totalHeight, THUMB_WIDTH-8, THUMB_HEIGHT);
-        // set the gradient
-        totalHeight = THUMB_HEIGHT+1;
-        NSString *imageURLString = [NSString stringWithFormat:@"%@?width=&%f&height=%f",question.image.src,THUMB_WIDTH,THUMB_HEIGHT];
-        //Downloading Question image
-        
-        [self.questionImage sd_setImageWithURL:[NSURL URLWithString:imageURLString]
-                              placeholderImage:[UIImage imageNamed:@"placeholder.png"]
-                                     completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                                         
-                                         if (image &&  [image isKindOfClass:[UIImage class]]) {
-                                             YesNoImageTableViewCell *localCell = (YesNoImageTableViewCell*)[weakSelf.tableView cellForRowAtIndexPath:anIndexPath];
-                                             if (localCell && [localCell isKindOfClass:[YesNoImageTableViewCell class]]) {
-                                                 [localCell.questionImage setImage:image];
-                                                 //[localCell.questionImage setGradientBackgroundWithStartColor:[UIColor clearColor] endColor:RGBA(0, 0, 0, 0.9)];
-                                             }
-                                         }
-                                         else
-                                         {
-                                             //Need to
-                                         }
-                                         
-                                     }];
-        
-        totalHeight = totalHeight + 8 ;
-        
-    }
-    else {
-        self.questionImage.hidden = YES;
-        //self.answerViewLeadingConstraints.constant -=133;
-    }
+//    if (question.image && question.image.src ) {
+//        self.questionImage.hidden = NO;
+//        self.questionImage.frame = CGRectMake(8, totalHeight, THUMB_WIDTH-8, THUMB_HEIGHT);
+//        // set the gradient
+//        totalHeight = THUMB_HEIGHT+1;
+//        NSString *imageURLString = [NSString stringWithFormat:@"%@?width=&%f&height=%f",question.image.src,THUMB_WIDTH,THUMB_HEIGHT];
+//        //Downloading Question image
+//        
+//        [self.questionImage sd_setImageWithURL:[NSURL URLWithString:imageURLString]
+//                              placeholderImage:[UIImage imageNamed:@"placeholder.png"]
+//                                     completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//                                         
+//                                         if (image &&  [image isKindOfClass:[UIImage class]]) {
+//                                             YesNoImageTableViewCell *localCell = (YesNoImageTableViewCell*)[weakSelf.tableView cellForRowAtIndexPath:anIndexPath];
+//                                             if (localCell && [localCell isKindOfClass:[YesNoImageTableViewCell class]]) {
+//                                                 [localCell.questionImage setImage:image];
+//                                                 //[localCell.questionImage setGradientBackgroundWithStartColor:[UIColor clearColor] endColor:RGBA(0, 0, 0, 0.9)];
+//                                             }
+//                                         }
+//                                         else
+//                                         {
+//                                             //Need to
+//                                         }
+//                                         
+//                                     }];
+//        
+//        totalHeight = totalHeight + 8 ;
+//        
+//    }
+//    else {
+//        self.questionImage.hidden = YES;
+//        //self.answerViewLeadingConstraints.constant -=133;
+//    }
     
     if (question.answer && question.answer.count) {
         
@@ -209,8 +217,75 @@
             totalHeight = totalHeight + 8;
         }
     }
-    NSLog(@"height %f",totalHeight);
+    
+    
+    UITapGestureRecognizer *tapGestureChoiceOne = [[UITapGestureRecognizer alloc]init];
+    [tapGestureChoiceOne addTarget:self action:@selector(choiceOneSelected:)];
+    [_choiceOneView addGestureRecognizer:tapGestureChoiceOne];
+    
+    UITapGestureRecognizer *tapGestureChoiceTwo = [[UITapGestureRecognizer alloc]init];
+    [tapGestureChoiceTwo addTarget:self action:@selector(choiceTwoSelected:)];
+    [_choiceTwoView addGestureRecognizer:tapGestureChoiceTwo];
+    
+    _choiceOneView.backgroundColor = RGB(249, 249, 249);
+    _choiceTwoView.backgroundColor = RGB(249, 249, 249);
+
+    
+    for (NSString  *questionID in homeViewController.answerDictionary.allKeys) {
+        if ([questionID integerValue] == question.questionID) {
+            UserAnswer *userAnswer = [homeViewController.answerDictionary objectForKey:questionID];
+            for (int i = 0; i<question.answer.count; i++) {
+                Answers *answer  = [question.answer objectAtIndex:i];
+                if (userAnswer.answerId == answer.answerId) {
+                    switch (i) {
+                        case 0:
+                        {
+                            _choiceOneView.backgroundColor = [UIColor greenColor];
+                            _choiceTwoView.backgroundColor = RGB(249, 249, 249);
+                            
+                        }
+                            break;
+                        case 1:
+                        {
+                            _choiceTwoView.backgroundColor = [UIColor greenColor];
+                            _choiceOneView.backgroundColor = RGB(249, 249, 249);
+                        }
+                            break;
+                            
+                        default:
+                            break;
+                    }
+                    break;
+                }
+                
+            }
+            //self
+        }
+    }
     
 }
+
+-(void)choiceOneSelected:(UITapGestureRecognizer *)gesture {
+    Question *question = (Question *)self.data;
+    if (homeViewController.answerDictionary.allKeys.count!=homeViewController.questionCount) {
+        UIView *choiceOneView =(UIView *) gesture.view;
+        choiceOneView.backgroundColor = [UIColor greenColor];
+        _choiceTwoView.backgroundColor = RGB(249, 249, 249);
+        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answer firstObject]];
+    }
+}
+
+-(void)choiceTwoSelected:(UITapGestureRecognizer *)gesture {
+    
+    if (homeViewController.answerDictionary.allKeys.count!=homeViewController.questionCount) {
+        UIView *choiceTwoView =(UIView *) gesture.view;
+        choiceTwoView.backgroundColor = [UIColor greenColor];
+        _choiceOneView.backgroundColor = RGB(249, 249, 249);
+        Question *question = (Question *)self.data;
+        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answer objectAtIndex:1]];
+    }
+    
+}
+
 
 @end

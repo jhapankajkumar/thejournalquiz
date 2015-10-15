@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "GenericTableViewCell.h"
-
-@interface YesNoImageTableViewCell :GenericTableViewCell
+@class ViewController;
+@interface YesNoImageTableViewCell :GenericTableViewCell {
+    ViewController *homeViewController;
+}
 @property (weak, nonatomic) IBOutlet UILabel *headLine;
 @property (weak, nonatomic) IBOutlet UIImageView *questionImage;
 @property (weak, nonatomic) IBOutlet UIView *choiceOneView;

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Answers.h"
 
-@interface Quesiton : NSObject
+@interface Question : NSObject
 @property (nonatomic,assign) NSInteger questionID;
 @property (nonatomic,strong) NSString  *id_type;
 @property (nonatomic,strong) NSString  *text;

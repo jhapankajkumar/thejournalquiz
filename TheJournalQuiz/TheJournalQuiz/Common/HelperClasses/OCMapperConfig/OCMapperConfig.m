@@ -9,7 +9,7 @@
 #import "OCMapperConfig.h"
 #import "OCMapper.h"
 #import "Answers.h"
-#import "Quesiton.h"
+#import "Question.h"
 #import "Image.h"
 #import "Personas.h"
 #import "ResponseResult.h"

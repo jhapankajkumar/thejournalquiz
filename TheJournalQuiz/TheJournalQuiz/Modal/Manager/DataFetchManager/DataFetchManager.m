@@ -7,13 +7,15 @@
 //
 
 #define  BaseURL @"http://api.thejournal.ie/v3/quiz/7"
+//#define  BaseURL @"http://api.thejournal.ie/v3/quiz/8"
+
 #define  ClientID @"candidate"
 #define  Password @"c4nd1dat37061n"
 
 #import "DataFetchManager.h"
 #import <AFNetworking.h>
 #import <AFHTTPRequestOperation.h>
-#import "Quesiton.h"
+#import "Question.h"
 #import "OCMapper.h"
 #import "ResponseData.h"
 #import "OCMapperConfig.h"
@@ -126,7 +128,7 @@
     NSMutableArray *questionsObjectArray = [[NSMutableArray alloc]init];
     for (NSDictionary * questionDictionary in questionsArray) {
         
-        Quesiton *question = [[Quesiton alloc]init];
+        Question *question = [[Question alloc]init];
         
         //setup question data
         question.questionID = [[questionDictionary objectForKey:@"id"] integerValue];

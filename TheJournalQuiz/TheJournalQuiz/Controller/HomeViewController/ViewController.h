@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 @class ResponseData;
 @class GenericTableViewCell;
-@class Quesiton;
+@class Question;
 @class Answers;
 @interface ViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UITableView *quizListTableView;
@@ -19,7 +19,7 @@
 
 @property (nonatomic) NSInteger questionCount;
 
--(void)answerSelectedFromCell:(GenericTableViewCell *)genericCell atIndePath:(NSIndexPath *)indexPath forQuestion:(Quesiton *)aQuestion withAnswer:(Answers *)answer;
+-(void)answerSelectedFromCell:(GenericTableViewCell *)genericCell atIndePath:(NSIndexPath *)indexPath forQuestion:(Question *)aQuestion withAnswer:(Answers *)answer;
 
 @end
 

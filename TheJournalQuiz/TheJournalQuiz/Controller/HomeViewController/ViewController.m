@@ -9,14 +9,13 @@
 #import "ViewController.h"
 #import "DataFetchManager.h"
 #import "ResponseData.h"
-#import "Quesiton.h"
+#import "Question.h"
 #import "GenericTableViewCell.h"
 #import "UserAnswer.h"
 
 @interface ViewController () {
     NSMutableArray *nibOrClassNameArray;
     NSMutableArray *dataItemArray;
-    
 }
 
 @end
@@ -40,7 +39,7 @@
             
         }
     }];
-
+    
     
     // Do any additional setup after loading the view, typically from a nib.
 }
@@ -52,16 +51,15 @@
     [_quizListTableView registerNib:[UINib nibWithNibName:@"YesNoButtonTableViewCell" bundle:nil] forCellReuseIdentifier:@"YesNoButtonTableViewCell"];
     [_quizListTableView registerNib:[UINib nibWithNibName:@"YesNoImageTableViewCell" bundle:nil] forCellReuseIdentifier:@"YesNoImageTableViewCell"];
     [_quizListTableView registerNib:[UINib nibWithNibName:@"MultipleChoiceButtonTableViewCell" bundle:nil] forCellReuseIdentifier:@"MultipleChoiceButtonTableViewCell"];
-        [_quizListTableView registerNib:[UINib nibWithNibName:@"PersonaCell" bundle:nil] forCellReuseIdentifier:@"PersonaCell"];
+    [_quizListTableView registerNib:[UINib nibWithNibName:@"PersonaCell" bundle:nil] forCellReuseIdentifier:@"PersonaCell"];
 }
-
 
 -(void)setUpTableViewCellInformation {
     
     dataItemArray = [NSMutableArray new];
     nibOrClassNameArray = [NSMutableArray new];
     
-    for (Quesiton *questions in self.quizData.questions){
+    for (Question *questions in self.quizData.questions){
         if (questions.answer.count==4 || questions.answer.count==3) {
             
             Answers *answer =(Answers *) [questions.answer objectAtIndex:0];
@@ -78,6 +76,7 @@
             Answers *answer =(Answers *) [questions.answer objectAtIndex:0];
             if (answer.image) {
                 [nibOrClassNameArray addObject:@"YesNoImageTableViewCell"];
+                //[dataItemArray addObject:questions];
             }
             else {
                 [nibOrClassNameArray addObject:@"YesNoButtonTableViewCell"];
@@ -126,8 +125,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    GoogleSearchResult *searchResult = [self.googleSearchResponse.responseData.results objectAtIndex:indexPath.row];
-//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:searchResult.url]];
+    
 }
 
 #pragma mark - Table view delegate
@@ -138,13 +136,6 @@
     if (className && [className respondsToSelector:@selector(rowHeightForData:tableView:indexPath:controller:)]) {
         return [className rowHeightForData:[dataItemArray objectAtIndex:indexPath.row] tableView:tableView indexPath:indexPath controller:self];
     }
-    /*
-     GenericTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[_nibOrClassNamesArray objectAtIndex:indexPath.row]];
-     
-     if ([cell respondsToSelector:@selector(rowHeightForData:tableView:indexPath:controller:)]) {
-     return [cell rowHeightForData:[_newsItemArray objectAtIndex:indexPath.row] tableView:tableView indexPath:indexPath controller:self];
-     }
-     */
     return 0;
 }
 
@@ -167,32 +158,33 @@
     return self.quizData.title;
 }
 
--(void)answerSelectedFromCell:(GenericTableViewCell *)genericCell atIndePath:(NSIndexPath *)indexPath forQuestion:(Quesiton *)aQuestion withAnswer:(Answers *)answer {
+-(void)answerSelectedFromCell:(GenericTableViewCell *)genericCell atIndePath:(NSIndexPath *)indexPath forQuestion:(Question *)aQuestion withAnswer:(Answers *)answer {
     
-    UserAnswer *userAnswer = [self.answerDictionary objectForKey:[self getStringFromFloatValue:aQuestion.questionID]];
+    UserAnswer *userAnswer = [self.answerDictionary objectForKey:[self getStringFromIntegerValue:aQuestion.questionID]];
     if (!userAnswer) {
         userAnswer = [[UserAnswer alloc]init];
     }
-        userAnswer.indexPath = indexPath;
-        userAnswer.answerId = answer.answerId;
-        userAnswer.score = answer.score;
-        userAnswer.personaIDs = answer.persona_ids;
-        userAnswer.questionId = aQuestion.questionID;
-    [self.answerDictionary setValue:userAnswer forKey:[self getStringFromFloatValue:aQuestion.questionID]];
+    userAnswer.indexPath = indexPath;
+    userAnswer.answerId = answer.answerId;
+    userAnswer.score = answer.score;
+    userAnswer.personaIDs = answer.persona_ids;
+    userAnswer.questionId = aQuestion.questionID;
+    [self.answerDictionary setValue:userAnswer forKey:[self getStringFromIntegerValue:aQuestion.questionID]];
     
+    NSLog(@"User Answer %@",self.answerDictionary);
     
-    
-    
-//    for (int i = 0; i< answer.persona_ids.count; i++) {
-//        CGFloat personaId = [[answer.persona_ids objectAtIndex:i] floatValue];
-//        CGFloat score = [[self.scoreDictionary objectForKey:[self getStringFromFloatValue:personaId]] floatValue];
-//        score = score + answer.score;
-//        [self.scoreDictionary setValue:[self getStringFromFloatValue:score] forKey:[self getStringFromFloatValue:personaId]];
-//        
-//    }
+    //If All answer selected
+    if (self.answerDictionary.allKeys.count>=self.quizData.questions.count) {
+        NSLog(@"All Question Answred");
+        
+        for (UserAnswer *userAnswer in self.answerDictionary.allValues){
+            
+            Question *question = [self getQuestionFromQuestionID:userAnswer.questionId];
+        }
+    }
 }
 
--(NSString *)getStringFromFloatValue:(NSInteger)integerValue {
+-(NSString *)getStringFromIntegerValue:(NSInteger)integerValue {
     NSString *keyString =  [NSString stringWithFormat:@"%ld",(long)integerValue];
     return keyString;
     
@@ -200,6 +192,14 @@
 
 -(CGFloat )getDecimalValueFromString:(NSString *)score {
     return [score floatValue];
+}
+
+
+-(Question *)getQuestionFromQuestionID:(NSInteger)aID  {
+    
+    NSArray *questionArray = [self.quizData.questions filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"questionID = %d",aID]];
+    
+    return questionArray.firstObject;
 }
 
 

@@ -32,7 +32,7 @@
 		A9E417FB1BCEB4060015F040 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9E417F71BCEB4060015F040 /* Main.storyboard */; };
 		A9E418041BCEBD780015F040 /* Personas.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E418031BCEBD780015F040 /* Personas.m */; };
 		A9E418071BCEBD870015F040 /* Answers.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E418061BCEBD870015F040 /* Answers.m */; };
-		A9E4180A1BCEBD9B0015F040 /* Quesiton.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E418091BCEBD9B0015F040 /* Quesiton.m */; };
+		A9E4180A1BCEBD9B0015F040 /* Question.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E418091BCEBD9B0015F040 /* Question.m */; };
 		A9E4180D1BCEBDA80015F040 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E4180C1BCEBDA80015F040 /* Image.m */; };
 		A9E418111BCEC1740015F040 /* DataFetchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E418101BCEC1740015F040 /* DataFetchManager.m */; };
 		A9F2D35F1BCF784D001A0CB1 /* GenericTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9F2D35E1BCF784D001A0CB1 /* GenericTableViewCell.m */; };
@@ -93,8 +93,8 @@
 		A9E418031BCEBD780015F040 /* Personas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Personas.m; sourceTree = "<group>"; };
 		A9E418051BCEBD870015F040 /* Answers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Answers.h; sourceTree = "<group>"; };
 		A9E418061BCEBD870015F040 /* Answers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Answers.m; sourceTree = "<group>"; };
-		A9E418081BCEBD9B0015F040 /* Quesiton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Quesiton.h; sourceTree = "<group>"; };
-		A9E418091BCEBD9B0015F040 /* Quesiton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Quesiton.m; sourceTree = "<group>"; };
+		A9E418081BCEBD9B0015F040 /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Question.h; sourceTree = "<group>"; };
+		A9E418091BCEBD9B0015F040 /* Question.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Question.m; sourceTree = "<group>"; };
 		A9E4180B1BCEBDA80015F040 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
 		A9E4180C1BCEBDA80015F040 /* Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Image.m; sourceTree = "<group>"; };
 		A9E4180F1BCEC1740015F040 /* DataFetchManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataFetchManager.h; sourceTree = "<group>"; };
@@ -462,8 +462,8 @@
 		A9E418011BCEBD4D0015F040 /* Questions */ = {
 			isa = PBXGroup;
 			children = (
-				A9E418081BCEBD9B0015F040 /* Quesiton.h */,
-				A9E418091BCEBD9B0015F040 /* Quesiton.m */,
+				A9E418081BCEBD9B0015F040 /* Question.h */,
+				A9E418091BCEBD9B0015F040 /* Question.m */,
 			);
 			path = Questions;
 			sourceTree = "<group>";
@@ -656,7 +656,7 @@
 				A9E418071BCEBD870015F040 /* Answers.m in Sources */,
 				A98C39531BCEC73A00EEFF85 /* ResponseResult.m in Sources */,
 				A98C39501BCEC71E00EEFF85 /* ResponseData.m in Sources */,
-				A9E4180A1BCEBD9B0015F040 /* Quesiton.m in Sources */,
+				A9E4180A1BCEBD9B0015F040 /* Question.m in Sources */,
 				A98C39471BCEC4BB00EEFF85 /* OCMapperConfig.m in Sources */,
 				A98C39611BCEE9D600EEFF85 /* YesNoImageTableViewCell.m in Sources */,
 				A98C395C1BCEE98200EEFF85 /* YesNoButtonTableViewCell.m in Sources */,

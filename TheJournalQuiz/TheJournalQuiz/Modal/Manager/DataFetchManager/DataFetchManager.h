@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class  Quesiton;
+@class  Question;
 
 @class  ResponseData;
 

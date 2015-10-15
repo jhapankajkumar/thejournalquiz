@@ -9,9 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "GenericTableViewCell.h"
 
-@interface YesNoButtonTableViewCell : GenericTableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *headLine;
+@class ViewController;
 
+@interface YesNoButtonTableViewCell : GenericTableViewCell
+{
+    ViewController *homeViewController;
+}
+@property (weak, nonatomic) IBOutlet UILabel *headLine;
 @property (weak, nonatomic) IBOutlet UIImageView *questionImage;
 @property (weak, nonatomic) IBOutlet UILabel *choiceOne;
 @property (weak, nonatomic) IBOutlet UILabel *choiceTwo;

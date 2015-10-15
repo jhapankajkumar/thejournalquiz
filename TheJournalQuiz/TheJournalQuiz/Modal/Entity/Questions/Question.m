@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Kumar. All rights reserved.
 //
 
-#import "Quesiton.h"
+#import "Question.h"
 
-@implementation Quesiton
+@implementation Question
 
 @end

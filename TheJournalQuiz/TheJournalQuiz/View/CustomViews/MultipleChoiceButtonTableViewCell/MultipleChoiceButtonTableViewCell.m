@@ -7,7 +7,7 @@
 //
 
 #import "MultipleChoiceButtonTableViewCell.h"
-#import "Quesiton.h"
+#import "Question.h"
 #import "Answers.h"
 #import "Image.h"
 #import <UIImageView+WebCache.h>
@@ -74,7 +74,7 @@
 + (CGFloat)rowHeightForData:(id)aData tableView:(UITableView*)aTableView indexPath:(NSIndexPath *)anIndexPath controller:(id)controller {
     
     CGFloat screenWidth = aTableView.superview.frame.size.width;
-    Quesiton *question = (Quesiton*)aData;
+    Question *question = (Question*)aData;
     // Init with base padding
     float totalHeight = 5;
     
@@ -118,7 +118,7 @@
     [super createCellForData:aData tableView:aTableView indexPath:anIndexPath controller:controller];
     self.contentView.frame = CGRectMake(0, self.contentView.frame.origin.y, aTableView.frame.size.width, self.contentView.frame.size.height);
     CGFloat screenWidth = aTableView.superview.frame.size.width;
-    Quesiton *question = (Quesiton*)aData;
+    Question *question = (Question*)aData;
     self.tableView = aTableView;
     __weak __typeof(&*self)weakSelf = self;
     self.data = aData;
@@ -264,61 +264,113 @@
         }
     }
     
+    _choiceOne.backgroundColor = RGB(249, 249, 249);
+    _choiceTwo.backgroundColor = RGB(249, 249, 249);
+    _choiceThree.backgroundColor = RGB(249, 249, 249);
+    _choiceFour.backgroundColor = RGB(249, 249, 249);
+    
     for (NSString  *questionID in homeViewController.answerDictionary.allKeys) {
-        
         if ([questionID integerValue] == question.questionID) {
             UserAnswer *userAnswer = [homeViewController.answerDictionary objectForKey:questionID];
+            for (int i = 0; i<question.answer.count; i++) {
+                Answers *answer  = [question.answer objectAtIndex:i];
+                if (userAnswer.answerId == answer.answerId) {
+                    switch (i) {
+                        case 0:
+                        {
+                            _choiceOne.backgroundColor = [UIColor greenColor];
+                            _choiceTwo.backgroundColor = RGB(249, 249, 249);
+                            _choiceThree.backgroundColor = RGB(249, 249, 249);
+                            _choiceFour.backgroundColor = RGB(249, 249, 249);
+                        }
+                            break;
+                        case 1:
+                        {
+                            _choiceTwo.backgroundColor = [UIColor greenColor];
+                            _choiceOne.backgroundColor = RGB(249, 249, 249);
+                            _choiceThree.backgroundColor = RGB(249, 249, 249);
+                            _choiceFour.backgroundColor = RGB(249, 249, 249);
+                        }
+                            break;
+                        case 2:
+                        {
+                            _choiceThree.backgroundColor = [UIColor greenColor];
+                            _choiceTwo.backgroundColor = RGB(249, 249, 249);
+                            _choiceOne.backgroundColor = RGB(249, 249, 249);
+                            _choiceFour.backgroundColor = RGB(249, 249, 249);
+                        }
+                            break;
+                        case 3:
+                        {
+                            _choiceFour.backgroundColor = [UIColor greenColor];
+                            _choiceTwo.backgroundColor = RGB(249, 249, 249);
+                            _choiceThree.backgroundColor = RGB(249, 249, 249);
+                            _choiceOne.backgroundColor = RGB(249, 249, 249);
+                        }
+                            break;
+                            
+                        default:
+                            break;
+                    }
+                   break;
+                }
+                
+            }
             //self
         }
     }
-    
-    
 }
 
 
 -(void)choiceOneSelected:(UITapGestureRecognizer *)gesture {
-    
-    UILabel *choiceOneLabel =(UILabel *) gesture.view;
-    choiceOneLabel.backgroundColor = [UIColor greenColor];
-    _choiceTwo.backgroundColor = RGB(249, 249, 249);
-    _choiceThree.backgroundColor = RGB(249, 249, 249);
-    _choiceFour.backgroundColor = RGB(249, 249, 249);
-    Quesiton *question = (Quesiton *)self.data;
-    [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answer firstObject]];
-    
-    
+    Question *question = (Question *)self.data;
+   // if (homeViewController.answerDictionary.allKeys.count==homeViewController.questionCount) {
+        UILabel *choiceOneLabel =(UILabel *) gesture.view;
+        choiceOneLabel.backgroundColor = [UIColor greenColor];
+        _choiceTwo.backgroundColor = RGB(249, 249, 249);
+        _choiceThree.backgroundColor = RGB(249, 249, 249);
+        _choiceFour.backgroundColor = RGB(249, 249, 249);
+        
+        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answer firstObject]];
+   // }
 }
 -(void)choiceTwoSelected:(UITapGestureRecognizer *)gesture {
     
+    if (homeViewController.answerDictionary.allKeys.count!=homeViewController.questionCount) {
     UILabel *choiceOneLabel =(UILabel *) gesture.view;
     choiceOneLabel.backgroundColor = [UIColor greenColor];
     _choiceOne.backgroundColor = RGB(249, 249, 249);
     _choiceThree.backgroundColor = RGB(249, 249, 249);
     _choiceFour.backgroundColor = RGB(249, 249, 249);
-    Quesiton *question = (Quesiton *)self.data;
+    Question *question = (Question *)self.data;
     [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answer objectAtIndex:1]];
-
+    }
     
 }
 -(void)choiceThreeSelected:(UITapGestureRecognizer *)gesture {
     
+    if (homeViewController.answerDictionary.allKeys.count!=homeViewController.questionCount) {
     UILabel *choiceOneLabel =(UILabel *) gesture.view;
     choiceOneLabel.backgroundColor = [UIColor greenColor];
     _choiceTwo.backgroundColor = RGB(249, 249, 249);
     _choiceOne.backgroundColor = RGB(249, 249, 249);
     _choiceFour.backgroundColor = RGB(249, 249, 249);
-    Quesiton *question = (Quesiton *)self.data;
+    Question *question = (Question *)self.data;
     [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answer objectAtIndex:2]];
-    
+    }
 }
+
 -(void)choiceFourSelected:(UITapGestureRecognizer *)gesture {
+    
+    if (homeViewController.answerDictionary.allKeys.count!=homeViewController.questionCount) {
     UILabel *choiceOneLabel =(UILabel *) gesture.view;
     choiceOneLabel.backgroundColor = [UIColor greenColor];
     _choiceTwo.backgroundColor = RGB(249, 249, 249);
     _choiceThree.backgroundColor = RGB(249, 249, 249);
     _choiceOne.backgroundColor = RGB(249, 249, 249);
-    Quesiton *question = (Quesiton *)self.data;
+    Question *question = (Question *)self.data;
     [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answer objectAtIndex:2]];
+    }
 
 }
 

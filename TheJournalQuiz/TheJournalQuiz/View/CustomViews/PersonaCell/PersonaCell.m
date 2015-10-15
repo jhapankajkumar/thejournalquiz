@@ -7,7 +7,7 @@
 //
 
 #import "PersonaCell.h"
-#import "Quesiton.h"
+#import "Question.h"
 #import "Answers.h"
 #import "Image.h"
 #import "Personas.h"
@@ -175,6 +175,7 @@
             expectedLabelSize.height = 70;
             
         }
+        self.resultText.hidden = false;
         self.resultText.text = persona.text;
         self.resultText.frame = CGRectMake(8, totalHeight, screenWidth, expectedLabelSize.height);
         totalHeight = totalHeight + 10 + expectedLabelSize.height;
