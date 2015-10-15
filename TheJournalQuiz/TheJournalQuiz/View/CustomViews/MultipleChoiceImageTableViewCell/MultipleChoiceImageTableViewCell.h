@@ -26,6 +26,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *choiceFourImage;
 @property (weak, nonatomic) IBOutlet UILabel *choiceFourLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *saperatorImage;
+@property (weak, nonatomic) IBOutlet UIView *answerBackgroundView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *answerViewLeadingConstraints;
 
 
 

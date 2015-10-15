@@ -16,7 +16,7 @@
 @property(nonatomic,strong) NSString * text;
 @property(nonatomic,strong) NSString * version;
 @property(nonatomic,assign) BOOL  correct;
-@property(nonatomic,strong) NSNumber * score;
+@property(nonatomic) double  score;
 @property(nonatomic,strong) NSMutableArray * persona_ids;
 @property (nonatomic,strong) Image *image;
 

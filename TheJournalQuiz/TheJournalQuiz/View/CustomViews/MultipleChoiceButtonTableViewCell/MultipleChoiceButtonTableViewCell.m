@@ -11,12 +11,16 @@
 #import "Answers.h"
 #import "Image.h"
 #import <UIImageView+WebCache.h>
+#import "Constant.h"
+#import "ViewController.h"
+#import "UserAnswer.h"
 
 
 #define HEAD_LINE_FONT_SIZE             22
 #define CAPTION_FONT_SIZE               14
 #define QUESTION_FONT_SIZE              12
 
+#define AnswerColor                  [UIColor]
 
 
 #define THUMB_WIDTH                 [UIScreen mainScreen].bounds.size.width
@@ -27,25 +31,38 @@
 - (void)awakeFromNib {
     // Initialization code
     
-    self.choiceOne.numberOfLines = 0;
-    self.choiceOne.lineBreakMode =  NSLineBreakByWordWrapping;
-    [self.choiceOne setFont:[UIFont systemFontOfSize:QUESTION_FONT_SIZE]];
+    _choiceOne.numberOfLines = 0;
+    _choiceOne.lineBreakMode =  NSLineBreakByWordWrapping;
+    [_choiceOne setFont:[UIFont systemFontOfSize:QUESTION_FONT_SIZE]];
+    _choiceOne.layer.cornerRadius = 5.0;
+    _choiceOne.userInteractionEnabled = YES;
+    _choiceOne.numberOfLines = 0;
     
-    self.choiceTwo.numberOfLines = 0;
-    self.choiceTwo.lineBreakMode =  NSLineBreakByWordWrapping;
-    [self.choiceTwo setFont:[UIFont systemFontOfSize:QUESTION_FONT_SIZE]];
+    _choiceTwo.numberOfLines = 0;
+    _choiceTwo.lineBreakMode =  NSLineBreakByWordWrapping;
+    [_choiceTwo setFont:[UIFont systemFontOfSize:QUESTION_FONT_SIZE]];
+    _choiceTwo.layer.cornerRadius = 5.0;
+        _choiceTwo.userInteractionEnabled = YES;
+    _choiceTwo.numberOfLines = 0;
     
-    self.choiceThree.numberOfLines = 0;
-    self.choiceThree.lineBreakMode =  NSLineBreakByWordWrapping;
-    [self.choiceThree setFont:[UIFont systemFontOfSize:QUESTION_FONT_SIZE]];
+    _choiceThree.numberOfLines = 0;
+    _choiceThree.lineBreakMode =  NSLineBreakByWordWrapping;
+    [_choiceThree setFont:[UIFont systemFontOfSize:QUESTION_FONT_SIZE]];
+    _choiceThree.layer.cornerRadius = 5.0;
+        _choiceThree.userInteractionEnabled = YES;
+    _choiceThree.numberOfLines = 0;
     
-    self.choiceFour.numberOfLines = 0;
-    self.choiceFour.lineBreakMode =  NSLineBreakByWordWrapping;
-    [self.choiceFour setFont:[UIFont systemFontOfSize:QUESTION_FONT_SIZE]];
+    _choiceFour.numberOfLines = 0;
+    _choiceFour.lineBreakMode =  NSLineBreakByWordWrapping;
+    [_choiceFour setFont:[UIFont systemFontOfSize:QUESTION_FONT_SIZE]];
+    _choiceFour.layer.cornerRadius = 2.0;
+    _choiceFour.userInteractionEnabled = YES;
+    _choiceFour.numberOfLines = 0;
     
     self.headline.numberOfLines = 0;
     self.headline.lineBreakMode = NSLineBreakByWordWrapping;
     [self.headline setFont:[UIFont systemFontOfSize:HEAD_LINE_FONT_SIZE]];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -59,7 +76,7 @@
     CGFloat screenWidth = aTableView.superview.frame.size.width;
     Quesiton *question = (Quesiton*)aData;
     // Init with base padding
-    float totalHeight = 0;
+    float totalHeight = 5;
     
     CGSize maximumLabelSize = CGSizeMake(screenWidth-20,FLT_MAX);
     CGSize expectedLabelSize;
@@ -83,7 +100,8 @@
     }
     
     for (Answers *answer in question.answer ){
-        expectedLabelSize  = [answer.text sizeWithFont:[UIFont systemFontOfSize:QUESTION_FONT_SIZE] constrainedToSize:maximumLabelSize  lineBreakMode:NSLineBreakByWordWrapping];
+        CGRect rect =  [answer.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:QUESTION_FONT_SIZE] } context:nil];
+        expectedLabelSize = rect.size;
         
         if (expectedLabelSize.height<70) {
             expectedLabelSize.height = 70;
@@ -92,7 +110,7 @@
         totalHeight += 10;
     }
     
-    return totalHeight+30+10;
+    return totalHeight;
 }
 
 - (void)createCellForData:(id)aData tableView:(UITableView *)aTableView indexPath:(NSIndexPath *)anIndexPath controller:(id)controller {
@@ -105,7 +123,9 @@
     __weak __typeof(&*self)weakSelf = self;
     self.data = aData;
     self.indexPath = anIndexPath;
-    CGFloat totalHeight = 10;
+    homeViewController = (ViewController *)controller;
+    
+    CGFloat totalHeight = 5;
     CGSize maximumLabelSize = CGSizeMake(screenWidth - 20,FLT_MAX);
     CGSize expectedLabelSize;
     NSArray *subViews = self.contentView.subviews;
@@ -136,6 +156,13 @@
     totalHeight = totalHeight + expectedLabelSize.height;
     totalHeight = totalHeight + 8;
     
+    if (question.answer.count==3) {
+        _choiceFour.hidden = true;
+    }
+    else {
+        _choiceFour.hidden = false;
+    }
+    
     if (question.image && question.image.src ) {
         self.questionImage.hidden = NO;
         self.questionImage.frame = CGRectMake(0, totalHeight, screenWidth, THUMB_HEIGHT);
@@ -143,7 +170,6 @@
          totalHeight = THUMB_HEIGHT+1;
         NSString *imageURLString = question.image.src;
         //Downloading Question image
-        __weak __typeof(&*self)weakcell = self;
         [self.questionImage sd_setImageWithURL:[NSURL URLWithString:imageURLString]
                         placeholderImage:[UIImage imageNamed:@"placeholder.png"]
                                completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -165,48 +191,64 @@
         totalHeight = totalHeight + 8 ;
         
         if (question.answer && question.answer.count) {
-            NSInteger _homeRelatedIndex = 0;
             // Iterate through the home related objects and fill the view
             for (int i= 0; i<question.answer.count;i++) {
                 Answers *answer = [question.answer objectAtIndex:i];
                 
-                expectedLabelSize  = [answer.text sizeWithFont:[UIFont systemFontOfSize:QUESTION_FONT_SIZE] constrainedToSize:maximumLabelSize  lineBreakMode:NSLineBreakByWordWrapping];
+                CGRect rect =  [answer.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:QUESTION_FONT_SIZE] } context:nil];
+                expectedLabelSize = rect.size;
                 if (expectedLabelSize.height<70) {
                     expectedLabelSize.height = 70;
                 }
                 
-                
                 switch (i) {
                     case 0:
                     {
-                        self.choiceOne.frame = CGRectMake(8, totalHeight, expectedLabelSize.width, expectedLabelSize.height);
+                        _choiceOne.frame = CGRectMake(8, totalHeight, expectedLabelSize.width, expectedLabelSize.height);
                         totalHeight = totalHeight + expectedLabelSize.height;
                         totalHeight += 8;
-                        self.choiceOne.text = answer.text;
+                        _choiceOne.text = answer.text;
+                        
+                        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]init];
+                        [tapGesture addTarget:self action:@selector(choiceOneSelected:)];
+                        [_choiceOne addGestureRecognizer:tapGesture];
+                        
+                        
                     }
                         break;
                     case 1:
                     {
-                        self.choiceTwo.frame = CGRectMake(8, totalHeight, expectedLabelSize.width, expectedLabelSize.height);
+                        _choiceTwo.frame = CGRectMake(8, totalHeight, expectedLabelSize.width, expectedLabelSize.height);
                         totalHeight = totalHeight + expectedLabelSize.height;
                         totalHeight += 8;
-                        self.choiceTwo.text = answer.text;
+                        _choiceTwo.text = answer.text;
+                        
+                        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]init];
+                        [tapGesture addTarget:self action:@selector(choiceTwoSelected:)];
+                        [_choiceTwo addGestureRecognizer:tapGesture];
+                        
                     }
                         break;
                     case 2:
                     {
-                        self.choiceThree.frame = CGRectMake(8, totalHeight, expectedLabelSize.width, expectedLabelSize.height);
+                        _choiceThree.frame = CGRectMake(8, totalHeight, expectedLabelSize.width, expectedLabelSize.height);
                         totalHeight = totalHeight + expectedLabelSize.height;
                         totalHeight += 8;
-                        self.choiceThree.text = answer.text;
+                        _choiceThree.text = answer.text;
+                        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]init];
+                        [tapGesture addTarget:self action:@selector(choiceThreeSelected:)];
+                        [_choiceThree addGestureRecognizer:tapGesture];
                     }
                         break;
                     case 3:
                     {
-                        self.choiceFour.frame = CGRectMake(8, totalHeight, expectedLabelSize.width, expectedLabelSize.height);
+                        _choiceFour.frame = CGRectMake(8, totalHeight, expectedLabelSize.width, expectedLabelSize.height);
                         totalHeight = totalHeight + expectedLabelSize.height;
                         totalHeight += 8;
-                        self.choiceFour.text = answer.text;
+                        _choiceFour.text = answer.text;
+                        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]init];
+                        [tapGesture addTarget:self action:@selector(choiceFourSelected:)];
+                        [_choiceFour addGestureRecognizer:tapGesture];
                     }
                         break;
                         
@@ -222,7 +264,65 @@
         }
     }
     
+    for (NSString  *questionID in homeViewController.answerDictionary.allKeys) {
+        
+        if ([questionID integerValue] == question.questionID) {
+            UserAnswer *userAnswer = [homeViewController.answerDictionary objectForKey:questionID];
+            //self
+        }
+    }
+    
+    
 }
+
+
+-(void)choiceOneSelected:(UITapGestureRecognizer *)gesture {
+    
+    UILabel *choiceOneLabel =(UILabel *) gesture.view;
+    choiceOneLabel.backgroundColor = [UIColor greenColor];
+    _choiceTwo.backgroundColor = RGB(249, 249, 249);
+    _choiceThree.backgroundColor = RGB(249, 249, 249);
+    _choiceFour.backgroundColor = RGB(249, 249, 249);
+    Quesiton *question = (Quesiton *)self.data;
+    [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answer firstObject]];
+    
+    
+}
+-(void)choiceTwoSelected:(UITapGestureRecognizer *)gesture {
+    
+    UILabel *choiceOneLabel =(UILabel *) gesture.view;
+    choiceOneLabel.backgroundColor = [UIColor greenColor];
+    _choiceOne.backgroundColor = RGB(249, 249, 249);
+    _choiceThree.backgroundColor = RGB(249, 249, 249);
+    _choiceFour.backgroundColor = RGB(249, 249, 249);
+    Quesiton *question = (Quesiton *)self.data;
+    [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answer objectAtIndex:1]];
+
+    
+}
+-(void)choiceThreeSelected:(UITapGestureRecognizer *)gesture {
+    
+    UILabel *choiceOneLabel =(UILabel *) gesture.view;
+    choiceOneLabel.backgroundColor = [UIColor greenColor];
+    _choiceTwo.backgroundColor = RGB(249, 249, 249);
+    _choiceOne.backgroundColor = RGB(249, 249, 249);
+    _choiceFour.backgroundColor = RGB(249, 249, 249);
+    Quesiton *question = (Quesiton *)self.data;
+    [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answer objectAtIndex:2]];
+    
+}
+-(void)choiceFourSelected:(UITapGestureRecognizer *)gesture {
+    UILabel *choiceOneLabel =(UILabel *) gesture.view;
+    choiceOneLabel.backgroundColor = [UIColor greenColor];
+    _choiceTwo.backgroundColor = RGB(249, 249, 249);
+    _choiceThree.backgroundColor = RGB(249, 249, 249);
+    _choiceOne.backgroundColor = RGB(249, 249, 249);
+    Quesiton *question = (Quesiton *)self.data;
+    [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answer objectAtIndex:2]];
+
+}
+
+
 
 
 @end

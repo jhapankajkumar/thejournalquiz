@@ -11,15 +11,13 @@
 #import "ResponseData.h"
 #import "Quesiton.h"
 #import "GenericTableViewCell.h"
-
+#import "UserAnswer.h"
 
 @interface ViewController () {
     NSMutableArray *nibOrClassNameArray;
     NSMutableArray *dataItemArray;
     
 }
-
-@property (nonatomic,strong) ResponseData *quizData;
 
 @end
 
@@ -34,8 +32,9 @@
     [manager getQuizDataFromServerWithCompletionBlock:^(ResponseData* responseData, BOOL success, NSError *error) {
         
         if (success) {
-            self.self.quizData = responseData;
+            self.quizData = responseData;
             [self setUpTableViewCellInformation];
+            self.questionCount = self.quizData.questions.count;
         }
         else {
             
@@ -53,6 +52,7 @@
     [_quizListTableView registerNib:[UINib nibWithNibName:@"YesNoButtonTableViewCell" bundle:nil] forCellReuseIdentifier:@"YesNoButtonTableViewCell"];
     [_quizListTableView registerNib:[UINib nibWithNibName:@"YesNoImageTableViewCell" bundle:nil] forCellReuseIdentifier:@"YesNoImageTableViewCell"];
     [_quizListTableView registerNib:[UINib nibWithNibName:@"MultipleChoiceButtonTableViewCell" bundle:nil] forCellReuseIdentifier:@"MultipleChoiceButtonTableViewCell"];
+        [_quizListTableView registerNib:[UINib nibWithNibName:@"PersonaCell" bundle:nil] forCellReuseIdentifier:@"PersonaCell"];
 }
 
 
@@ -67,9 +67,11 @@
             Answers *answer =(Answers *) [questions.answer objectAtIndex:0];
             if (answer.image) {
                 [nibOrClassNameArray addObject:@"MultipleChoiceImageTableViewCell"];
+                //[dataItemArray addObject:questions];
             }
             else {
                 [nibOrClassNameArray addObject:@"MultipleChoiceButtonTableViewCell"];
+                //[dataItemArray addObject:questions];
             }
         }
         else if (questions.answer.count == 2) {
@@ -87,6 +89,15 @@
         
         [dataItemArray addObject:questions];
     }
+    
+    //Add Persona Cell
+    
+    [nibOrClassNameArray addObject:@"PersonaCell"];
+    [dataItemArray addObject:self.quizData.personas.firstObject];
+    
+    
+    self.answerDictionary = [[NSMutableDictionary alloc]init];
+    self.scoreDictionary = [[NSMutableDictionary alloc]init];
     [self.quizListTableView reloadData];
 }
 
@@ -136,6 +147,63 @@
      */
     return 0;
 }
+
+//-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+//{
+//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 40)];
+//    /* Create custom view to display section header... */
+//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 30)];
+//    [label setFont:[UIFont boldSystemFontOfSize:18]];
+//    NSString *string = self.quizData.title;
+//    /* Section header is in 0th index... */
+//    [label setText:string];
+//    [view addSubview:label];
+//    [view setBackgroundColor:[UIColor colorWithRed:166/255.0 green:177/255.0 blue:186/255.0 alpha:1.0]]; //your background color...
+//    return view;
+//}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    
+    return self.quizData.title;
+}
+
+-(void)answerSelectedFromCell:(GenericTableViewCell *)genericCell atIndePath:(NSIndexPath *)indexPath forQuestion:(Quesiton *)aQuestion withAnswer:(Answers *)answer {
+    
+    UserAnswer *userAnswer = [self.answerDictionary objectForKey:[self getStringFromFloatValue:aQuestion.questionID]];
+    if (!userAnswer) {
+        userAnswer = [[UserAnswer alloc]init];
+    }
+        userAnswer.indexPath = indexPath;
+        userAnswer.answerId = answer.answerId;
+        userAnswer.score = answer.score;
+        userAnswer.personaIDs = answer.persona_ids;
+        userAnswer.questionId = aQuestion.questionID;
+    [self.answerDictionary setValue:userAnswer forKey:[self getStringFromFloatValue:aQuestion.questionID]];
+    
+    
+    
+    
+//    for (int i = 0; i< answer.persona_ids.count; i++) {
+//        CGFloat personaId = [[answer.persona_ids objectAtIndex:i] floatValue];
+//        CGFloat score = [[self.scoreDictionary objectForKey:[self getStringFromFloatValue:personaId]] floatValue];
+//        score = score + answer.score;
+//        [self.scoreDictionary setValue:[self getStringFromFloatValue:score] forKey:[self getStringFromFloatValue:personaId]];
+//        
+//    }
+}
+
+-(NSString *)getStringFromFloatValue:(NSInteger)integerValue {
+    NSString *keyString =  [NSString stringWithFormat:@"%ld",(long)integerValue];
+    return keyString;
+    
+}
+
+-(CGFloat )getDecimalValueFromString:(NSString *)score {
+    return [score floatValue];
+}
+
+
+
 
 
 @end

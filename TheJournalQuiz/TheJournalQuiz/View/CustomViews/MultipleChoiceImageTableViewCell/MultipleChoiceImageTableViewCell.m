@@ -20,7 +20,7 @@
 
 
 #define THUMB_WIDTH                 [UIScreen mainScreen].bounds.size.width
-#define THUMB_HEIGHT                (THUMB_WIDTH) * 180/320
+#define THUMB_HEIGHT                (THUMB_WIDTH) * 210/320
 
 #define ANSWER_THUMB_WIDTH          150
 
@@ -45,7 +45,7 @@
     CGFloat screenWidth = aTableView.superview.frame.size.width;
     Quesiton *question = (Quesiton*)aData;
     // Init with base padding
-    float totalHeight = 0;
+    float totalHeight = 10;
     
     CGSize maximumLabelSize = CGSizeMake(screenWidth-20,FLT_MAX);
     CGSize expectedLabelSize;
@@ -63,34 +63,33 @@
     // Add Padding
     totalHeight += 10;
     
-    if (question.image && question.image.src) {
+    //if (question.image && question.image.src) {
         totalHeight = THUMB_HEIGHT+1;
         // new implementation it will always remian open
-    }
+    //}
     totalHeight = totalHeight + ANSWER_THUMB_HEIGHT + 8 + ANSWER_THUMB_HEIGHT;
     totalHeight += 8;
-    return totalHeight+30+20;
+    return totalHeight;
 }
 
 - (void)createCellForData:(id)aData tableView:(UITableView *)aTableView indexPath:(NSIndexPath *)anIndexPath controller:(id)controller {
     
     [super createCellForData:aData tableView:aTableView indexPath:anIndexPath controller:controller];
-    self.contentView.frame = CGRectMake(0, self.contentView.frame.origin.y, aTableView.frame.size.width, self.contentView.frame.size.height);
+    //self.contentView.frame = CGRectMake(0, self.contentView.frame.origin.y, aTableView.frame.size.width, self.contentView.frame.size.height);
     CGFloat screenWidth = aTableView.superview.frame.size.width;
     Quesiton *question = (Quesiton*)aData;
     self.tableView = aTableView;
     __weak __typeof(&*self)weakSelf = self;
     self.data = aData;
     self.indexPath = anIndexPath;
-    CGFloat totalHeight = 10;
+    CGFloat totalHeight = 8;
     CGSize maximumLabelSize = CGSizeMake(screenWidth - 20,FLT_MAX);
     CGSize expectedLabelSize;
-    NSArray *subViews = self.contentView.subviews;
-    for (id subView in subViews) {
-        if ([subView isKindOfClass:[UIButton class]]) {
-            [subView removeFromSuperview];
-        }
-    }
+//    for (id subView in subViews) {
+//        if ([subView isKindOfClass:[UIButton class]]) {
+//            [subView removeFromSuperview];
+//        }
+//    }
     
     [self.headline setFont:[UIFont systemFontOfSize:HEAD_LINE_FONT_SIZE]];
     
@@ -104,10 +103,10 @@
     expectedLabelSize = rect.size;
     
     if (expectedLabelSize.height > 160) {
-        self.headline.frame = CGRectMake(10, totalHeight, maximumLabelSize.width, 160);
+        self.headline.frame = CGRectMake(8, totalHeight, maximumLabelSize.width, 160);
     }
     else {
-        self.headline.frame = CGRectMake(10, totalHeight, maximumLabelSize.width, expectedLabelSize.height);
+        self.headline.frame = CGRectMake(8, totalHeight, maximumLabelSize.width, expectedLabelSize.height);
     }
     self.headline.text = question.text;
     totalHeight = totalHeight + expectedLabelSize.height;
@@ -115,12 +114,12 @@
     
     if (question.image && question.image.src ) {
         self.questionImage.hidden = NO;
-        self.questionImage.frame = CGRectMake(0, totalHeight, screenWidth, THUMB_HEIGHT);
+        self.questionImage.frame = CGRectMake(8, totalHeight, THUMB_WIDTH-8, THUMB_HEIGHT);
         // set the gradient
         totalHeight = THUMB_HEIGHT+1;
-        NSString *imageURLString = question.image.src;
+        NSString *imageURLString = [NSString stringWithFormat:@"%@?width=&%f&height=%f",question.image.src,THUMB_WIDTH,THUMB_HEIGHT];
         //Downloading Question image
-        __weak __typeof(&*self)weakcell = self;
+        
         [self.questionImage sd_setImageWithURL:[NSURL URLWithString:imageURLString]
                               placeholderImage:[UIImage imageNamed:@"placeholder.png"]
                                      completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -141,49 +140,117 @@
         
         totalHeight = totalHeight + 8 ;
         
+    }
+    else {
+       self.questionImage.hidden = YES;
+      //self.answerViewLeadingConstraints.constant -=133;
+    }
+        
         if (question.answer && question.answer.count) {
-            NSInteger _homeRelatedIndex = 0;
+
             // Iterate through the home related objects and fill the view
             for (int i= 0; i<question.answer.count;i++) {
                 Answers *answer = [question.answer objectAtIndex:i];
-                
-                expectedLabelSize  = [answer.text sizeWithFont:[UIFont systemFontOfSize:QUESTION_FONT_SIZE] constrainedToSize:maximumLabelSize  lineBreakMode:NSLineBreakByWordWrapping];
-                if (expectedLabelSize.height<70) {
-                    expectedLabelSize.height = 70;
-                }
-                
-                
                 switch (i) {
                     case 0:
                     {
-                        self.choiceOne.frame = CGRectMake(8, totalHeight, expectedLabelSize.width, expectedLabelSize.height);
-                        totalHeight = totalHeight + expectedLabelSize.height;
-                        totalHeight += 8;
-                        self.choiceOne.text = answer.text;
+                        self.choiceOneView.frame = CGRectMake(8, totalHeight, ANSWER_THUMB_WIDTH, ANSWER_THUMB_HEIGHT);
+                        NSString *imageURLString = answer.image.src;
+                        //Downloading Question image
+                        [self.choiceOneImage sd_setImageWithURL:[NSURL URLWithString:imageURLString]
+                                              placeholderImage:[UIImage imageNamed:@"placeholder.png"]
+                                                     completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                                         
+                                                         if (image &&  [image isKindOfClass:[UIImage class]]) {
+                                                             MultipleChoiceImageTableViewCell *localCell = (MultipleChoiceImageTableViewCell*)[weakSelf.tableView cellForRowAtIndexPath:anIndexPath];
+                                                             if (localCell && [localCell isKindOfClass:[MultipleChoiceImageTableViewCell class]]) {
+                                                                 [localCell.choiceOneImage setImage:image];
+                                                                 //[localCell.questionImage setGradientBackgroundWithStartColor:[UIColor clearColor] endColor:RGBA(0, 0, 0, 0.9)];
+                                                             }
+                                                         }
+                                                         else
+                                                         {
+                                                             //Need to
+                                                         }
+                                                         
+                                                     }];
+                        
                     }
                         break;
                     case 1:
                     {
-                        self.choiceTwo.frame = CGRectMake(8, totalHeight, expectedLabelSize.width, expectedLabelSize.height);
-                        totalHeight = totalHeight + expectedLabelSize.height;
-                        totalHeight += 8;
-                        self.choiceTwo.text = answer.text;
+                        self.choiceTwoView.frame = CGRectMake(8+ ANSWER_THUMB_WIDTH + 8, totalHeight, ANSWER_THUMB_WIDTH, ANSWER_THUMB_HEIGHT);
+                        totalHeight = totalHeight + ANSWER_THUMB_HEIGHT + 8 ;
+                        NSString *imageURLString = answer.image.src;
+                        //Downloading Question image
+                        
+                        [self.choiceTwoImage sd_setImageWithURL:[NSURL URLWithString:imageURLString]
+                                              placeholderImage:[UIImage imageNamed:@"placeholder.png"]
+                                                     completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                                         
+                                                         if (image &&  [image isKindOfClass:[UIImage class]]) {
+                                                             MultipleChoiceImageTableViewCell *localCell = (MultipleChoiceImageTableViewCell*)[weakSelf.tableView cellForRowAtIndexPath:anIndexPath];
+                                                             if (localCell && [localCell isKindOfClass:[MultipleChoiceImageTableViewCell class]]) {
+                                                                 [localCell.choiceTwoImage setImage:image];
+                                                                 //[localCell.questionImage setGradientBackgroundWithStartColor:[UIColor clearColor] endColor:RGBA(0, 0, 0, 0.9)];
+                                                             }
+                                                         }
+                                                         else
+                                                         {
+                                                             //Need to
+                                                         }
+                                                         
+                                                     }];
+                        
                     }
                         break;
                     case 2:
                     {
-                        self.choiceThree.frame = CGRectMake(8, totalHeight, expectedLabelSize.width, expectedLabelSize.height);
-                        totalHeight = totalHeight + expectedLabelSize.height;
-                        totalHeight += 8;
-                        self.choiceThree.text = answer.text;
+                        self.choiceThreeView.frame = CGRectMake(8, totalHeight, ANSWER_THUMB_WIDTH, ANSWER_THUMB_HEIGHT);
+                        NSString *imageURLString = answer.image.src;
+                        //Downloading Question image
+                        [self.choiceThreeImage sd_setImageWithURL:[NSURL URLWithString:imageURLString]
+                                              placeholderImage:[UIImage imageNamed:@"placeholder.png"]
+                                                     completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                                         
+                                                         if (image &&  [image isKindOfClass:[UIImage class]]) {
+                                                             MultipleChoiceImageTableViewCell *localCell = (MultipleChoiceImageTableViewCell*)[weakSelf.tableView cellForRowAtIndexPath:anIndexPath];
+                                                             if (localCell && [localCell isKindOfClass:[MultipleChoiceImageTableViewCell class]]) {
+                                                                 [localCell.choiceThreeImage setImage:image];
+                                                                 //[localCell.questionImage setGradientBackgroundWithStartColor:[UIColor clearColor] endColor:RGBA(0, 0, 0, 0.9)];
+                                                             }
+                                                         }
+                                                         else
+                                                         {
+                                                             //Need to
+                                                         }
+                                                         
+                                                     }];
                     }
                         break;
                     case 3:
                     {
-                        self.choiceFour.frame = CGRectMake(8, totalHeight, expectedLabelSize.width, expectedLabelSize.height);
-                        totalHeight = totalHeight + expectedLabelSize.height;
-                        totalHeight += 8;
-                        self.choiceFour.text = answer.text;
+                        self.choiceFourView.frame = CGRectMake(8+ THUMB_WIDTH +8, totalHeight, ANSWER_THUMB_WIDTH, ANSWER_THUMB_HEIGHT);
+                        totalHeight = totalHeight + ANSWER_THUMB_HEIGHT + 8;
+                        NSString *imageURLString = answer.image.src;
+                        //Downloading Question image
+                        [self.choiceFourImage sd_setImageWithURL:[NSURL URLWithString:imageURLString]
+                                              placeholderImage:[UIImage imageNamed:@"placeholder.png"]
+                                                     completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                                         
+                                                         if (image &&  [image isKindOfClass:[UIImage class]]) {
+                                                             MultipleChoiceImageTableViewCell *localCell = (MultipleChoiceImageTableViewCell*)[weakSelf.tableView cellForRowAtIndexPath:anIndexPath];
+                                                             if (localCell && [localCell isKindOfClass:[MultipleChoiceImageTableViewCell class]]) {
+                                                                 [localCell.choiceFourImage setImage:image];
+                                                                 //[localCell.questionImage setGradientBackgroundWithStartColor:[UIColor clearColor] endColor:RGBA(0, 0, 0, 0.9)];
+                                                             }
+                                                         }
+                                                         else
+                                                         {
+                                                             //Need to
+                                                         }
+                                                         
+                                                     }];
                     }
                         break;
                         
@@ -197,7 +264,7 @@
                 totalHeight = totalHeight + 8;
             }
         }
-    }
+    NSLog(@"height %f",totalHeight);
     
 }
 @end

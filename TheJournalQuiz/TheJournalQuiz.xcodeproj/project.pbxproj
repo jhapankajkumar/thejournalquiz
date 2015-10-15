@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		565866A11BCFCBB700A98774 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 565866A01BCFCBB700A98774 /* placeholder.png */; };
 		63BD0613FE61F8CB575C7D9A /* libPods-TheJournalQuiz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F05E433E2E3417FE2A16C1F1 /* libPods-TheJournalQuiz.a */; };
 		A98C39471BCEC4BB00EEFF85 /* OCMapperConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C39461BCEC4BB00EEFF85 /* OCMapperConfig.m */; };
 		A98C39501BCEC71E00EEFF85 /* ResponseData.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C394E1BCEC71E00EEFF85 /* ResponseData.m */; };
@@ -19,6 +20,9 @@
 		A98C396A1BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C39681BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.m */; };
 		A98C396B1BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A98C39691BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.xib */; };
 		A98C396D1BCEEA3C00EEFF85 /* YesNoImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A98C396C1BCEEA3C00EEFF85 /* YesNoImageTableViewCell.xib */; };
+		A9DA2AB51BCFD6990074B2AA /* PersonaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DA2AB31BCFD6990074B2AA /* PersonaCell.m */; };
+		A9DA2AB61BCFD6990074B2AA /* PersonaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9DA2AB41BCFD6990074B2AA /* PersonaCell.xib */; };
+		A9DA2ABA1BCFDAA70074B2AA /* UserAnswer.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DA2AB91BCFDAA70074B2AA /* UserAnswer.m */; };
 		A9E417BC1BCEA4910015F040 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E417BB1BCEA4910015F040 /* main.m */; };
 		A9E417C71BCEA4910015F040 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9E417C61BCEA4910015F040 /* Images.xcassets */; };
 		A9E417D61BCEA4910015F040 /* TheJournalQuizTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E417D51BCEA4910015F040 /* TheJournalQuizTests.m */; };
@@ -47,6 +51,7 @@
 /* Begin PBXFileReference section */
 		14A8F925F9FE94DE9D8607D3 /* Pods-TheJournalQuiz.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheJournalQuiz.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TheJournalQuiz/Pods-TheJournalQuiz.debug.xcconfig"; sourceTree = "<group>"; };
 		38FB49272D18F01DE730A57F /* Pods-TheJournalQuiz.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheJournalQuiz.release.xcconfig"; path = "Pods/Target Support Files/Pods-TheJournalQuiz/Pods-TheJournalQuiz.release.xcconfig"; sourceTree = "<group>"; };
+		565866A01BCFCBB700A98774 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		A98C39451BCEC4BB00EEFF85 /* OCMapperConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMapperConfig.h; sourceTree = "<group>"; };
 		A98C39461BCEC4BB00EEFF85 /* OCMapperConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCMapperConfig.m; sourceTree = "<group>"; };
 		A98C394D1BCEC71E00EEFF85 /* ResponseData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResponseData.h; sourceTree = "<group>"; };
@@ -65,6 +70,12 @@
 		A98C39681BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipleChoiceImageTableViewCell.m; sourceTree = "<group>"; };
 		A98C39691BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MultipleChoiceImageTableViewCell.xib; sourceTree = "<group>"; };
 		A98C396C1BCEEA3C00EEFF85 /* YesNoImageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YesNoImageTableViewCell.xib; sourceTree = "<group>"; };
+		A9DA2AB21BCFD6990074B2AA /* PersonaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersonaCell.h; path = PersonaCell/PersonaCell.h; sourceTree = "<group>"; };
+		A9DA2AB31BCFD6990074B2AA /* PersonaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonaCell.m; path = PersonaCell/PersonaCell.m; sourceTree = "<group>"; };
+		A9DA2AB41BCFD6990074B2AA /* PersonaCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PersonaCell.xib; path = PersonaCell/PersonaCell.xib; sourceTree = "<group>"; };
+		A9DA2AB81BCFDAA70074B2AA /* UserAnswer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAnswer.h; sourceTree = "<group>"; };
+		A9DA2AB91BCFDAA70074B2AA /* UserAnswer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAnswer.m; sourceTree = "<group>"; };
+		A9DA2ABB1BCFE0CE0074B2AA /* Constant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
 		A9E417B61BCEA4910015F040 /* TheJournalQuiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheJournalQuiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9E417BA1BCEA4910015F040 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9E417BB1BCEA4910015F040 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -165,6 +176,9 @@
 				A98C39581BCEE96300EEFF85 /* YesNoButtonTableViewCell */,
 				A98C39591BCEE96300EEFF85 /* YesNoImageTableViewCell */,
 				A98C39551BCEE91000EEFF85 /* MultipleChoiceButtonTableViewCell */,
+				A9DA2AB21BCFD6990074B2AA /* PersonaCell.h */,
+				A9DA2AB31BCFD6990074B2AA /* PersonaCell.m */,
+				A9DA2AB41BCFD6990074B2AA /* PersonaCell.xib */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -228,6 +242,15 @@
 			children = (
 			);
 			path = UtilityManager;
+			sourceTree = "<group>";
+		};
+		A9DA2AB71BCFDA920074B2AA /* UserAnswerModel */ = {
+			isa = PBXGroup;
+			children = (
+				A9DA2AB81BCFDAA70074B2AA /* UserAnswer.h */,
+				A9DA2AB91BCFDAA70074B2AA /* UserAnswer.m */,
+			);
+			path = UserAnswerModel;
 			sourceTree = "<group>";
 		};
 		A9E417AD1BCEA4910015F040 = {
@@ -321,6 +344,7 @@
 		A9E417EC1BCEB4060015F040 /* Constant */ = {
 			isa = PBXGroup;
 			children = (
+				A9DA2ABB1BCFE0CE0074B2AA /* Constant.h */,
 			);
 			path = Constant;
 			sourceTree = "<group>";
@@ -354,6 +378,7 @@
 		A9E417F21BCEB4060015F040 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				A9DA2AB71BCFDA920074B2AA /* UserAnswerModel */,
 				A98C394C1BCEC71E00EEFF85 /* ResponseData */,
 				A98C394F1BCEC71E00EEFF85 /* ResponseResults */,
 				A9E417FE1BCEBD4D0015F040 /* Answers */,
@@ -402,6 +427,7 @@
 		A9E417FD1BCEB4100015F040 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				565866A01BCFCBB700A98774 /* placeholder.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -548,8 +574,10 @@
 				A9E417FB1BCEB4060015F040 /* Main.storyboard in Resources */,
 				A98C396B1BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.xib in Resources */,
 				A9E417FA1BCEB4060015F040 /* LaunchScreen.xib in Resources */,
+				565866A11BCFCBB700A98774 /* placeholder.png in Resources */,
 				A98C395E1BCEE99D00EEFF85 /* YesNoButtonTableViewCell.xib in Resources */,
 				A9E417C71BCEA4910015F040 /* Images.xcassets in Resources */,
+				A9DA2AB61BCFD6990074B2AA /* PersonaCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -620,8 +648,10 @@
 				A9E417F91BCEB4060015F040 /* ViewController.m in Sources */,
 				A9E417F81BCEB4060015F040 /* AppDelegate.m in Sources */,
 				A9E417BC1BCEA4910015F040 /* main.m in Sources */,
+				A9DA2AB51BCFD6990074B2AA /* PersonaCell.m in Sources */,
 				A98C39651BCEEA0600EEFF85 /* MultipleChoiceButtonTableViewCell.m in Sources */,
 				A98C396A1BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.m in Sources */,
+				A9DA2ABA1BCFDAA70074B2AA /* UserAnswer.m in Sources */,
 				A9E418111BCEC1740015F040 /* DataFetchManager.m in Sources */,
 				A9E418071BCEBD870015F040 /* Answers.m in Sources */,
 				A98C39531BCEC73A00EEFF85 /* ResponseResult.m in Sources */,
@@ -740,9 +770,11 @@
 			baseConfigurationReference = 14A8F925F9FE94DE9D8607D3 /* Pods-TheJournalQuiz.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				INFOPLIST_FILE = TheJournalQuiz/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "35f7c8ea-ba01-4aae-9494-c5c3f6e6708f";
 			};
 			name = Debug;
 		};
@@ -751,9 +783,11 @@
 			baseConfigurationReference = 38FB49272D18F01DE730A57F /* Pods-TheJournalQuiz.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				INFOPLIST_FILE = TheJournalQuiz/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "35f7c8ea-ba01-4aae-9494-c5c3f6e6708f";
 			};
 			name = Release;
 		};

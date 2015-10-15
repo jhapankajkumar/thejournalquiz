@@ -56,7 +56,8 @@
     }
     
     for (Answers *answer in question.answer ){
-        expectedLabelSize  = [answer.text sizeWithFont:[UIFont systemFontOfSize:QUESTION_FONT_SIZE] constrainedToSize:maximumLabelSize  lineBreakMode:NSLineBreakByWordWrapping];
+        CGRect rect =  [answer.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:QUESTION_FONT_SIZE] } context:nil];
+        expectedLabelSize = rect.size;
         
         if (expectedLabelSize.height<70) {
             expectedLabelSize.height = 70;
@@ -116,7 +117,6 @@
         totalHeight = THUMB_HEIGHT+1;
         NSString *imageURLString = question.image.src;
         //Downloading Question image
-        __weak __typeof(&*self)weakcell = self;
         [self.questionImage sd_setImageWithURL:[NSURL URLWithString:imageURLString]
                               placeholderImage:[UIImage imageNamed:@"placeholder.png"]
                                      completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -138,12 +138,14 @@
         totalHeight = totalHeight + 8 ;
         
         if (question.answer && question.answer.count) {
-            NSInteger _homeRelatedIndex = 0;
             // Iterate through the home related objects and fill the view
             for (int i= 0; i<question.answer.count;i++) {
                 Answers *answer = [question.answer objectAtIndex:i];
                 
-                expectedLabelSize  = [answer.text sizeWithFont:[UIFont systemFontOfSize:QUESTION_FONT_SIZE] constrainedToSize:maximumLabelSize  lineBreakMode:NSLineBreakByWordWrapping];
+                //set Question headline
+                CGRect rect =  [question.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:QUESTION_FONT_SIZE] } context:nil];
+                expectedLabelSize = rect.size;
+                
                 if (expectedLabelSize.height<70) {
                     expectedLabelSize.height = 70;
                 }

@@ -14,7 +14,4 @@
 @interface DataFetchManager : NSObject
 
 -(void)getQuizDataFromServerWithCompletionBlock:(void(^) (ResponseData* result,BOOL results, NSError *error))completionBlock;
-
--(NSString *)getQuestionImageURlFromQuestionData:(Quesiton *)aQuestion;
-
 @end

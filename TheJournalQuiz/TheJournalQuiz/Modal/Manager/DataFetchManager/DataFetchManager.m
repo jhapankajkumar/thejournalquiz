@@ -173,7 +173,7 @@
         answer.answerId = [[answerDictionary objectForKey:@"id"] integerValue];
         answer.id_type = [answerDictionary objectForKey:@"id_type"];
         answer.text = [answerDictionary objectForKey:@"text"];
-        answer.score = [answerDictionary objectForKey:@"score"];
+        answer.score = [[answerDictionary objectForKey:@"score"] doubleValue];
         answer.correct = [[answerDictionary objectForKey:@"correct"] boolValue];
         answer.persona_ids = (NSMutableArray *)[answerDictionary objectForKey:@"persona_ids"];
         
