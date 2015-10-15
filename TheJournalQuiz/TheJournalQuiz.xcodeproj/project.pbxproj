@@ -19,7 +19,6 @@
 		A98C396A1BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C39681BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.m */; };
 		A98C396B1BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A98C39691BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.xib */; };
 		A98C396D1BCEEA3C00EEFF85 /* YesNoImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A98C396C1BCEEA3C00EEFF85 /* YesNoImageTableViewCell.xib */; };
-		A98C39701BCEFAD900EEFF85 /* GenericTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C396F1BCEFAD900EEFF85 /* GenericTableViewCell.m */; };
 		A9E417BC1BCEA4910015F040 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E417BB1BCEA4910015F040 /* main.m */; };
 		A9E417C71BCEA4910015F040 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9E417C61BCEA4910015F040 /* Images.xcassets */; };
 		A9E417D61BCEA4910015F040 /* TheJournalQuizTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E417D51BCEA4910015F040 /* TheJournalQuizTests.m */; };
@@ -32,6 +31,7 @@
 		A9E4180A1BCEBD9B0015F040 /* Quesiton.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E418091BCEBD9B0015F040 /* Quesiton.m */; };
 		A9E4180D1BCEBDA80015F040 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E4180C1BCEBDA80015F040 /* Image.m */; };
 		A9E418111BCEC1740015F040 /* DataFetchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E418101BCEC1740015F040 /* DataFetchManager.m */; };
+		A9F2D35F1BCF784D001A0CB1 /* GenericTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9F2D35E1BCF784D001A0CB1 /* GenericTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,8 +65,6 @@
 		A98C39681BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipleChoiceImageTableViewCell.m; sourceTree = "<group>"; };
 		A98C39691BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MultipleChoiceImageTableViewCell.xib; sourceTree = "<group>"; };
 		A98C396C1BCEEA3C00EEFF85 /* YesNoImageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YesNoImageTableViewCell.xib; sourceTree = "<group>"; };
-		A98C396E1BCEFAD900EEFF85 /* GenericTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericTableViewCell.h; sourceTree = "<group>"; };
-		A98C396F1BCEFAD900EEFF85 /* GenericTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericTableViewCell.m; sourceTree = "<group>"; };
 		A9E417B61BCEA4910015F040 /* TheJournalQuiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheJournalQuiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9E417BA1BCEA4910015F040 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9E417BB1BCEA4910015F040 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -90,6 +88,8 @@
 		A9E4180C1BCEBDA80015F040 /* Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Image.m; sourceTree = "<group>"; };
 		A9E4180F1BCEC1740015F040 /* DataFetchManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataFetchManager.h; sourceTree = "<group>"; };
 		A9E418101BCEC1740015F040 /* DataFetchManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataFetchManager.m; sourceTree = "<group>"; };
+		A9F2D35D1BCF784D001A0CB1 /* GenericTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericTableViewCell.h; sourceTree = "<group>"; };
+		A9F2D35E1BCF784D001A0CB1 /* GenericTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericTableViewCell.m; sourceTree = "<group>"; };
 		F05E433E2E3417FE2A16C1F1 /* libPods-TheJournalQuiz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TheJournalQuiz.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -159,8 +159,7 @@
 		A98C39541BCEE91000EEFF85 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
-				A98C396E1BCEFAD900EEFF85 /* GenericTableViewCell.h */,
-				A98C396F1BCEFAD900EEFF85 /* GenericTableViewCell.m */,
+				A9F2D35C1BCF784D001A0CB1 /* GenericTableViewCell */,
 				A98C39561BCEE96300EEFF85 /* HeaderTableViewCell */,
 				A98C39571BCEE96300EEFF85 /* MultipleChoiceImageTableViewCell */,
 				A98C39581BCEE96300EEFF85 /* YesNoButtonTableViewCell */,
@@ -452,6 +451,15 @@
 			path = DataFetchManager;
 			sourceTree = "<group>";
 		};
+		A9F2D35C1BCF784D001A0CB1 /* GenericTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				A9F2D35D1BCF784D001A0CB1 /* GenericTableViewCell.h */,
+				A9F2D35E1BCF784D001A0CB1 /* GenericTableViewCell.m */,
+			);
+			path = GenericTableViewCell;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -608,7 +616,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9E418041BCEBD780015F040 /* Personas.m in Sources */,
-				A98C39701BCEFAD900EEFF85 /* GenericTableViewCell.m in Sources */,
+				A9F2D35F1BCF784D001A0CB1 /* GenericTableViewCell.m in Sources */,
 				A9E417F91BCEB4060015F040 /* ViewController.m in Sources */,
 				A9E417F81BCEB4060015F040 /* AppDelegate.m in Sources */,
 				A9E417BC1BCEA4910015F040 /* main.m in Sources */,

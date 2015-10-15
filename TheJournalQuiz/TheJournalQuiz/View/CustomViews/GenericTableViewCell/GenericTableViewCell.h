@@ -15,7 +15,7 @@
 @property (nonatomic, weak) UITableView *tableView;
 @property (nonatomic, weak) id controller;
 
-- (void)commonInitForData:(id)aData tableView:(UITableView*)aTableView indexPath:(NSIndexPath *)anIndexPath controller:(id)controller;
+
 
 + (CGFloat)rowHeightForData:(id)aData tableView:(UITableView*)aTableView indexPath:(NSIndexPath *)anIndexPath controller:(id)controller;
 

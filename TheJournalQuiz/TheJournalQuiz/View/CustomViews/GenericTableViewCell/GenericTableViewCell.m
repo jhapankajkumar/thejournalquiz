@@ -1,10 +1,11 @@
 //
 //  GenericTableViewCell.m
-//  TOI
+//  TheJournalQuiz
 //
-//  Created by Ravi Sahu on 01/10/13.
-//  Copyright (c) Times Internet Limited. All rights reserved.
+//  Created by Kumar on 14/10/15.
+//  Copyright (c) 2015 Kumar. All rights reserved.
 //
+
 
 #import "GenericTableViewCell.h"
 
@@ -26,9 +27,6 @@
     // Configure the view for the selected state
 }
 
-//- (void)commonInitForData:(id)aData tableView:(UITableView*)aTableView indexPath:(NSIndexPath *)anIndexPath controller:(id)controller {
-//    
-//}
 
 //+ (CGFloat)rowHeightForData:(id)aData tableView:(UITableView*)aTableView indexPath:(NSIndexPath *)anIndexPath controller:(id)controller {
 ////    self.data = aData;

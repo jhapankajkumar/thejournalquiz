@@ -16,8 +16,10 @@
 @interface ViewController () {
     NSMutableArray *nibOrClassNameArray;
     NSMutableArray *dataItemArray;
-    ResponseData *quizData;
+    
 }
+
+@property (nonatomic,strong) ResponseData *quizData;
 
 @end
 
@@ -32,7 +34,7 @@
     [manager getQuizDataFromServerWithCompletionBlock:^(ResponseData* responseData, BOOL success, NSError *error) {
         
         if (success) {
-            quizData = responseData;
+            self.self.quizData = responseData;
             [self setUpTableViewCellInformation];
         }
         else {
@@ -59,7 +61,7 @@
     dataItemArray = [NSMutableArray new];
     nibOrClassNameArray = [NSMutableArray new];
     
-    for (Quesiton *questions in quizData.questions){
+    for (Quesiton *questions in self.quizData.questions){
         if (questions.answer.count==4 || questions.answer.count==3) {
             
             Answers *answer =(Answers *) [questions.answer objectAtIndex:0];
@@ -85,21 +87,7 @@
         
         [dataItemArray addObject:questions];
     }
-    
     [self.quizListTableView reloadData];
-    
-//        // Check if Sponsered or photo story is present then do not add comment cell
-//        if (!(_newsItem.Sponsored && _newsItem.Sponsored.length)) {
-//            [_newsItemArray addObject:_newsItem];
-//            [_nibOrClassNamesArray addObject:@"NewsDetailCommentCell"];
-//        }
-//        
-//        // Check and add next story
-//        if (_newsNextItem) {
-//            [_newsItemArray addObject:_newsNextItem];
-//            [_nibOrClassNamesArray addObject:@"NewsDetailNextStoryCell"];
-//        }
-    
 }
 
 
