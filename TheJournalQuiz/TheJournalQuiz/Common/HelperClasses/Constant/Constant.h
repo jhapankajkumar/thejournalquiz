@@ -20,6 +20,7 @@
 #define Y_PADDING                       10
 #define MINIMUM_LABEL_HEIGHT            70
 #define CHOICE_LABEL_DEFAULT_COLOR              RGB(240, 240, 240)
+#define CHOICE_LABEL_SELECTED_COLOR             RGB(103, 145, 0)
 #define THUMB_WIDTH                 [UIScreen mainScreen].bounds.size.width
 #define THUMB_HEIGHT                (THUMB_WIDTH) * 150/320
 #define CHOICE_LABEL_DEFAULT_WIDTH   (THUMB_WIDTH) - 20

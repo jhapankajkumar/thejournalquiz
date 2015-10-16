@@ -345,7 +345,7 @@
                     switch (i) {
                         case 0:
                         {
-                            _choiceOneView.backgroundColor = [UIColor greenColor];
+                            _choiceOneView.backgroundColor = CHOICE_LABEL_SELECTED_COLOR;
                             _choiceTwoView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
                             _choiceThreeView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
                             _choiceFourView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
@@ -353,7 +353,7 @@
                             break;
                         case 1:
                         {
-                            _choiceTwoView.backgroundColor = [UIColor greenColor];
+                            _choiceTwoView.backgroundColor = CHOICE_LABEL_SELECTED_COLOR;
                             _choiceOneView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
                             _choiceThreeView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
                             _choiceFourView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
@@ -361,7 +361,7 @@
                             break;
                         case 2:
                         {
-                            _choiceThreeView.backgroundColor = [UIColor greenColor];
+                            _choiceThreeView.backgroundColor = CHOICE_LABEL_SELECTED_COLOR;
                             _choiceTwoView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
                             _choiceOneView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
                             _choiceFourView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
@@ -369,7 +369,7 @@
                             break;
                         case 3:
                         {
-                            _choiceFourView.backgroundColor = [UIColor greenColor];
+                            _choiceFourView.backgroundColor = CHOICE_LABEL_SELECTED_COLOR;
                             _choiceTwoView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
                             _choiceThreeView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
                             _choiceOneView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
@@ -395,7 +395,7 @@
     Question *question = (Question *)self.data;
     if (homeViewController.answerDictionary.allKeys.count!=homeViewController.questionCount) {
         UIView *choiceOneView =(UIView *) gesture.view;
-        choiceOneView.backgroundColor = [UIColor greenColor];
+        choiceOneView.backgroundColor = CHOICE_LABEL_SELECTED_COLOR;
         _choiceTwoView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
         _choiceThreeView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
         _choiceFourView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
@@ -408,7 +408,7 @@
     
     if (homeViewController.answerDictionary.allKeys.count!=homeViewController.questionCount) {
         UIView *choiceTwoView =(UIView *) gesture.view;
-        choiceTwoView.backgroundColor = [UIColor greenColor];
+        choiceTwoView.backgroundColor = CHOICE_LABEL_SELECTED_COLOR;
         _choiceOneView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
         _choiceThreeView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
         _choiceFourView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
@@ -422,7 +422,7 @@
     
     if (homeViewController.answerDictionary.allKeys.count!=homeViewController.questionCount) {
         UIView *choiceThreeView =(UIView *) gesture.view;
-        choiceThreeView.backgroundColor = [UIColor greenColor];
+        choiceThreeView.backgroundColor = CHOICE_LABEL_SELECTED_COLOR;
         _choiceTwoView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
         _choiceOneView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
         _choiceFourView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
@@ -435,7 +435,7 @@
     
     if (homeViewController.answerDictionary.allKeys.count!=homeViewController.questionCount) {
         UIView *choiceFourView =(UIView *) gesture.view;
-        choiceFourView.backgroundColor = [UIColor greenColor];
+        choiceFourView.backgroundColor = CHOICE_LABEL_SELECTED_COLOR;
         _choiceTwoView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
         _choiceThreeView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
         _choiceOneView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
@@ -459,8 +459,6 @@
 }
 
 
--(void)downloadAndSetImageForChoice:(UIImageView *)imageView {
-}
 
 
 @end

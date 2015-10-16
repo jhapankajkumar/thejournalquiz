@@ -215,13 +215,13 @@
                     switch (i) {
                         case 0:
                         {
-                            _choiceOne.backgroundColor = [UIColor greenColor];
+                            _choiceOne.backgroundColor = CHOICE_LABEL_SELECTED_COLOR;
                             _choiceTwo.backgroundColor = RGB(249, 249, 249);
                         }
                             break;
                         case 1:
                         {
-                            _choiceTwo.backgroundColor = [UIColor greenColor];
+                            _choiceTwo.backgroundColor = CHOICE_LABEL_SELECTED_COLOR;
                             _choiceOne.backgroundColor = RGB(249, 249, 249);
                         }
                             break;
@@ -249,7 +249,7 @@
     Question *question = (Question *)self.data;
     if (homeViewController.answerDictionary.allKeys.count!=homeViewController.questionCount) {
         UILabel *choiceOneLabel =(UILabel *) gesture.view;
-        choiceOneLabel.backgroundColor = [UIColor greenColor];
+        choiceOneLabel.backgroundColor = CHOICE_LABEL_SELECTED_COLOR;
         _choiceTwo.backgroundColor = RGB(249, 249, 249);
         [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers firstObject]];
     }
@@ -259,7 +259,7 @@
     
     if (homeViewController.answerDictionary.allKeys.count!=homeViewController.questionCount) {
         UILabel *choiceOneLabel =(UILabel *) gesture.view;
-        choiceOneLabel.backgroundColor = [UIColor greenColor];
+        choiceOneLabel.backgroundColor = CHOICE_LABEL_SELECTED_COLOR;
         _choiceOne.backgroundColor = RGB(249, 249, 249);
         Question *question = (Question *)self.data;
         [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers objectAtIndex:1]];

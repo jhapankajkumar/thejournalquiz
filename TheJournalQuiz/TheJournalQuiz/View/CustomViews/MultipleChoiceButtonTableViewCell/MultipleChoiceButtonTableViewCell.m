@@ -35,7 +35,7 @@
         _choiceOne.numberOfLines = 0;
         _choiceOne.layer.masksToBounds = YES;
         _choiceOne.textAlignment = NSTextAlignmentCenter;
-
+        
         [self.contentView addSubview:_choiceOne];
         
         
@@ -277,9 +277,16 @@
     }
     
     _choiceOne.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+    _choiceOne.textColor = [UIColor blackColor];
+    
     _choiceTwo.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+    _choiceTwo.textColor = [UIColor blackColor];
+    
     _choiceThree.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+    _choiceThree.textColor = [UIColor blackColor];
+    
     _choiceFour.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+    _choiceFour.textColor = [UIColor blackColor];
     
     for (NSString  *questionID in homeViewController.answerDictionary.allKeys) {
         if ([questionID integerValue] == question.questionID) {
@@ -290,34 +297,22 @@
                     switch (i) {
                         case 0:
                         {
-                            _choiceOne.backgroundColor = [UIColor greenColor];
-                            _choiceTwo.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
-                            _choiceThree.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
-                            _choiceFour.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+                            [self setColorLabelsIfChoiceOneSelected];
                         }
                             break;
                         case 1:
                         {
-                            _choiceTwo.backgroundColor = [UIColor greenColor];
-                            _choiceOne.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
-                            _choiceThree.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
-                            _choiceFour.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+                            [self setColorLabelsIfChoiceTwoSelected];
                         }
                             break;
                         case 2:
                         {
-                            _choiceThree.backgroundColor = [UIColor greenColor];
-                            _choiceTwo.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
-                            _choiceOne.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
-                            _choiceFour.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+                            [self setColorLabelsIfChoiceThreeSelected];
                         }
                             break;
                         case 3:
                         {
-                            _choiceFour.backgroundColor = [UIColor greenColor];
-                            _choiceTwo.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
-                            _choiceThree.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
-                            _choiceOne.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+                            [self setColorLabelsIfChoiceFourSelected];
                         }
                             break;
                             
@@ -336,24 +331,15 @@
 
 -(void)choiceOneSelected:(UITapGestureRecognizer *)gesture {
     Question *question = (Question *)self.data;
-    // if (homeViewController.answerDictionary.allKeys.count==homeViewController.questionCount) {
-    UILabel *choiceOneLabel =(UILabel *) gesture.view;
-    choiceOneLabel.backgroundColor = [UIColor greenColor];
-    _choiceTwo.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
-    _choiceThree.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
-    _choiceFour.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
-    
-    [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers firstObject]];
-    // }
+    if (homeViewController.answerDictionary.allKeys.count != homeViewController.questionCount) {
+        [self setColorLabelsIfChoiceOneSelected];
+        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers firstObject]];
+    }
 }
 -(void)choiceTwoSelected:(UITapGestureRecognizer *)gesture {
     
-    if (homeViewController.answerDictionary.allKeys.count!=homeViewController.questionCount) {
-        UILabel *choiceOneLabel =(UILabel *) gesture.view;
-        choiceOneLabel.backgroundColor = [UIColor greenColor];
-        _choiceOne.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
-        _choiceThree.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
-        _choiceFour.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+    if (homeViewController.answerDictionary.allKeys.count != homeViewController.questionCount) {
+        [self setColorLabelsIfChoiceTwoSelected];
         Question *question = (Question *)self.data;
         [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers objectAtIndex:1]];
     }
@@ -361,12 +347,8 @@
 }
 -(void)choiceThreeSelected:(UITapGestureRecognizer *)gesture {
     
-    if (homeViewController.answerDictionary.allKeys.count!=homeViewController.questionCount) {
-        UILabel *choiceOneLabel =(UILabel *) gesture.view;
-        choiceOneLabel.backgroundColor = [UIColor greenColor];
-        _choiceTwo.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
-        _choiceOne.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
-        _choiceFour.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+    if (homeViewController.answerDictionary.allKeys.count != homeViewController.questionCount) {
+        [self setColorLabelsIfChoiceThreeSelected];
         Question *question = (Question *)self.data;
         [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers objectAtIndex:2]];
     }
@@ -375,15 +357,67 @@
 -(void)choiceFourSelected:(UITapGestureRecognizer *)gesture {
     
     if (homeViewController.answerDictionary.allKeys.count!=homeViewController.questionCount) {
-        UILabel *choiceOneLabel =(UILabel *) gesture.view;
-        choiceOneLabel.backgroundColor = [UIColor greenColor];
-        _choiceTwo.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
-        _choiceThree.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
-        _choiceOne.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        [self setColorLabelsIfChoiceFourSelected];
         Question *question = (Question *)self.data;
         [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers objectAtIndex:3]];
     }
+}
+
+
+-(void)setColorLabelsIfChoiceOneSelected {
+    _choiceOne.backgroundColor = CHOICE_LABEL_SELECTED_COLOR;
+    _choiceOne.textColor = [UIColor whiteColor];
     
+    _choiceTwo.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+    _choiceTwo.textColor = [UIColor blackColor];
+    
+    _choiceThree.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+    _choiceThree.textColor = [UIColor blackColor];
+    
+    _choiceFour.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+    _choiceFour.textColor = [UIColor blackColor];
+}
+
+-(void)setColorLabelsIfChoiceTwoSelected {
+    _choiceTwo.backgroundColor = CHOICE_LABEL_SELECTED_COLOR;
+    _choiceTwo.textColor = [UIColor whiteColor];
+    _choiceOne.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+    _choiceOne.textColor = [UIColor blackColor];
+    
+    _choiceThree.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+    _choiceThree.textColor = [UIColor blackColor];
+    
+    _choiceFour.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+    _choiceFour.textColor = [UIColor blackColor];
+}
+
+-(void)setColorLabelsIfChoiceThreeSelected {
+    
+    _choiceThree.backgroundColor = CHOICE_LABEL_SELECTED_COLOR;
+    _choiceThree.textColor = [UIColor whiteColor];
+    
+    _choiceOne.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+    _choiceOne.textColor = [UIColor blackColor];
+    
+    _choiceTwo.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+    _choiceTwo.textColor = [UIColor blackColor];
+    
+    _choiceFour.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+    _choiceFour.textColor = [UIColor blackColor];
+}
+
+-(void)setColorLabelsIfChoiceFourSelected {
+    _choiceFour.backgroundColor = CHOICE_LABEL_SELECTED_COLOR;
+    _choiceFour.textColor = [UIColor whiteColor];
+    
+    _choiceThree.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+    _choiceThree.textColor = [UIColor blackColor];
+    
+    _choiceOne.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+    _choiceOne.textColor = [UIColor blackColor];
+    
+    _choiceTwo.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+    _choiceTwo.textColor = [UIColor blackColor];
 }
 
 
