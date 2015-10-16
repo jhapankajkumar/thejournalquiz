@@ -15,23 +15,7 @@
 #import "ViewController.h"
 #import "UserAnswer.h"
 #import "UtilityManager.h"
-
-
-#define QUESTION_LABEL_FONT_SIZE             22
-#define CAPTION_FONT_SIZE               14
-#define ANSWER_LABEL_FONT_SIZE              16
-#define AnswerColor                  [UIColor]
-#define EXTRA_SPACE                     8
-#define X_PADDING                       10
-#define MINIMUM_LABEL_HEIGHT            70
-
-#define CHOICE_LABEL_DEFAULT_COLOR              RGB(240, 240, 240)
-
-#define THUMB_WIDTH                 [UIScreen mainScreen].bounds.size.width
-#define THUMB_HEIGHT                (THUMB_WIDTH) * 180/320
-#define CHOICE_LABEL_DEFAULT_WIDTH  THUMB_WIDTH - 20
-#define QUESION_LABEL_FONT  [UIFont fontWithName:@"Avenir-Black" size:QUESTION_LABEL_FONT_SIZE]
-#define ANSWER_LABEL_FONT  [UIFont fontWithName:@"Helvetica" size:ANSWER_LABEL_FONT_SIZE]
+#import "Constant.h"
 
 @implementation MultipleChoiceButtonTableViewCell
 
@@ -108,15 +92,6 @@
     return self;
 }
 
-
-
-- (void)awakeFromNib {
-    // Initialization code
-    
-    
-    
-}
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     
@@ -188,6 +163,7 @@
     
     if (question.answers.count==3) {
         _choiceFour.hidden = true;
+        _choiceThree.hidden = false;
     }
     else if (question.answers.count==2) {
         _choiceFour.hidden = true;
@@ -405,7 +381,7 @@
         _choiceThree.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
         _choiceOne.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
         Question *question = (Question *)self.data;
-        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers objectAtIndex:2]];
+        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers objectAtIndex:3]];
     }
     
 }

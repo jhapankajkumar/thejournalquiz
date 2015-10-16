@@ -15,11 +15,12 @@
 }
 @property (strong, nonatomic)  UILabel *headline;
 @property (strong, nonatomic)  UIImageView *questionImage;
-@property (strong, nonatomic)  UILabel *choiceOne;
 
+@property (strong, nonatomic)  UILabel *choiceOne;
 @property (strong, nonatomic)  UILabel *choiceTwo;
 @property (strong, nonatomic)  UILabel *choiceThree;
 @property (strong, nonatomic)  UILabel *choiceFour;
+
 @property (strong, nonatomic)  UIImageView *saperatorImage;
 @end
 

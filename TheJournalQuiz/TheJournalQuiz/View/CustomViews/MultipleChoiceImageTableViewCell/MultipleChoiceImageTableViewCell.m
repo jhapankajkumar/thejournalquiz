@@ -14,27 +14,74 @@
 #import "ViewController.h"
 #import "Constant.h"
 #import "UserAnswer.h"
-
-
-#define HEAD_LINE_FONT_SIZE             22
-#define CAPTION_FONT_SIZE               14
-#define QUESTION_FONT_SIZE              12
-#define IMAGE_RESIZE_VALUE              CGSizeMake(130,105)
+#import "UtilityManager.h"
 
 
 
-#define THUMB_WIDTH                 [UIScreen mainScreen].bounds.size.width
-#define THUMB_HEIGHT                (THUMB_WIDTH) * 210/320
 
-#define ANSWER_THUMB_WIDTH          150
 
-#define ANSWER_THUMB_HEIGHT         125
+
 
 
 @implementation MultipleChoiceImageTableViewCell
 
-- (void)awakeFromNib {
-    // Initialization code
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        // Initialization code
+        
+        _choiceOneView = [[UIView alloc] initWithFrame:CGRectZero];
+        _choiceOneView.layer.cornerRadius = 5.0;
+        _choiceOneView.userInteractionEnabled = YES;
+        _choiceOneView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        _choiceOneImage = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [_choiceOneView addSubview:_choiceOneImage];
+        [self.contentView addSubview:_choiceOneView];
+        
+        _choiceTwoView = [[UIView alloc] initWithFrame:CGRectZero];
+        _choiceTwoView.layer.cornerRadius = 5.0;
+        _choiceTwoView.userInteractionEnabled = YES;
+        _choiceTwoView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        _choiceTwoImage = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [_choiceTwoView addSubview:_choiceTwoImage];
+        [self.contentView addSubview:_choiceTwoView];
+        
+        _choiceThreeView = [[UIView alloc] initWithFrame:CGRectZero];
+        _choiceThreeView.layer.cornerRadius = 5.0;
+        _choiceThreeView.userInteractionEnabled = YES;
+        _choiceThreeView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        _choiceThreeImage = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [_choiceThreeView addSubview:_choiceThreeImage];
+        [self.contentView addSubview:_choiceThreeView];
+        
+        _choiceFourView = [[UIView alloc] initWithFrame:CGRectZero];
+        _choiceFourView.layer.cornerRadius = 5.0;
+        _choiceFourView.userInteractionEnabled = YES;
+        _choiceFourView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        _choiceFourImage = [[UIImageView alloc] initWithFrame:CGRectZero];
+        [_choiceFourView addSubview:_choiceFourImage];
+        [self.contentView addSubview:_choiceFourView];
+        
+        
+        _headline = [[UILabel alloc] initWithFrame:CGRectZero];
+        _headline.lineBreakMode =  NSLineBreakByWordWrapping;
+        [_headline setFont:QUESION_LABEL_FONT];
+        _headline.layer.cornerRadius = 5.0;
+        _headline.userInteractionEnabled = YES;
+        _headline.backgroundColor = [UIColor clearColor];
+        _headline.numberOfLines = 0;
+        [self.contentView addSubview:_headline];
+        
+        _questionImage = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _questionImage.layer.cornerRadius =  5.0;
+        //_questionImage.contentMode = UIViewContentModeScaleAspectFill;
+        
+        // Add to Table View Cell
+        [self.contentView addSubview:_questionImage];
+        
+    }
+    return self;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -49,30 +96,30 @@
     CGFloat screenWidth = aTableView.superview.frame.size.width;
     Question *question = (Question*)aData;
     // Init with base padding
-    float totalHeight = 10;
+    float totalHeight = EXTRA_SPACE;
     
     CGSize maximumLabelSize = CGSizeMake(screenWidth-20,FLT_MAX);
     CGSize expectedLabelSize;
     
-    CGRect rect =  [question.text boundingRectWithSize:maximumLabelSize
-                                               options:NSStringDrawingUsesLineFragmentOrigin
-                                            attributes:@{
-                                                         NSFontAttributeName : [UIFont systemFontOfSize:HEAD_LINE_FONT_SIZE]
-                                                         }
-                                               context:nil];
-    expectedLabelSize = rect.size;
+    CGRect rect =  [question.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : QUESION_LABEL_FONT} context:nil];
     
+    expectedLabelSize = rect.size;
     // Update the Height
     totalHeight = totalHeight + expectedLabelSize.height;
     // Add Padding
-    totalHeight += 10;
+    totalHeight += EXTRA_SPACE;
     
-    //if (question.image && question.image.src) {
-       // totalHeight = THUMB_HEIGHT+1;
-        // new implementation it will always remian open
-    //}
-    totalHeight = totalHeight + 8 + ANSWER_THUMB_HEIGHT + 8 + ANSWER_THUMB_HEIGHT;
-    totalHeight += 20;
+    if (question.image && question.image.src) {
+        totalHeight = totalHeight + THUMB_HEIGHT+ EXTRA_SPACE;
+    }
+    
+    if (question.answers.count==4) {
+        totalHeight = totalHeight + CHOICE_VIEW_HEIGHT + EXTRA_SPACE + CHOICE_VIEW_HEIGHT + EXTRA_SPACE;
+    }
+    else {
+        totalHeight = totalHeight + CHOICE_VIEW_HEIGHT + EXTRA_SPACE ;
+    }
+    totalHeight += EXTRA_SPACE;
     return totalHeight;
 }
 
@@ -87,95 +134,80 @@
     self.data = aData;
     self.indexPath = anIndexPath;
     homeViewController = (ViewController *)controller;
-   
     
     
-    
-    CGFloat totalHeight = 8;
+    CGFloat totalHeight = EXTRA_SPACE;
     CGSize maximumLabelSize = CGSizeMake(screenWidth - 20,FLT_MAX);
     CGSize expectedLabelSize;
-//    for (id subView in subViews) {
-//        if ([subView isKindOfClass:[UIButton class]]) {
-//            [subView removeFromSuperview];
-//        }
-//    }
-    
-    [self.headline setFont:[UIFont systemFontOfSize:HEAD_LINE_FONT_SIZE]];
     
     //set Question headline
-    CGRect rect =  [question.text boundingRectWithSize:maximumLabelSize
-                                               options:NSStringDrawingUsesLineFragmentOrigin
-                                            attributes:@{
-                                                         NSFontAttributeName : [UIFont systemFontOfSize:HEAD_LINE_FONT_SIZE]
-                                                         }
-                                               context:nil];
+    CGRect rect =  [question.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : QUESION_LABEL_FONT } context:nil];
     expectedLabelSize = rect.size;
-    
-    if (expectedLabelSize.height > 160) {
-        self.headline.frame = CGRectMake(8, totalHeight, maximumLabelSize.width, 160);
-    }
-    else {
-        self.headline.frame = CGRectMake(8, totalHeight, maximumLabelSize.width, expectedLabelSize.height);
-    }
+    self.headline.frame = CGRectMake(X_PADDING, totalHeight, CHOICE_LABEL_DEFAULT_WIDTH, expectedLabelSize.height);
     self.headline.text = question.text;
     totalHeight = totalHeight + expectedLabelSize.height;
-    totalHeight = totalHeight + 8;
+    totalHeight = totalHeight + EXTRA_SPACE;
     
-//    if (question.image && question.image.src ) {
-//        self.questionImage.hidden = NO;
-//        self.questionImage.frame = CGRectMake(8, totalHeight, THUMB_WIDTH-8, THUMB_HEIGHT);
-//        // set the gradient
-//        totalHeight = THUMB_HEIGHT+1;
-//        NSString *imageURLString = [NSString stringWithFormat:@"%@?width=&%f&height=%f",question.image.src,THUMB_WIDTH,THUMB_HEIGHT];
-//        //Downloading Question image
-//        
-//        [self.questionImage sd_setImageWithURL:[NSURL URLWithString:imageURLString]
-//                              placeholderImage:[UIImage imageNamed:@"placeholder.png"]
-//                                     completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//                                         
-//                                         if (image &&  [image isKindOfClass:[UIImage class]]) {
-//                                             MultipleChoiceImageTableViewCell *localCell = (MultipleChoiceImageTableViewCell*)[weakSelf.tableView cellForRowAtIndexPath:anIndexPath];
-//                                             if (localCell && [localCell isKindOfClass:[MultipleChoiceImageTableViewCell class]]) {
-//                                                 [localCell.questionImage setImage:image];
-//                                                 //[localCell.questionImage setGradientBackgroundWithStartColor:[UIColor clearColor] endColor:RGBA(0, 0, 0, 0.9)];
-//                                             }
-//                                         }
-//                                         else
-//                                         {
-//                                             //Need to
-//                                         }
-//                                         
-//                                     }];
-//        
-//        totalHeight = totalHeight + 8 ;
-//        
-//    }
-//    else {
-//       self.questionImage.hidden = YES;
-//      //self.answerViewLeadingConstraints.constant -=133;
-//    }
+    if (question.image && question.image.src ) {
+        self.questionImage.hidden = NO;
+        self.questionImage.frame = CGRectMake(X_PADDING, totalHeight, THUMB_WIDTH-20, THUMB_HEIGHT);
+        // set the gradient
+        totalHeight = totalHeight + THUMB_HEIGHT+ EXTRA_SPACE;
+        
+        NSString *imageURLString = [[UtilityManager sharedInstance] getImageURLForWidth:THUMB_WIDTH-20 height:THUMB_HEIGHT fromURL:question.image.src];
+        //Downloading Question image
+        [self.questionImage sd_setImageWithURL:[NSURL URLWithString:imageURLString]
+                              placeholderImage:[UIImage imageNamed:@"placeholder.png"]
+                                     completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                         
+                                         if (image &&  [image isKindOfClass:[UIImage class]]) {
+                                             MultipleChoiceImageTableViewCell *localCell = (MultipleChoiceImageTableViewCell*)[weakSelf.tableView cellForRowAtIndexPath:anIndexPath];
+                                             if (localCell && [localCell isKindOfClass:[MultipleChoiceImageTableViewCell class]]) {
+                                                 [localCell.questionImage setImage:image];
+                                                 //[localCell.questionImage setGradientBackgroundWithStartColor:[UIColor clearColor] endColor:RGBA(0, 0, 0, 0.9)];
+                                             }
+                                         }
+                                         else
+                                         {
+                                             //Need to
+                                         }
+                                         
+                                     }];
+    }
+    else {
+       self.questionImage.hidden = YES;
+    }
+    
+    if (question.answers.count==2) {
+        _choiceThreeView.hidden = true;
+        _choiceFourView.hidden = true;
+    }
+    else {
+        _choiceThreeView.hidden = false;
+        _choiceFourView.hidden = false;
+    }
     
         if (question.answers && question.answers.count) {
-
             // Iterate through the home related objects and fill the view
             for (int i= 0; i<question.answers.count;i++) {
                 Answers *answer = [question.answers objectAtIndex:i];
                 switch (i) {
                     case 0:
                     {
-                        _choiceOneView.frame = CGRectMake(8, totalHeight, ANSWER_THUMB_WIDTH, ANSWER_THUMB_HEIGHT);
-                        NSString *imageURLString = answer.image.src;
+                        _choiceOneView.frame = CGRectMake(X_PADDING, totalHeight, CHOICE_VIEW_WIDTH, CHOICE_VIEW_HEIGHT);
+                        _choiceOneImage.frame = CGRectMake(X_PADDING, Y_PADDING, CHOICE_IMAGE_THUMB_WIDTH, CHOICE_IMAGE_THUMB_HEIGHT);
+                        NSString *imageURLString = [[UtilityManager sharedInstance]getImageURLForWidth:CHOICE_IMAGE_THUMB_WIDTH height:CHOICE_IMAGE_THUMB_HEIGHT fromURL:answer.image.src];
+                        
                         //Downloading Question image
                         [_choiceOneImage sd_setImageWithURL:[NSURL URLWithString:imageURLString]
                                               placeholderImage:[UIImage imageNamed:@"placeholder.png"]
                                                      completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                                                          
                                                          if (image &&  [image isKindOfClass:[UIImage class]] ) {
-                                                             UIImage* resizedimage = [MultipleChoiceImageTableViewCell imageResize:image andResizeTo:IMAGE_RESIZE_VALUE];
+                                                             image = [[UtilityManager sharedInstance] imageResize:image andResizeTo:IMAGE_RESIZE_VALUE];
                                                              MultipleChoiceImageTableViewCell *localCell = (MultipleChoiceImageTableViewCell*)[weakSelf.tableView cellForRowAtIndexPath:anIndexPath];
                                                              if (localCell && [localCell isKindOfClass:[MultipleChoiceImageTableViewCell class]]) {
-                                                                 [localCell.choiceOneImage setImage:resizedimage];
-                                                                 //[localCell.questionImage setGradientBackgroundWithStartColor:[UIColor clearColor] endColor:RGBA(0, 0, 0, 0.9)];
+                                                                 [localCell.choiceOneImage setImage:image];
                                                              }
                                                          }
                                                          else
@@ -189,20 +221,22 @@
                         break;
                     case 1:
                     {
-                        _choiceTwoView.frame = CGRectMake(8+ ANSWER_THUMB_WIDTH + 8, totalHeight, ANSWER_THUMB_WIDTH, ANSWER_THUMB_HEIGHT);
-                        totalHeight = totalHeight + ANSWER_THUMB_HEIGHT + 8 ;
-                        NSString *imageURLString = answer.image.src;
-                        //Downloading Question image
+                        _choiceTwoView.frame = CGRectMake(X_PADDING + CHOICE_VIEW_WIDTH + X_PADDING, totalHeight, CHOICE_VIEW_WIDTH, CHOICE_VIEW_HEIGHT);
+                        _choiceTwoImage.frame = CGRectMake(X_PADDING, Y_PADDING, IMAGE_RESIZE_VALUE.width, IMAGE_RESIZE_VALUE.height);
+                        totalHeight = totalHeight + CHOICE_VIEW_HEIGHT + EXTRA_SPACE ;
                         
+                        NSString *imageURLString = [[UtilityManager sharedInstance]getImageURLForWidth:IMAGE_RESIZE_VALUE.width height:IMAGE_RESIZE_VALUE.height fromURL:answer.image.src];
+                        
+                        //Downloading Question image
                         [_choiceTwoImage sd_setImageWithURL:[NSURL URLWithString:imageURLString]
                                               placeholderImage:[UIImage imageNamed:@"placeholder.png"]
                                                      completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                                                          
                                                          if (image &&  [image isKindOfClass:[UIImage class]]) {
-                                                             UIImage* resizedimage = [MultipleChoiceImageTableViewCell imageResize:image andResizeTo:IMAGE_RESIZE_VALUE];
+                                                             image = [[UtilityManager sharedInstance] imageResize:image andResizeTo:IMAGE_RESIZE_VALUE];
                                                              MultipleChoiceImageTableViewCell *localCell = (MultipleChoiceImageTableViewCell*)[weakSelf.tableView cellForRowAtIndexPath:anIndexPath];
                                                              if (localCell && [localCell isKindOfClass:[MultipleChoiceImageTableViewCell class]]) {
-                                                                 [localCell.choiceTwoImage setImage:resizedimage];
+                                                                 [localCell.choiceTwoImage setImage:image];
                                                                  //[localCell.questionImage setGradientBackgroundWithStartColor:[UIColor clearColor] endColor:RGBA(0, 0, 0, 0.9)];
                                                              }
                                                          }
@@ -217,18 +251,19 @@
                         break;
                     case 2:
                     {
-                        _choiceThreeView.frame = CGRectMake(8, totalHeight, ANSWER_THUMB_WIDTH, ANSWER_THUMB_HEIGHT);
-                        NSString *imageURLString = answer.image.src;
+                        _choiceThreeView.frame = CGRectMake(X_PADDING, totalHeight, CHOICE_VIEW_WIDTH, CHOICE_VIEW_HEIGHT);
+                        _choiceThreeImage.frame = CGRectMake(X_PADDING, Y_PADDING, IMAGE_RESIZE_VALUE.width, IMAGE_RESIZE_VALUE.height);
+                        NSString *imageURLString = [[UtilityManager sharedInstance]getImageURLForWidth:IMAGE_RESIZE_VALUE.width height:IMAGE_RESIZE_VALUE.height fromURL:answer.image.src];
                         //Downloading Question image
                         [_choiceThreeImage sd_setImageWithURL:[NSURL URLWithString:imageURLString]
                                               placeholderImage:[UIImage imageNamed:@"placeholder.png"]
                                                      completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                                                          
                                                          if (image &&  [image isKindOfClass:[UIImage class]]) {
-                                                             UIImage* resizedimage = [MultipleChoiceImageTableViewCell imageResize:image andResizeTo:IMAGE_RESIZE_VALUE];
+                                                             image = [[UtilityManager sharedInstance] imageResize:image andResizeTo:IMAGE_RESIZE_VALUE];
                                                              MultipleChoiceImageTableViewCell *localCell = (MultipleChoiceImageTableViewCell*)[weakSelf.tableView cellForRowAtIndexPath:anIndexPath];
                                                              if (localCell && [localCell isKindOfClass:[MultipleChoiceImageTableViewCell class]]) {
-                                                                 [localCell.choiceThreeImage setImage:resizedimage];
+                                                                 [localCell.choiceThreeImage setImage:image];
                                                                  //[localCell.questionImage setGradientBackgroundWithStartColor:[UIColor clearColor] endColor:RGBA(0, 0, 0, 0.9)];
                                                              }
                                                          }
@@ -242,8 +277,12 @@
                         break;
                     case 3:
                     {
-                        _choiceFourView.frame = CGRectMake(8+ THUMB_WIDTH +8, totalHeight, ANSWER_THUMB_WIDTH, ANSWER_THUMB_HEIGHT);
-                        totalHeight = totalHeight + ANSWER_THUMB_HEIGHT + 8;
+                        _choiceFourView.frame = CGRectMake(X_PADDING + CHOICE_VIEW_WIDTH + X_PADDING, totalHeight, CHOICE_VIEW_WIDTH, CHOICE_VIEW_HEIGHT);
+                        
+                        _choiceFourImage.frame = CGRectMake(X_PADDING, Y_PADDING, IMAGE_RESIZE_VALUE.width, IMAGE_RESIZE_VALUE.height);
+
+                        
+                        totalHeight = totalHeight + CHOICE_VIEW_HEIGHT + EXTRA_SPACE;
                         NSString *imageURLString = answer.image.src;
                         //Downloading Question image
                         [_choiceFourImage sd_setImageWithURL:[NSURL URLWithString:imageURLString]
@@ -271,7 +310,7 @@
                         break;
                 }
                 // Increase totalHeight by HEIGHT_OF_RELATED_VIEW
-                totalHeight = totalHeight + 8;
+                //totalHeight = totalHeight + 8;
             }
         }
 
@@ -292,10 +331,10 @@
     [_choiceFourView addGestureRecognizer:tapGestureChoiceFour];
     
     
-    _choiceOneView.backgroundColor = RGB(249, 249, 249);
-    _choiceTwoView.backgroundColor = RGB(249, 249, 249);
-    _choiceThreeView.backgroundColor = RGB(249, 249, 249);
-    _choiceFourView.backgroundColor = RGB(249, 249, 249);
+    _choiceOneView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+    _choiceTwoView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+    _choiceThreeView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+    _choiceFourView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
     
     for (NSString  *questionID in homeViewController.answerDictionary.allKeys) {
         if ([questionID integerValue] == question.questionID) {
@@ -307,33 +346,33 @@
                         case 0:
                         {
                             _choiceOneView.backgroundColor = [UIColor greenColor];
-                            _choiceTwoView.backgroundColor = RGB(249, 249, 249);
-                            _choiceThreeView.backgroundColor = RGB(249, 249, 249);
-                            _choiceFourView.backgroundColor = RGB(249, 249, 249);
+                            _choiceTwoView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+                            _choiceThreeView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+                            _choiceFourView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
                         }
                             break;
                         case 1:
                         {
                             _choiceTwoView.backgroundColor = [UIColor greenColor];
-                            _choiceOneView.backgroundColor = RGB(249, 249, 249);
-                            _choiceThreeView.backgroundColor = RGB(249, 249, 249);
-                            _choiceFourView.backgroundColor = RGB(249, 249, 249);
+                            _choiceOneView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+                            _choiceThreeView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+                            _choiceFourView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
                         }
                             break;
                         case 2:
                         {
                             _choiceThreeView.backgroundColor = [UIColor greenColor];
-                            _choiceTwoView.backgroundColor = RGB(249, 249, 249);
-                            _choiceOneView.backgroundColor = RGB(249, 249, 249);
-                            _choiceFourView.backgroundColor = RGB(249, 249, 249);
+                            _choiceTwoView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+                            _choiceOneView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+                            _choiceFourView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
                         }
                             break;
                         case 3:
                         {
                             _choiceFourView.backgroundColor = [UIColor greenColor];
-                            _choiceTwoView.backgroundColor = RGB(249, 249, 249);
-                            _choiceThreeView.backgroundColor = RGB(249, 249, 249);
-                            _choiceOneView.backgroundColor = RGB(249, 249, 249);
+                            _choiceTwoView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+                            _choiceThreeView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+                            _choiceOneView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
                         }
                             break;
                             
@@ -357,9 +396,9 @@
     if (homeViewController.answerDictionary.allKeys.count!=homeViewController.questionCount) {
         UIView *choiceOneView =(UIView *) gesture.view;
         choiceOneView.backgroundColor = [UIColor greenColor];
-        _choiceTwoView.backgroundColor = RGB(249, 249, 249);
-        _choiceThreeView.backgroundColor = RGB(249, 249, 249);
-        _choiceFourView.backgroundColor = RGB(249, 249, 249);
+        _choiceTwoView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        _choiceThreeView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        _choiceFourView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
         
         [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers firstObject]];
     }
@@ -370,9 +409,9 @@
     if (homeViewController.answerDictionary.allKeys.count!=homeViewController.questionCount) {
         UIView *choiceTwoView =(UIView *) gesture.view;
         choiceTwoView.backgroundColor = [UIColor greenColor];
-        _choiceOneView.backgroundColor = RGB(249, 249, 249);
-        _choiceThreeView.backgroundColor = RGB(249, 249, 249);
-        _choiceFourView.backgroundColor = RGB(249, 249, 249);
+        _choiceOneView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        _choiceThreeView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        _choiceFourView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
         Question *question = (Question *)self.data;
         [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers objectAtIndex:1]];
     }
@@ -384,9 +423,9 @@
     if (homeViewController.answerDictionary.allKeys.count!=homeViewController.questionCount) {
         UIView *choiceThreeView =(UIView *) gesture.view;
         choiceThreeView.backgroundColor = [UIColor greenColor];
-        _choiceTwoView.backgroundColor = RGB(249, 249, 249);
-        _choiceOneView.backgroundColor = RGB(249, 249, 249);
-        _choiceFourView.backgroundColor = RGB(249, 249, 249);
+        _choiceTwoView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        _choiceOneView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        _choiceFourView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
         Question *question = (Question *)self.data;
         [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers objectAtIndex:2]];
     }
@@ -397,11 +436,11 @@
     if (homeViewController.answerDictionary.allKeys.count!=homeViewController.questionCount) {
         UIView *choiceFourView =(UIView *) gesture.view;
         choiceFourView.backgroundColor = [UIColor greenColor];
-        _choiceTwoView.backgroundColor = RGB(249, 249, 249);
-        _choiceThreeView.backgroundColor = RGB(249, 249, 249);
-        _choiceOneView.backgroundColor = RGB(249, 249, 249);
+        _choiceTwoView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        _choiceThreeView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        _choiceOneView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
         Question *question = (Question *)self.data;
-        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers objectAtIndex:2]];
+        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers objectAtIndex:3]];
     }
     
 }
@@ -419,6 +458,9 @@
     return newImage;
 }
 
+
+-(void)downloadAndSetImageForChoice:(UIImageView *)imageView {
+}
 
 
 @end

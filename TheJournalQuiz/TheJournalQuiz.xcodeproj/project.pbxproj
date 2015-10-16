@@ -16,7 +16,6 @@
 		A98C39611BCEE9D600EEFF85 /* YesNoImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C39601BCEE9D600EEFF85 /* YesNoImageTableViewCell.m */; };
 		A98C39651BCEEA0600EEFF85 /* MultipleChoiceButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C39631BCEEA0600EEFF85 /* MultipleChoiceButtonTableViewCell.m */; };
 		A98C396A1BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C39681BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.m */; };
-		A98C396B1BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A98C39691BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.xib */; };
 		A98C396D1BCEEA3C00EEFF85 /* YesNoImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A98C396C1BCEEA3C00EEFF85 /* YesNoImageTableViewCell.xib */; };
 		A9DA2AB51BCFD6990074B2AA /* PersonaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9DA2AB31BCFD6990074B2AA /* PersonaCell.m */; };
 		A9DA2AB61BCFD6990074B2AA /* PersonaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A9DA2AB41BCFD6990074B2AA /* PersonaCell.xib */; };
@@ -64,7 +63,6 @@
 		A98C39631BCEEA0600EEFF85 /* MultipleChoiceButtonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipleChoiceButtonTableViewCell.m; sourceTree = "<group>"; };
 		A98C39671BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipleChoiceImageTableViewCell.h; sourceTree = "<group>"; };
 		A98C39681BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipleChoiceImageTableViewCell.m; sourceTree = "<group>"; };
-		A98C39691BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MultipleChoiceImageTableViewCell.xib; sourceTree = "<group>"; };
 		A98C396C1BCEEA3C00EEFF85 /* YesNoImageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YesNoImageTableViewCell.xib; sourceTree = "<group>"; };
 		A9DA2AB21BCFD6990074B2AA /* PersonaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersonaCell.h; path = PersonaCell/PersonaCell.h; sourceTree = "<group>"; };
 		A9DA2AB31BCFD6990074B2AA /* PersonaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonaCell.m; path = PersonaCell/PersonaCell.m; sourceTree = "<group>"; };
@@ -193,7 +191,6 @@
 			children = (
 				A98C39671BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.h */,
 				A98C39681BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.m */,
-				A98C39691BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.xib */,
 			);
 			path = MultipleChoiceImageTableViewCell;
 			sourceTree = "<group>";
@@ -552,7 +549,6 @@
 			files = (
 				A98C396D1BCEEA3C00EEFF85 /* YesNoImageTableViewCell.xib in Resources */,
 				A9E417FB1BCEB4060015F040 /* Main.storyboard in Resources */,
-				A98C396B1BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.xib in Resources */,
 				A9E417FA1BCEB4060015F040 /* LaunchScreen.xib in Resources */,
 				565866A11BCFCBB700A98774 /* placeholder.png in Resources */,
 				A98C395E1BCEE99D00EEFF85 /* YesNoButtonTableViewCell.xib in Resources */,

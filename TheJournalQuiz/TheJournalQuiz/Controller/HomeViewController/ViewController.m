@@ -46,6 +46,9 @@
     // Do any additional setup after loading the view, typically from a nib.
 }
 
+- (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
+    [self.quizListTableView reloadData];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -59,7 +62,10 @@
     
     //registering tableview cells
     [_quizListTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    [_quizListTableView registerNib:[UINib nibWithNibName:@"MultipleChoiceImageTableViewCell" bundle:nil] forCellReuseIdentifier:@"MultipleChoiceImageTableViewCell"];
+    //[_quizListTableView registerNib:[UINib nibWithNibName:@"MultipleChoiceImageTableViewCell" bundle:nil] forCellReuseIdentifier:@"MultipleChoiceImageTableViewCell"];
+    
+    [_quizListTableView registerClass:NSClassFromString(@"MultipleChoiceImageTableViewCell") forCellReuseIdentifier:@"MultipleChoiceImageTableViewCell"];
+    
     [_quizListTableView registerNib:[UINib nibWithNibName:@"YesNoButtonTableViewCell" bundle:nil] forCellReuseIdentifier:@"YesNoButtonTableViewCell"];
     [_quizListTableView registerNib:[UINib nibWithNibName:@"YesNoImageTableViewCell" bundle:nil] forCellReuseIdentifier:@"YesNoImageTableViewCell"];
     //[_quizListTableView registerNib:[UINib nibWithNibName:@"MultipleChoiceButtonTableViewCell" bundle:nil] forCellReuseIdentifier:@"MultipleChoiceButtonTableViewCell"];
@@ -79,30 +85,30 @@
             
             Answers *answer =(Answers *) [questions.answers objectAtIndex:0];
             if (answer.image) {
-                //[nibOrClassNameArray addObject:@"MultipleChoiceImageTableViewCell"];
+                [nibOrClassNameArray addObject:@"MultipleChoiceImageTableViewCell"];
                 //[dataItemArray addObject:questions];
             }
             else {
                 [nibOrClassNameArray addObject:@"MultipleChoiceButtonTableViewCell"];
-                [dataItemArray addObject:questions];
+                //[dataItemArray addObject:questions];
             }
         }
         else if (questions.answers.count == 2) {
             Answers *answer =(Answers *) [questions.answers objectAtIndex:0];
             if (answer.image) {
-                //[nibOrClassNameArray addObject:@"YesNoImageTableViewCell"];
+                [nibOrClassNameArray addObject:@"MultipleChoiceImageTableViewCell"];
                 //[dataItemArray addObject:questions];
             }
             else {
                 [nibOrClassNameArray addObject:@"MultipleChoiceButtonTableViewCell"];
-                [dataItemArray addObject:questions];
+                //[dataItemArray addObject:questions];
             }
         }
         else {
             NSLog(@"No Count %@",questions);
         }
         
-       // [dataItemArray addObject:questions];
+        [dataItemArray addObject:questions];
     }
     
     //Add Persona Cell

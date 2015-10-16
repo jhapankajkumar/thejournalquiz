@@ -12,24 +12,24 @@
 @interface MultipleChoiceImageTableViewCell : GenericTableViewCell {
     ViewController *homeViewController;
 }
-@property (weak, nonatomic) IBOutlet UILabel *headline;
-@property (weak, nonatomic) IBOutlet UIImageView *questionImage;
-@property (weak, nonatomic) IBOutlet UIView *choiceOneView;
-@property (weak, nonatomic) IBOutlet UIImageView *choiceOneImage;
-@property (weak, nonatomic) IBOutlet UILabel *choiceOneLabel;
-@property (weak, nonatomic) IBOutlet UIView *choiceTwoView;
-@property (weak, nonatomic) IBOutlet UIImageView *choiceTwoImage;
-@property (weak, nonatomic) IBOutlet UILabel *choiceTwoLabel;
-@property (weak, nonatomic) IBOutlet UIView *choiceThreeView;
-@property (weak, nonatomic) IBOutlet UIImageView *choiceThreeImage;
+@property (strong, nonatomic)  UILabel *headline;
+@property (strong, nonatomic)  UIImageView *questionImage;
 
-@property (weak, nonatomic) IBOutlet UILabel *choiceThreeLabel;
-@property (weak, nonatomic) IBOutlet UIView *choiceFourView;
-@property (weak, nonatomic) IBOutlet UIImageView *choiceFourImage;
-@property (weak, nonatomic) IBOutlet UILabel *choiceFourLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *saperatorImage;
-@property (weak, nonatomic) IBOutlet UIView *answerBackgroundView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *answerViewLeadingConstraints;
+@property (strong, nonatomic)  UIView *choiceOneView;
+@property (strong, nonatomic)  UIImageView *choiceOneImage;
+
+@property (strong, nonatomic)  UIView *choiceTwoView;
+@property (strong, nonatomic)  UIImageView *choiceTwoImage;
+
+@property (strong, nonatomic)  UIView *choiceThreeView;
+@property (strong, nonatomic)  UIImageView *choiceThreeImage;
+
+@property (strong, nonatomic)  UIView *choiceFourView;
+@property (strong, nonatomic)  UIImageView *choiceFourImage;
+
+@property (strong, nonatomic)  UIImageView *saperatorImage;
+@property (strong, nonatomic)  UIView *answerBackgroundView;
+
 
 
 
