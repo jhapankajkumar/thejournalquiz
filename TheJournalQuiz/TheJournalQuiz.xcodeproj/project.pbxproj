@@ -15,7 +15,6 @@
 		A98C395E1BCEE99D00EEFF85 /* YesNoButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A98C395D1BCEE99D00EEFF85 /* YesNoButtonTableViewCell.xib */; };
 		A98C39611BCEE9D600EEFF85 /* YesNoImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C39601BCEE9D600EEFF85 /* YesNoImageTableViewCell.m */; };
 		A98C39651BCEEA0600EEFF85 /* MultipleChoiceButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C39631BCEEA0600EEFF85 /* MultipleChoiceButtonTableViewCell.m */; };
-		A98C39661BCEEA0600EEFF85 /* MultipleChoiceButtonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A98C39641BCEEA0600EEFF85 /* MultipleChoiceButtonTableViewCell.xib */; };
 		A98C396A1BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C39681BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.m */; };
 		A98C396B1BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A98C39691BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.xib */; };
 		A98C396D1BCEEA3C00EEFF85 /* YesNoImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A98C396C1BCEEA3C00EEFF85 /* YesNoImageTableViewCell.xib */; };
@@ -35,6 +34,7 @@
 		A9E4180D1BCEBDA80015F040 /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E4180C1BCEBDA80015F040 /* Image.m */; };
 		A9E418111BCEC1740015F040 /* DataFetchManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A9E418101BCEC1740015F040 /* DataFetchManager.m */; };
 		A9F2D35F1BCF784D001A0CB1 /* GenericTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9F2D35E1BCF784D001A0CB1 /* GenericTableViewCell.m */; };
+		A9F870EE1BD1581200331754 /* UtilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A9F870ED1BD1581200331754 /* UtilityManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,7 +62,6 @@
 		A98C39601BCEE9D600EEFF85 /* YesNoImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YesNoImageTableViewCell.m; sourceTree = "<group>"; };
 		A98C39621BCEEA0600EEFF85 /* MultipleChoiceButtonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipleChoiceButtonTableViewCell.h; sourceTree = "<group>"; };
 		A98C39631BCEEA0600EEFF85 /* MultipleChoiceButtonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipleChoiceButtonTableViewCell.m; sourceTree = "<group>"; };
-		A98C39641BCEEA0600EEFF85 /* MultipleChoiceButtonTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MultipleChoiceButtonTableViewCell.xib; sourceTree = "<group>"; };
 		A98C39671BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipleChoiceImageTableViewCell.h; sourceTree = "<group>"; };
 		A98C39681BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipleChoiceImageTableViewCell.m; sourceTree = "<group>"; };
 		A98C39691BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MultipleChoiceImageTableViewCell.xib; sourceTree = "<group>"; };
@@ -98,6 +97,8 @@
 		A9E418101BCEC1740015F040 /* DataFetchManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataFetchManager.m; sourceTree = "<group>"; };
 		A9F2D35D1BCF784D001A0CB1 /* GenericTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericTableViewCell.h; sourceTree = "<group>"; };
 		A9F2D35E1BCF784D001A0CB1 /* GenericTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericTableViewCell.m; sourceTree = "<group>"; };
+		A9F870EC1BD1581200331754 /* UtilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilityManager.h; sourceTree = "<group>"; };
+		A9F870ED1BD1581200331754 /* UtilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UtilityManager.m; sourceTree = "<group>"; };
 		F05E433E2E3417FE2A16C1F1 /* libPods-TheJournalQuiz.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TheJournalQuiz.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -176,7 +177,6 @@
 			children = (
 				A98C39621BCEEA0600EEFF85 /* MultipleChoiceButtonTableViewCell.h */,
 				A98C39631BCEEA0600EEFF85 /* MultipleChoiceButtonTableViewCell.m */,
-				A98C39641BCEEA0600EEFF85 /* MultipleChoiceButtonTableViewCell.xib */,
 			);
 			path = MultipleChoiceButtonTableViewCell;
 			sourceTree = "<group>";
@@ -218,16 +218,11 @@
 			path = YesNoImageTableViewCell;
 			sourceTree = "<group>";
 		};
-		A98C39711BCF098C00EEFF85 /* UtilityClass */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = UtilityClass;
-			sourceTree = "<group>";
-		};
 		A98C39721BCF09C400EEFF85 /* UtilityManager */ = {
 			isa = PBXGroup;
 			children = (
+				A9F870EC1BD1581200331754 /* UtilityManager.h */,
+				A9F870ED1BD1581200331754 /* UtilityManager.m */,
 			);
 			path = UtilityManager;
 			sourceTree = "<group>";
@@ -322,7 +317,6 @@
 		A9E417EB1BCEB4060015F040 /* HelperClasses */ = {
 			isa = PBXGroup;
 			children = (
-				A98C39711BCF098C00EEFF85 /* UtilityClass */,
 				A9E417EC1BCEB4060015F040 /* Constant */,
 			);
 			path = HelperClasses;
@@ -556,7 +550,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A98C39661BCEEA0600EEFF85 /* MultipleChoiceButtonTableViewCell.xib in Resources */,
 				A98C396D1BCEEA3C00EEFF85 /* YesNoImageTableViewCell.xib in Resources */,
 				A9E417FB1BCEB4060015F040 /* Main.storyboard in Resources */,
 				A98C396B1BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.xib in Resources */,
@@ -636,6 +629,7 @@
 				A9E417F81BCEB4060015F040 /* AppDelegate.m in Sources */,
 				A9E417BC1BCEA4910015F040 /* main.m in Sources */,
 				A9DA2AB51BCFD6990074B2AA /* PersonaCell.m in Sources */,
+				A9F870EE1BD1581200331754 /* UtilityManager.m in Sources */,
 				A98C39651BCEEA0600EEFF85 /* MultipleChoiceButtonTableViewCell.m in Sources */,
 				A98C396A1BCEEA2400EEFF85 /* MultipleChoiceImageTableViewCell.m in Sources */,
 				A9DA2ABA1BCFDAA70074B2AA /* UserAnswer.m in Sources */,

@@ -36,7 +36,7 @@
         if (status) {
                 NSDictionary *response = (NSDictionary *)responseObject;
                 ResponseResult *result = [[ResponseResult alloc] initWithDictionary: response error:nil];
-                NSLog(@"Result %@",result);
+                //NSLog(@"Result %@",result);
 
             dispatch_async(dispatch_get_main_queue(), ^{
               completionBlock(result.response,YES,nil);

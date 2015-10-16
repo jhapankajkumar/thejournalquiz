@@ -62,7 +62,10 @@
     [_quizListTableView registerNib:[UINib nibWithNibName:@"MultipleChoiceImageTableViewCell" bundle:nil] forCellReuseIdentifier:@"MultipleChoiceImageTableViewCell"];
     [_quizListTableView registerNib:[UINib nibWithNibName:@"YesNoButtonTableViewCell" bundle:nil] forCellReuseIdentifier:@"YesNoButtonTableViewCell"];
     [_quizListTableView registerNib:[UINib nibWithNibName:@"YesNoImageTableViewCell" bundle:nil] forCellReuseIdentifier:@"YesNoImageTableViewCell"];
-    [_quizListTableView registerNib:[UINib nibWithNibName:@"MultipleChoiceButtonTableViewCell" bundle:nil] forCellReuseIdentifier:@"MultipleChoiceButtonTableViewCell"];
+    //[_quizListTableView registerNib:[UINib nibWithNibName:@"MultipleChoiceButtonTableViewCell" bundle:nil] forCellReuseIdentifier:@"MultipleChoiceButtonTableViewCell"];
+    
+    [_quizListTableView registerClass:NSClassFromString(@"MultipleChoiceButtonTableViewCell") forCellReuseIdentifier:@"MultipleChoiceButtonTableViewCell"];
+    
     [_quizListTableView registerNib:[UINib nibWithNibName:@"PersonaCell" bundle:nil] forCellReuseIdentifier:@"PersonaCell"];
 }
 
@@ -76,29 +79,30 @@
             
             Answers *answer =(Answers *) [questions.answers objectAtIndex:0];
             if (answer.image) {
-                [nibOrClassNameArray addObject:@"MultipleChoiceImageTableViewCell"];
+                //[nibOrClassNameArray addObject:@"MultipleChoiceImageTableViewCell"];
                 //[dataItemArray addObject:questions];
             }
             else {
                 [nibOrClassNameArray addObject:@"MultipleChoiceButtonTableViewCell"];
-                //[dataItemArray addObject:questions];
+                [dataItemArray addObject:questions];
             }
         }
         else if (questions.answers.count == 2) {
             Answers *answer =(Answers *) [questions.answers objectAtIndex:0];
             if (answer.image) {
-                [nibOrClassNameArray addObject:@"YesNoImageTableViewCell"];
+                //[nibOrClassNameArray addObject:@"YesNoImageTableViewCell"];
                 //[dataItemArray addObject:questions];
             }
             else {
-                [nibOrClassNameArray addObject:@"YesNoButtonTableViewCell"];
+                [nibOrClassNameArray addObject:@"MultipleChoiceButtonTableViewCell"];
+                [dataItemArray addObject:questions];
             }
         }
         else {
             NSLog(@"No Count %@",questions);
         }
         
-        [dataItemArray addObject:questions];
+       // [dataItemArray addObject:questions];
     }
     
     //Add Persona Cell

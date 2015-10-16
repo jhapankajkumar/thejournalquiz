@@ -13,12 +13,14 @@
 {
     ViewController *homeViewController;
 }
-@property (weak, nonatomic) IBOutlet UILabel *headline;
-@property (weak, nonatomic) IBOutlet UIImageView *questionImage;
-@property (weak, nonatomic) IBOutlet UILabel *choiceOne;
+@property (strong, nonatomic)  UILabel *headline;
+@property (strong, nonatomic)  UIImageView *questionImage;
+@property (strong, nonatomic)  UILabel *choiceOne;
 
-@property (weak, nonatomic) IBOutlet UILabel *choiceTwo;
-@property (weak, nonatomic) IBOutlet UILabel *choiceThree;
-@property (weak, nonatomic) IBOutlet UILabel *choiceFour;
-@property (weak, nonatomic) IBOutlet UIImageView *saperatorImage;
+@property (strong, nonatomic)  UILabel *choiceTwo;
+@property (strong, nonatomic)  UILabel *choiceThree;
+@property (strong, nonatomic)  UILabel *choiceFour;
+@property (strong, nonatomic)  UIImageView *saperatorImage;
 @end
+
+

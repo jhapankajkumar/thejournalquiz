@@ -14,60 +14,112 @@
 #import "Constant.h"
 #import "ViewController.h"
 #import "UserAnswer.h"
+#import "UtilityManager.h"
 
 
-#define HEAD_LINE_FONT_SIZE             22
+#define QUESTION_LABEL_FONT_SIZE             22
 #define CAPTION_FONT_SIZE               14
-#define QUESTION_FONT_SIZE              12
-
+#define ANSWER_LABEL_FONT_SIZE              16
 #define AnswerColor                  [UIColor]
+#define EXTRA_SPACE                     8
+#define X_PADDING                       10
+#define MINIMUM_LABEL_HEIGHT            70
 
+#define CHOICE_LABEL_DEFAULT_COLOR              RGB(240, 240, 240)
 
 #define THUMB_WIDTH                 [UIScreen mainScreen].bounds.size.width
 #define THUMB_HEIGHT                (THUMB_WIDTH) * 180/320
+#define CHOICE_LABEL_DEFAULT_WIDTH  THUMB_WIDTH - 20
+#define QUESION_LABEL_FONT  [UIFont fontWithName:@"Avenir-Black" size:QUESTION_LABEL_FONT_SIZE]
+#define ANSWER_LABEL_FONT  [UIFont fontWithName:@"Helvetica" size:ANSWER_LABEL_FONT_SIZE]
 
 @implementation MultipleChoiceButtonTableViewCell
+
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        // Initialization code
+        
+        _choiceOne = [[UILabel alloc] initWithFrame:CGRectZero];
+        _choiceOne.lineBreakMode =  NSLineBreakByWordWrapping;
+        [_choiceOne setFont:ANSWER_LABEL_FONT];
+        _choiceOne.layer.cornerRadius = 5.0;
+        _choiceOne.userInteractionEnabled = YES;
+        _choiceOne.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        _choiceOne.numberOfLines = 0;
+        _choiceOne.layer.masksToBounds = YES;
+        _choiceOne.textAlignment = NSTextAlignmentCenter;
+
+        [self.contentView addSubview:_choiceOne];
+        
+        
+        _choiceTwo = [[UILabel alloc] initWithFrame:CGRectZero];
+        _choiceTwo.lineBreakMode =  NSLineBreakByWordWrapping;
+        [_choiceTwo setFont:ANSWER_LABEL_FONT];
+        _choiceTwo.layer.cornerRadius = 5.0;
+        _choiceTwo.userInteractionEnabled = YES;
+        _choiceTwo.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        _choiceTwo.numberOfLines = 0;
+        _choiceTwo.layer.masksToBounds = YES;
+        _choiceTwo.textAlignment = NSTextAlignmentCenter;
+        [self.contentView addSubview:_choiceTwo];
+        
+        _choiceThree = [[UILabel alloc] initWithFrame:CGRectZero];
+        _choiceThree.lineBreakMode =  NSLineBreakByWordWrapping;
+        [_choiceThree setFont:ANSWER_LABEL_FONT];
+        _choiceThree.layer.cornerRadius = 5.0;
+        _choiceThree.userInteractionEnabled = YES;
+        _choiceThree.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        _choiceThree.numberOfLines = 0;
+        _choiceThree.layer.masksToBounds = YES;
+        _choiceThree.textAlignment = NSTextAlignmentCenter;
+        [self.contentView addSubview:_choiceThree];
+        
+        _choiceFour = [[UILabel alloc] initWithFrame:CGRectZero];
+        _choiceFour.lineBreakMode =  NSLineBreakByWordWrapping;
+        [_choiceFour setFont:ANSWER_LABEL_FONT];
+        _choiceFour.layer.cornerRadius = 5.0;
+        _choiceFour.userInteractionEnabled = YES;
+        _choiceFour.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        _choiceFour.numberOfLines = 0;
+        _choiceFour.layer.masksToBounds = YES;
+        _choiceFour.textAlignment = NSTextAlignmentCenter;
+        [self.contentView addSubview:_choiceFour];
+        
+        _headline = [[UILabel alloc] initWithFrame:CGRectZero];
+        _headline.lineBreakMode =  NSLineBreakByWordWrapping;
+        [_headline setFont:QUESION_LABEL_FONT];
+        _headline.layer.cornerRadius = 5.0;
+        _headline.userInteractionEnabled = YES;
+        _headline.backgroundColor = [UIColor clearColor];
+        _headline.numberOfLines = 0;
+        [self.contentView addSubview:_headline];
+        
+        _questionImage = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _questionImage.layer.cornerRadius =  5.0;
+        //_questionImage.contentMode = UIViewContentModeScaleAspectFill;
+        
+        // Add to Table View Cell
+        [self.contentView addSubview:_questionImage];
+        
+    }
+    return self;
+}
+
+
 
 - (void)awakeFromNib {
     // Initialization code
     
-    _choiceOne.numberOfLines = 0;
-    _choiceOne.lineBreakMode =  NSLineBreakByWordWrapping;
-    [_choiceOne setFont:[UIFont systemFontOfSize:QUESTION_FONT_SIZE]];
-    _choiceOne.layer.cornerRadius = 5.0;
-    _choiceOne.userInteractionEnabled = YES;
-    _choiceOne.numberOfLines = 0;
     
-    _choiceTwo.numberOfLines = 0;
-    _choiceTwo.lineBreakMode =  NSLineBreakByWordWrapping;
-    [_choiceTwo setFont:[UIFont systemFontOfSize:QUESTION_FONT_SIZE]];
-    _choiceTwo.layer.cornerRadius = 5.0;
-        _choiceTwo.userInteractionEnabled = YES;
-    _choiceTwo.numberOfLines = 0;
-    
-    _choiceThree.numberOfLines = 0;
-    _choiceThree.lineBreakMode =  NSLineBreakByWordWrapping;
-    [_choiceThree setFont:[UIFont systemFontOfSize:QUESTION_FONT_SIZE]];
-    _choiceThree.layer.cornerRadius = 5.0;
-        _choiceThree.userInteractionEnabled = YES;
-    _choiceThree.numberOfLines = 0;
-    
-    _choiceFour.numberOfLines = 0;
-    _choiceFour.lineBreakMode =  NSLineBreakByWordWrapping;
-    [_choiceFour setFont:[UIFont systemFontOfSize:QUESTION_FONT_SIZE]];
-    _choiceFour.layer.cornerRadius = 2.0;
-    _choiceFour.userInteractionEnabled = YES;
-    _choiceFour.numberOfLines = 0;
-    
-    self.headline.numberOfLines = 0;
-    self.headline.lineBreakMode = NSLineBreakByWordWrapping;
-    [self.headline setFont:[UIFont systemFontOfSize:HEAD_LINE_FONT_SIZE]];
     
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 
@@ -76,47 +128,40 @@
     CGFloat screenWidth = aTableView.superview.frame.size.width;
     Question *question = (Question*)aData;
     // Init with base padding
-    float totalHeight = 5;
+    float totalHeight = EXTRA_SPACE;
     
     CGSize maximumLabelSize = CGSizeMake(screenWidth-20,FLT_MAX);
     CGSize expectedLabelSize;
     
-    CGRect rect =  [question.text boundingRectWithSize:maximumLabelSize
-                                            options:NSStringDrawingUsesLineFragmentOrigin
-                                            attributes:@{
-                                                         NSFontAttributeName : [UIFont systemFontOfSize:HEAD_LINE_FONT_SIZE]
-                                                         }
-                                            context:nil];
+    CGRect rect =  [question.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : QUESION_LABEL_FONT } context:nil];
     expectedLabelSize = rect.size;
     
     // Update the Height
     totalHeight = totalHeight + expectedLabelSize.height;
     // Add Padding
-    totalHeight += 10;
+    totalHeight += EXTRA_SPACE;
     
     if (question.image && question.image.src) {
-        totalHeight = THUMB_HEIGHT+1;
+        totalHeight = totalHeight + THUMB_HEIGHT + EXTRA_SPACE;
         // new implementation it will always remian open
     }
     
     for (Answers *answer in question.answers ){
-        CGRect rect =  [answer.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:QUESTION_FONT_SIZE] } context:nil];
+        CGRect rect =  [answer.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : ANSWER_LABEL_FONT } context:nil];
         expectedLabelSize = rect.size;
-        
-        if (expectedLabelSize.height<70) {
-            expectedLabelSize.height = 70;
+        if (expectedLabelSize.height<MINIMUM_LABEL_HEIGHT) {
+            expectedLabelSize.height = MINIMUM_LABEL_HEIGHT;
         }
         totalHeight = totalHeight + expectedLabelSize.height;
-        totalHeight += 10;
+        totalHeight += EXTRA_SPACE;
     }
     
-    return totalHeight;
+    return totalHeight + EXTRA_SPACE;
 }
 
 - (void)createCellForData:(id)aData tableView:(UITableView *)aTableView indexPath:(NSIndexPath *)anIndexPath controller:(id)controller {
     
     [super createCellForData:aData tableView:aTableView indexPath:anIndexPath controller:controller];
-    self.contentView.frame = CGRectMake(0, self.contentView.frame.origin.y, aTableView.frame.size.width, self.contentView.frame.size.height);
     CGFloat screenWidth = aTableView.superview.frame.size.width;
     Question *question = (Question*)aData;
     self.tableView = aTableView;
@@ -125,149 +170,140 @@
     self.indexPath = anIndexPath;
     homeViewController = (ViewController *)controller;
     
-    CGFloat totalHeight = 5;
+    CGFloat totalHeight = EXTRA_SPACE;
     CGSize maximumLabelSize = CGSizeMake(screenWidth - 20,FLT_MAX);
     CGSize expectedLabelSize;
-    NSArray *subViews = self.contentView.subviews;
-    for (id subView in subViews) {
-        if ([subView isKindOfClass:[UIButton class]]) {
-            [subView removeFromSuperview];
-        }
-    }
     
-    [self.headline setFont:[UIFont systemFontOfSize:HEAD_LINE_FONT_SIZE]];
+    
+    //[self.headline setFont:[UIFont systemFontOfSize:QUESION_LABEL_FONT]];
     
     //set Question headline
-    CGRect rect =  [question.text boundingRectWithSize:maximumLabelSize
-                                               options:NSStringDrawingUsesLineFragmentOrigin
-                                            attributes:@{
-                                                         NSFontAttributeName : [UIFont systemFontOfSize:HEAD_LINE_FONT_SIZE]
-                                                         }
-                                               context:nil];
-    expectedLabelSize = rect.size;
+    CGRect rect =  [question.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : QUESION_LABEL_FONT } context:nil];
     
-    if (expectedLabelSize.height > 160) {
-     self.headline.frame = CGRectMake(10, totalHeight, maximumLabelSize.width, 160);
-    }
-    else {
-        self.headline.frame = CGRectMake(10, totalHeight, maximumLabelSize.width, expectedLabelSize.height);
-    }
+    expectedLabelSize = rect.size;
+    self.headline.frame = CGRectMake(X_PADDING, totalHeight, maximumLabelSize.width, expectedLabelSize.height);
     self.headline.text = question.text;
     totalHeight = totalHeight + expectedLabelSize.height;
-    totalHeight = totalHeight + 8;
+    totalHeight = totalHeight + EXTRA_SPACE;
     
     if (question.answers.count==3) {
         _choiceFour.hidden = true;
     }
+    else if (question.answers.count==2) {
+        _choiceFour.hidden = true;
+        _choiceThree.hidden = true;
+    }
     else {
         _choiceFour.hidden = false;
+        _choiceThree.hidden = false;
     }
+    
     
     if (question.image && question.image.src ) {
         self.questionImage.hidden = NO;
-        self.questionImage.frame = CGRectMake(0, totalHeight, screenWidth, THUMB_HEIGHT);
+        self.questionImage.frame = CGRectMake(X_PADDING, totalHeight, THUMB_WIDTH -  20, THUMB_HEIGHT);
         // set the gradient
-         totalHeight = THUMB_HEIGHT+1;
-        NSString *imageURLString = question.image.src;
+        totalHeight = totalHeight + THUMB_HEIGHT + EXTRA_SPACE;
+        
+        NSString *imageURLString = [[UtilityManager sharedInstance]getImageURLForWidth:THUMB_WIDTH-20 height:THUMB_HEIGHT fromURL:question.image.src];
+        //_questionImage.image = [UIImage imageNamed:@"placeholder.png"];
         //Downloading Question image
         [self.questionImage sd_setImageWithURL:[NSURL URLWithString:imageURLString]
-                        placeholderImage:[UIImage imageNamed:@"placeholder.png"]
-                               completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                                   
-                                   if (image &&  [image isKindOfClass:[UIImage class]]) {
-                                       MultipleChoiceButtonTableViewCell *localCell = (MultipleChoiceButtonTableViewCell*)[weakSelf.tableView cellForRowAtIndexPath:anIndexPath];
-                                       if (localCell && [localCell isKindOfClass:[MultipleChoiceButtonTableViewCell class]]) {
-                                           [localCell.questionImage setImage:image];
-                                           //[localCell.questionImage setGradientBackgroundWithStartColor:[UIColor clearColor] endColor:RGBA(0, 0, 0, 0.9)];
-                                       }
-                                   }
-                                   else
-                                   {
-                                       //Need to
-                                   }
-                                   
-                               }];
-        
-        totalHeight = totalHeight + 8 ;
-        
-        if (question.answers && question.answers.count) {
-            // Iterate through the home related objects and fill the view
-            for (int i= 0; i<question.answers.count;i++) {
-                Answers *answer = [question.answers objectAtIndex:i];
-                
-                CGRect rect =  [answer.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:QUESTION_FONT_SIZE] } context:nil];
-                expectedLabelSize = rect.size;
-                if (expectedLabelSize.height<70) {
-                    expectedLabelSize.height = 70;
-                }
-                
-                switch (i) {
-                    case 0:
-                    {
-                        _choiceOne.frame = CGRectMake(8, totalHeight, expectedLabelSize.width, expectedLabelSize.height);
-                        totalHeight = totalHeight + expectedLabelSize.height;
-                        totalHeight += 8;
-                        _choiceOne.text = answer.text;
-                        
-                        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]init];
-                        [tapGesture addTarget:self action:@selector(choiceOneSelected:)];
-                        [_choiceOne addGestureRecognizer:tapGesture];
-                        
-                        
-                    }
-                        break;
-                    case 1:
-                    {
-                        _choiceTwo.frame = CGRectMake(8, totalHeight, expectedLabelSize.width, expectedLabelSize.height);
-                        totalHeight = totalHeight + expectedLabelSize.height;
-                        totalHeight += 8;
-                        _choiceTwo.text = answer.text;
-                        
-                        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]init];
-                        [tapGesture addTarget:self action:@selector(choiceTwoSelected:)];
-                        [_choiceTwo addGestureRecognizer:tapGesture];
-                        
-                    }
-                        break;
-                    case 2:
-                    {
-                        _choiceThree.frame = CGRectMake(8, totalHeight, expectedLabelSize.width, expectedLabelSize.height);
-                        totalHeight = totalHeight + expectedLabelSize.height;
-                        totalHeight += 8;
-                        _choiceThree.text = answer.text;
-                        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]init];
-                        [tapGesture addTarget:self action:@selector(choiceThreeSelected:)];
-                        [_choiceThree addGestureRecognizer:tapGesture];
-                    }
-                        break;
-                    case 3:
-                    {
-                        _choiceFour.frame = CGRectMake(8, totalHeight, expectedLabelSize.width, expectedLabelSize.height);
-                        totalHeight = totalHeight + expectedLabelSize.height;
-                        totalHeight += 8;
-                        _choiceFour.text = answer.text;
-                        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]init];
-                        [tapGesture addTarget:self action:@selector(choiceFourSelected:)];
-                        [_choiceFour addGestureRecognizer:tapGesture];
-                    }
-                        break;
-                        
-                    default:
-                        break;
-                }
-                
-                
-                
-                // Increase totalHeight by HEIGHT_OF_RELATED_VIEW
-                totalHeight = totalHeight + 8;
+                              placeholderImage:[UIImage imageNamed:@"placeholder.png"]
+                                     completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                         
+                                         if (image &&  [image isKindOfClass:[UIImage class]]) {
+                                             image = [[UtilityManager sharedInstance] imageResize:image andResizeTo:CGSizeMake(THUMB_WIDTH -  20, THUMB_HEIGHT)];
+                                             MultipleChoiceButtonTableViewCell *localCell = (MultipleChoiceButtonTableViewCell*)[weakSelf.tableView cellForRowAtIndexPath:anIndexPath];
+                                             if (localCell && [localCell isKindOfClass:[MultipleChoiceButtonTableViewCell class]]) {
+                                                 [localCell.questionImage setImage:image];
+                                             }
+                                         }
+                                         else
+                                         {
+                                             //Need to
+                                         }
+                                         
+                                     }];
+    }
+    if (question.answers && question.answers.count) {
+        // Iterate through the home related objects and fill the view
+        for (int i= 0; i<question.answers.count;i++) {
+            Answers *answer = [question.answers objectAtIndex:i];
+            
+            CGRect rect =  [answer.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : ANSWER_LABEL_FONT } context:nil];
+            expectedLabelSize = rect.size;
+            if (expectedLabelSize.height<MINIMUM_LABEL_HEIGHT) {
+                expectedLabelSize.height = MINIMUM_LABEL_HEIGHT;
             }
+            
+            switch (i) {
+                case 0:
+                {
+                    _choiceOne.frame = CGRectMake(X_PADDING, totalHeight, CHOICE_LABEL_DEFAULT_WIDTH, expectedLabelSize.height);
+                    totalHeight = totalHeight + expectedLabelSize.height;
+                    totalHeight += EXTRA_SPACE;
+                    _choiceOne.text = answer.text;
+                    
+                    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]init];
+                    [tapGesture addTarget:self action:@selector(choiceOneSelected:)];
+                    [_choiceOne addGestureRecognizer:tapGesture];
+                    
+                    
+                }
+                    break;
+                case 1:
+                {
+                    _choiceTwo.frame = CGRectMake(X_PADDING, totalHeight, CHOICE_LABEL_DEFAULT_WIDTH, expectedLabelSize.height);
+                    totalHeight = totalHeight + expectedLabelSize.height;
+                    totalHeight += EXTRA_SPACE;
+                    _choiceTwo.text = answer.text;
+                    
+                    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]init];
+                    [tapGesture addTarget:self action:@selector(choiceTwoSelected:)];
+                    [_choiceTwo addGestureRecognizer:tapGesture];
+                    
+                }
+                    break;
+                case 2:
+                {
+                    _choiceThree.frame = CGRectMake(X_PADDING, totalHeight, CHOICE_LABEL_DEFAULT_WIDTH, expectedLabelSize.height);
+                    totalHeight = totalHeight + expectedLabelSize.height;
+                    totalHeight += EXTRA_SPACE;
+                    _choiceThree.text = answer.text;
+                    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]init];
+                    [tapGesture addTarget:self action:@selector(choiceThreeSelected:)];
+                    [_choiceThree addGestureRecognizer:tapGesture];
+                }
+                    break;
+                case 3:
+                {
+                    _choiceFour.text = answer.text;
+                    _choiceFour.frame = CGRectMake(X_PADDING, totalHeight, CHOICE_LABEL_DEFAULT_WIDTH, expectedLabelSize.height);
+                    totalHeight = totalHeight + expectedLabelSize.height;
+                    totalHeight += EXTRA_SPACE;
+                    
+                    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]init];
+                    [tapGesture addTarget:self action:@selector(choiceFourSelected:)];
+                    [_choiceFour addGestureRecognizer:tapGesture];
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+            
+            
+            // Increase totalHeight by HEIGHT_OF_RELATED_VIEW
+            //totalHeight = totalHeight + 8;
         }
     }
     
-    _choiceOne.backgroundColor = RGB(249, 249, 249);
-    _choiceTwo.backgroundColor = RGB(249, 249, 249);
-    _choiceThree.backgroundColor = RGB(249, 249, 249);
-    _choiceFour.backgroundColor = RGB(249, 249, 249);
+    _choiceOne.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+    _choiceTwo.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+    _choiceThree.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+    _choiceFour.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
     
     for (NSString  *questionID in homeViewController.answerDictionary.allKeys) {
         if ([questionID integerValue] == question.questionID) {
@@ -279,40 +315,40 @@
                         case 0:
                         {
                             _choiceOne.backgroundColor = [UIColor greenColor];
-                            _choiceTwo.backgroundColor = RGB(249, 249, 249);
-                            _choiceThree.backgroundColor = RGB(249, 249, 249);
-                            _choiceFour.backgroundColor = RGB(249, 249, 249);
+                            _choiceTwo.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+                            _choiceThree.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+                            _choiceFour.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
                         }
                             break;
                         case 1:
                         {
                             _choiceTwo.backgroundColor = [UIColor greenColor];
-                            _choiceOne.backgroundColor = RGB(249, 249, 249);
-                            _choiceThree.backgroundColor = RGB(249, 249, 249);
-                            _choiceFour.backgroundColor = RGB(249, 249, 249);
+                            _choiceOne.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+                            _choiceThree.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+                            _choiceFour.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
                         }
                             break;
                         case 2:
                         {
                             _choiceThree.backgroundColor = [UIColor greenColor];
-                            _choiceTwo.backgroundColor = RGB(249, 249, 249);
-                            _choiceOne.backgroundColor = RGB(249, 249, 249);
-                            _choiceFour.backgroundColor = RGB(249, 249, 249);
+                            _choiceTwo.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+                            _choiceOne.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+                            _choiceFour.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
                         }
                             break;
                         case 3:
                         {
                             _choiceFour.backgroundColor = [UIColor greenColor];
-                            _choiceTwo.backgroundColor = RGB(249, 249, 249);
-                            _choiceThree.backgroundColor = RGB(249, 249, 249);
-                            _choiceOne.backgroundColor = RGB(249, 249, 249);
+                            _choiceTwo.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+                            _choiceThree.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+                            _choiceOne.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
                         }
                             break;
                             
                         default:
                             break;
                     }
-                   break;
+                    break;
                 }
                 
             }
@@ -324,57 +360,63 @@
 
 -(void)choiceOneSelected:(UITapGestureRecognizer *)gesture {
     Question *question = (Question *)self.data;
-   // if (homeViewController.answerDictionary.allKeys.count==homeViewController.questionCount) {
-        UILabel *choiceOneLabel =(UILabel *) gesture.view;
-        choiceOneLabel.backgroundColor = [UIColor greenColor];
-        _choiceTwo.backgroundColor = RGB(249, 249, 249);
-        _choiceThree.backgroundColor = RGB(249, 249, 249);
-        _choiceFour.backgroundColor = RGB(249, 249, 249);
-        
-        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers firstObject]];
-   // }
+    // if (homeViewController.answerDictionary.allKeys.count==homeViewController.questionCount) {
+    UILabel *choiceOneLabel =(UILabel *) gesture.view;
+    choiceOneLabel.backgroundColor = [UIColor greenColor];
+    _choiceTwo.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+    _choiceThree.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+    _choiceFour.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+    
+    [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers firstObject]];
+    // }
 }
 -(void)choiceTwoSelected:(UITapGestureRecognizer *)gesture {
     
     if (homeViewController.answerDictionary.allKeys.count!=homeViewController.questionCount) {
-    UILabel *choiceOneLabel =(UILabel *) gesture.view;
-    choiceOneLabel.backgroundColor = [UIColor greenColor];
-    _choiceOne.backgroundColor = RGB(249, 249, 249);
-    _choiceThree.backgroundColor = RGB(249, 249, 249);
-    _choiceFour.backgroundColor = RGB(249, 249, 249);
-    Question *question = (Question *)self.data;
-    [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers objectAtIndex:1]];
+        UILabel *choiceOneLabel =(UILabel *) gesture.view;
+        choiceOneLabel.backgroundColor = [UIColor greenColor];
+        _choiceOne.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        _choiceThree.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        _choiceFour.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        Question *question = (Question *)self.data;
+        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers objectAtIndex:1]];
     }
     
 }
 -(void)choiceThreeSelected:(UITapGestureRecognizer *)gesture {
     
     if (homeViewController.answerDictionary.allKeys.count!=homeViewController.questionCount) {
-    UILabel *choiceOneLabel =(UILabel *) gesture.view;
-    choiceOneLabel.backgroundColor = [UIColor greenColor];
-    _choiceTwo.backgroundColor = RGB(249, 249, 249);
-    _choiceOne.backgroundColor = RGB(249, 249, 249);
-    _choiceFour.backgroundColor = RGB(249, 249, 249);
-    Question *question = (Question *)self.data;
-    [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers objectAtIndex:2]];
+        UILabel *choiceOneLabel =(UILabel *) gesture.view;
+        choiceOneLabel.backgroundColor = [UIColor greenColor];
+        _choiceTwo.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        _choiceOne.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        _choiceFour.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        Question *question = (Question *)self.data;
+        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers objectAtIndex:2]];
     }
 }
 
 -(void)choiceFourSelected:(UITapGestureRecognizer *)gesture {
     
     if (homeViewController.answerDictionary.allKeys.count!=homeViewController.questionCount) {
-    UILabel *choiceOneLabel =(UILabel *) gesture.view;
-    choiceOneLabel.backgroundColor = [UIColor greenColor];
-    _choiceTwo.backgroundColor = RGB(249, 249, 249);
-    _choiceThree.backgroundColor = RGB(249, 249, 249);
-    _choiceOne.backgroundColor = RGB(249, 249, 249);
-    Question *question = (Question *)self.data;
-    [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers objectAtIndex:2]];
+        UILabel *choiceOneLabel =(UILabel *) gesture.view;
+        choiceOneLabel.backgroundColor = [UIColor greenColor];
+        _choiceTwo.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        _choiceThree.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        _choiceOne.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        Question *question = (Question *)self.data;
+        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers objectAtIndex:2]];
     }
-
+    
 }
 
 
 
 
+
+
+
 @end
+
+
+
