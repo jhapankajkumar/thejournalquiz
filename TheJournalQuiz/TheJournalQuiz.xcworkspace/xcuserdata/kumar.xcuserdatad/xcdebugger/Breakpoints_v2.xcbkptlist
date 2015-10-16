@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TheJournalQuiz/View/CustomViews/MultipleChoiceImageTableViewCell/MultipleChoiceImageTableViewCell.m"
-            timestampString = "466713054.589642"
+            timestampString = "466720615.94438"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "443"
-            endingLineNumber = "443"
+            startingLineNumber = "442"
+            endingLineNumber = "442"
             landmarkName = "-choiceFourSelected:"
             landmarkType = "5">
          </BreakpointContent>

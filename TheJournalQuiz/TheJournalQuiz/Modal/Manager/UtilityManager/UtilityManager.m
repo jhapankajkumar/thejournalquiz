@@ -27,7 +27,7 @@
 {
     CGFloat scale = [[UIScreen mainScreen]scale];
     /*You can remove the below comment if you dont want to scale the image in retina   device .Dont forget to comment UIGraphicsBeginImageContextWithOptions*/
-    //UIGraphicsBeginImageContext(newSize);
+    UIGraphicsBeginImageContext(newSize);
     UIGraphicsBeginImageContextWithOptions(newSize, NO, scale);
     //[[UIBezierPath bezierPathWithRoundedRect:CGRectMake(0,0,newSize.width,newSize.height)
                                 //cornerRadius:4.0] addClip];

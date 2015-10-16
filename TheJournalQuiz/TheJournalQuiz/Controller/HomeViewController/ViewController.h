@@ -11,7 +11,10 @@
 @class GenericTableViewCell;
 @class Question;
 @class Answers;
+@class Personas;
+
 @interface ViewController : UIViewController
+
 @property (weak, nonatomic) IBOutlet UITableView *quizListTableView;
 @property (nonatomic,strong) NSMutableDictionary *answerDictionary;
 @property (nonatomic,strong) NSMutableDictionary *scoreDictionary;
@@ -21,5 +24,7 @@
 
 -(void)answerSelectedFromCell:(GenericTableViewCell *)genericCell atIndePath:(NSIndexPath *)indexPath forQuestion:(Question *)aQuestion withAnswer:(Answers *)answer;
 
+-(void)retryQuizAgain:(UIButton *) sender ;
+-(void)shareResultWithData:(Personas *)resultData;
 @end
 

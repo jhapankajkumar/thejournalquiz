@@ -126,7 +126,6 @@
 - (void)createCellForData:(id)aData tableView:(UITableView *)aTableView indexPath:(NSIndexPath *)anIndexPath controller:(id)controller {
     
     [super createCellForData:aData tableView:aTableView indexPath:anIndexPath controller:controller];
-    //self.contentView.frame = CGRectMake(0, self.contentView.frame.origin.y, aTableView.frame.size.width, self.contentView.frame.size.height);
     CGFloat screenWidth = aTableView.superview.frame.size.width;
     Question *question = (Question*)aData;
     self.tableView = aTableView;

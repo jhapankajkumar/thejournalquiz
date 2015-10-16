@@ -15,16 +15,7 @@
 #import <UIImageView+WebCache.h>
 #import "Constant.h"
 #import "ViewController.h"
-
-
-#define HEAD_LINE_FONT_SIZE             18
-#define CAPTION_FONT_SIZE               14
-#define QUESTION_FONT_SIZE              12
-
-
-
-#define THUMB_WIDTH                 [UIScreen mainScreen].bounds.size.width
-#define THUMB_HEIGHT                (THUMB_WIDTH) * 210/320
+#import "UtilityManager.h"
 
 
 @interface PersonaCell () {
@@ -40,22 +31,53 @@
 
 @implementation PersonaCell
 
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        // Initialization code
+        
+        _resultHeadLine = [[UILabel alloc] initWithFrame:CGRectZero];
+        _resultHeadLine.lineBreakMode =  NSLineBreakByWordWrapping;
+        [_resultHeadLine setFont:ANSWER_LABEL_FONT];
+        _resultHeadLine.layer.cornerRadius = 5.0;
+        _resultHeadLine.userInteractionEnabled = YES;
+        _resultHeadLine.backgroundColor = [UIColor clearColor];
+        _resultHeadLine.numberOfLines = 0;
+        _resultHeadLine.layer.masksToBounds = YES;
+        _resultHeadLine.textAlignment = NSTextAlignmentCenter;
+        
+        [self.contentView addSubview:_resultHeadLine];
+        
+        
+        _resultText = [[UILabel alloc] initWithFrame:CGRectZero];
+        _resultText.lineBreakMode =  NSLineBreakByWordWrapping;
+        [_resultText setFont:ANSWER_LABEL_FONT];
+        _resultText.layer.cornerRadius = 5.0;
+        _resultText.userInteractionEnabled = YES;
+        _resultText.backgroundColor = [UIColor clearColor];
+        _resultText.numberOfLines = 0;
+        _resultText.layer.masksToBounds = YES;
+        _resultText.textAlignment = NSTextAlignmentCenter;
+        [self.contentView addSubview:_resultText];
+        
+        _resultImage = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _resultImage.layer.cornerRadius =  5.0;
+        //_questionImage.contentMode = UIViewContentModeScaleAspectFill;
+        
+        // Add to Table View Cell
+        [self.contentView addSubview:_resultImage];
+        
+        //self.contentView.backgroundColor = [UIColor redColor];
+        
+    }
+    return self;
+}
+
 - (void)awakeFromNib {
     // Initialization code
     
-    _resultHeadLine.numberOfLines = 0;
-    _resultHeadLine.lineBreakMode =  NSLineBreakByWordWrapping;
-    [_resultHeadLine setFont:[UIFont systemFontOfSize:QUESTION_FONT_SIZE]];
-    _resultHeadLine.layer.cornerRadius = 5.0;
-    _resultHeadLine.userInteractionEnabled = YES;
-    _resultHeadLine.numberOfLines = 0;
     
-    _resultText.numberOfLines = 0;
-    _resultText.lineBreakMode =  NSLineBreakByWordWrapping;
-    [_resultText setFont:[UIFont systemFontOfSize:QUESTION_FONT_SIZE]];
-    _resultText.layer.cornerRadius = 5.0;
-    _resultText.userInteractionEnabled = YES;
-    _resultText.numberOfLines = 0;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -69,58 +91,79 @@
     CGFloat screenWidth = aTableView.superview.frame.size.width;
     
     ViewController *viewController = (ViewController *)controller;
-    float totalHeight = 0;
     Personas *persona = (Personas*)aData;
-    totalHeight += 10;
-    totalHeight = THUMB_HEIGHT+1;
+    
+    float totalHeight = EXTRA_SPACE;
+
     CGSize maximumLabelSize = CGSizeMake(screenWidth-20,FLT_MAX);
     CGSize expectedLabelSize;
+    
+    //if all question has been answered
     if (viewController.answerDictionary.allKeys.count != viewController.questionCount) {
         
         //Headline Text
-        CGRect rect =  [persona.title boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:HEAD_LINE_FONT_SIZE]} context:nil];
+        CGRect rect =  [persona.title boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : QUESION_LABEL_FONT} context:nil];
         expectedLabelSize = rect.size;
-        if (expectedLabelSize.height<70) {
-            expectedLabelSize.height = 70;
+        
+        if (expectedLabelSize.height<MINIMUM_LABEL_HEIGHT) {
+            expectedLabelSize.height = MINIMUM_LABEL_HEIGHT;
         }
-        totalHeight = totalHeight + 10 + expectedLabelSize.height;
+        totalHeight = totalHeight + expectedLabelSize.height;
+        totalHeight = totalHeight +  EXTRA_SPACE;
+        
+        //persona Image
+        totalHeight =  totalHeight + THUMB_HEIGHT;
+        totalHeight = totalHeight + EXTRA_SPACE;
         
         //Descrptive Text
-         rect =  [persona.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:HEAD_LINE_FONT_SIZE]} context:nil];
+         rect =  [persona.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : ANSWER_LABEL_FONT} context:nil];
         
         expectedLabelSize = rect.size;
-        if (expectedLabelSize.height<70) {
-            expectedLabelSize.height = 70;
+        if (expectedLabelSize.height<MINIMUM_LABEL_HEIGHT) {
+            expectedLabelSize.height = MINIMUM_LABEL_HEIGHT;
         }
-        totalHeight = totalHeight + 10 + expectedLabelSize.height;
-        //Share Button/ Try Again Button
-        totalHeight = totalHeight + 10 + 40;
+        totalHeight = totalHeight + expectedLabelSize.height;
+        totalHeight = totalHeight + EXTRA_SPACE;
+        
+        //Share Button
+        totalHeight = totalHeight + MINIMUM_LABEL_HEIGHT;
+        totalHeight = totalHeight + EXTRA_SPACE;
+        
+        // Try Again Button
+        totalHeight = totalHeight + MINIMUM_LABEL_HEIGHT;
+        totalHeight = totalHeight + EXTRA_SPACE;
+        
     }
     else {
         //Headline Text
-        CGRect rect =  [PERSONA_INFORMATION_TEXT boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:HEAD_LINE_FONT_SIZE] } context:nil];
+        CGRect rect =  [PERSONA_INFORMATION_TEXT boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : QUESION_LABEL_FONT } context:nil];
         
         expectedLabelSize = rect.size;
-        if (expectedLabelSize.height<70) {
-            expectedLabelSize.height = 70;
+        if (expectedLabelSize.height<MINIMUM_LABEL_HEIGHT) {
+            expectedLabelSize.height = MINIMUM_LABEL_HEIGHT;
         }
-        totalHeight = totalHeight + 10 + expectedLabelSize.height;
+        totalHeight = totalHeight  + expectedLabelSize.height;
+        totalHeight = totalHeight + EXTRA_SPACE;
+        
+        //for blank image placeholder
+        
+        totalHeight = totalHeight + THUMB_HEIGHT + EXTRA_SPACE;
+        
     }
-    
-        // new implementation it will always remian open
-    return totalHeight;
+    return totalHeight + EXTRA_SPACE;
 }
 
 - (void)createCellForData:(id)aData tableView:(UITableView *)aTableView indexPath:(NSIndexPath *)anIndexPath controller:(id)controller {
     
     [super createCellForData:aData tableView:aTableView indexPath:anIndexPath controller:controller];
-    self.contentView.frame = CGRectMake(0, self.contentView.frame.origin.y, aTableView.frame.size.width, self.contentView.frame.size.height);
-    CGFloat screenWidth = aTableView.superview.frame.size.width;
+    
     self.tableView = aTableView;
     self.data = aData;
     self.indexPath = anIndexPath;
-    CGFloat totalHeight = 10;
-    CGSize maximumLabelSize = CGSizeMake(screenWidth - 20,FLT_MAX);
+    self.controller = controller;
+    
+    CGFloat totalHeight = EXTRA_SPACE;
+    CGSize maximumLabelSize = CGSizeMake(CHOICE_LABEL_DEFAULT_WIDTH,FLT_MAX);
     CGSize expectedLabelSize;
         for (id subView in self.contentView.subviews) {
             if ([subView isKindOfClass:[UIButton class]]) {
@@ -130,13 +173,30 @@
     
     ViewController *viewController = (ViewController *)controller;
     Personas *persona = (Personas*)aData;
+    
+    //if all question has been answered
     if (viewController.answerDictionary.allKeys.count != viewController.questionCount) {
         
+        
+        //Headline Text
+        CGRect rect =  [persona.title boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : QUESION_LABEL_FONT } context:nil];
+        
+        expectedLabelSize = rect.size;
+        if (expectedLabelSize.height<MINIMUM_LABEL_HEIGHT) {
+            expectedLabelSize.height = MINIMUM_LABEL_HEIGHT;
+        }
+        self.resultHeadLine.text = persona.title;
+        self.resultHeadLine.frame = CGRectMake(X_PADDING, totalHeight, CHOICE_LABEL_DEFAULT_WIDTH, expectedLabelSize.height);
+    
+        totalHeight = totalHeight + expectedLabelSize.height;
+        totalHeight = totalHeight + EXTRA_SPACE;
+        
         //Get Persona Image
-        self.resultImage.hidden = NO;
-        self.resultImage.frame = CGRectMake(8, totalHeight, screenWidth, THUMB_HEIGHT);
-        totalHeight = THUMB_HEIGHT+1;
-        NSString *imageURLString = persona.image.src;
+        self.resultImage.frame = CGRectMake(X_PADDING, totalHeight, CHOICE_LABEL_DEFAULT_WIDTH , THUMB_HEIGHT);
+        totalHeight = totalHeight + THUMB_HEIGHT;
+        totalHeight = totalHeight + EXTRA_SPACE;
+        
+        NSString *imageURLString = [[UtilityManager sharedInstance]getImageURLForWidth:CHOICE_LABEL_DEFAULT_WIDTH height:THUMB_HEIGHT fromURL:persona.image.src];
         __weak __typeof(&*self)weakcell = self;
         //Downloading Question image
         [self.resultImage sd_setImageWithURL:[NSURL URLWithString:imageURLString]
@@ -144,10 +204,11 @@
                                      completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                                          
                                          if (image &&  [image isKindOfClass:[UIImage class]]) {
+                                             image = [[UtilityManager sharedInstance] imageResize:image andResizeTo:CGSizeMake(CHOICE_LABEL_DEFAULT_WIDTH, THUMB_HEIGHT)];
+                                             
                                              PersonaCell *localCell = (PersonaCell*)[weakcell.tableView cellForRowAtIndexPath:anIndexPath];
                                              if (localCell && [localCell isKindOfClass:[PersonaCell class]]) {
                                                  [localCell.resultImage setImage:image];
-                                                 //[localCell.questionImage setGradientBackgroundWithStartColor:[UIColor clearColor] endColor:RGBA(0, 0, 0, 0.9)];
                                              }
                                          }
                                          else
@@ -155,95 +216,73 @@
                                              //Need to
                                          }
                                      }];
-        
-        totalHeight = totalHeight + 8 ;
-        
-        
-        //Headline Text
-        CGRect rect =  [persona.title boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:HEAD_LINE_FONT_SIZE] } context:nil];
-        
-        expectedLabelSize = rect.size;
-        if (expectedLabelSize.height<70) {
-            expectedLabelSize.height = 70;
-        }
-        self.resultHeadLine.text = persona.title;
-        self.resultHeadLine.frame = CGRectMake(8, totalHeight, screenWidth, expectedLabelSize.height);
-
-        totalHeight = totalHeight + 10 + expectedLabelSize.height;
-        
         //Descrptive Text
-        rect =  [persona.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:HEAD_LINE_FONT_SIZE]} context:nil];
-        
+        rect =  [persona.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : ANSWER_LABEL_FONT} context:nil];
+
         expectedLabelSize = rect.size;
-        if (expectedLabelSize.height<70) {
-            expectedLabelSize.height = 70;
-            
+        if (expectedLabelSize.height<MINIMUM_LABEL_HEIGHT) {
+            expectedLabelSize.height = MINIMUM_LABEL_HEIGHT;
         }
+        
         self.resultText.hidden = false;
         self.resultText.text = persona.text;
-        self.resultText.frame = CGRectMake(8, totalHeight, screenWidth, expectedLabelSize.height);
-        totalHeight = totalHeight + 10 + expectedLabelSize.height;
+        self.resultText.frame = CGRectMake(X_PADDING, totalHeight, CHOICE_LABEL_DEFAULT_WIDTH, expectedLabelSize.height);
+        totalHeight = totalHeight +  expectedLabelSize.height;
+        totalHeight = totalHeight + EXTRA_SPACE;
+        
         
         shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        shareButton.frame = CGRectMake(8, totalHeight, 100, 35);
-        [shareButton setTitle:@"Share" forState:UIControlStateNormal];
+        shareButton.frame = CGRectMake(X_PADDING, totalHeight, CHOICE_LABEL_DEFAULT_WIDTH, MINIMUM_LABEL_HEIGHT);
+        [shareButton setTitle:@"Share your result" forState:UIControlStateNormal];
+        shareButton.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
         [shareButton addTarget:self action:@selector(shareQuiz:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:shareButton];
         
+        totalHeight = totalHeight + MINIMUM_LABEL_HEIGHT;
+        totalHeight = totalHeight + EXTRA_SPACE;
+        
+        
         tryAgainQuizButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        tryAgainQuizButton.frame = CGRectMake(screenWidth-108, totalHeight, 100, 35);
+        tryAgainQuizButton.frame = CGRectMake(X_PADDING, totalHeight,CHOICE_LABEL_DEFAULT_WIDTH, MINIMUM_LABEL_HEIGHT);
         [tryAgainQuizButton setTitle:@"Try Again" forState:UIControlStateNormal];
-        [tryAgainQuizButton addTarget:controller action:@selector(tryAgainQuiz:) forControlEvents:UIControlEventTouchUpInside];
+        tryAgainQuizButton.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        [tryAgainQuizButton addTarget:self action:@selector(tryAgainQuiz:) forControlEvents:UIControlEventTouchUpInside];
+        
+        totalHeight = totalHeight + MINIMUM_LABEL_HEIGHT;
+        totalHeight = totalHeight + EXTRA_SPACE;
         
         [self.contentView addSubview:tryAgainQuizButton];
         
         //Share Button/ Try Again Button
     }
     else {
-        
-        self.resultImage.image = [UIImage imageNamed:@"placeholder.png"];
-        
         self.resultText.hidden = true;
         //Headline Text
-        CGRect rect =  [PERSONA_INFORMATION_TEXT boundingRectWithSize:maximumLabelSize
-                                                              options:NSStringDrawingUsesLineFragmentOrigin
-                                                           attributes:@{
-                                                                        NSFontAttributeName : [UIFont systemFontOfSize:HEAD_LINE_FONT_SIZE]
-                                                                        }
-                                                              context:nil];
+        CGRect rect =  [PERSONA_INFORMATION_TEXT boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : QUESION_LABEL_FONT } context:nil];
         expectedLabelSize = rect.size;
-        if (expectedLabelSize.height<70) {
-            expectedLabelSize.height = 70;
+        if (expectedLabelSize.height<MINIMUM_LABEL_HEIGHT) {
+            expectedLabelSize.height = MINIMUM_LABEL_HEIGHT;
         }
         self.resultHeadLine.text = PERSONA_INFORMATION_TEXT;
-        self.resultHeadLine.frame = CGRectMake(8, totalHeight, screenWidth, expectedLabelSize.height);
-        totalHeight = totalHeight + 10 + expectedLabelSize.height;
+        self.resultHeadLine.frame = CGRectMake(X_PADDING, totalHeight, CHOICE_LABEL_DEFAULT_WIDTH, expectedLabelSize.height);
+        totalHeight = totalHeight +  expectedLabelSize.height;
+        totalHeight = totalHeight + EXTRA_SPACE;
+        
+        self.resultImage.frame = CGRectMake(X_PADDING, totalHeight, CHOICE_LABEL_DEFAULT_WIDTH, THUMB_HEIGHT);
+        self.resultImage.image = [UIImage imageNamed:@"placeholder.png"];
     }
-    
-    
-//    //set Question headLine
-//    CGRect rect =  [question.text boundingRectWithSize:maximumLabelSize
-//                                               options:NSStringDrawingUsesLineFragmentOrigin
-//                                            attributes:@{
-//                                                         NSFontAttributeName : [UIFont systemFontOfSize:HEAD_LINE_FONT_SIZE]
-//                                                         }
-//                                               context:nil];
-//    expectedLabelSize = rect.size;
-//    
-//    if (expectedLabelSize.height > 160) {
-//        self.headLine.frame = CGRectMake(10, totalHeight, maximumLabelSize.width, 160);
-//    }
-//    else {
-//        self.headLine.frame = CGRectMake(10, totalHeight, maximumLabelSize.width, expectedLabelSize.height);
-//    }
-//    self.headLine.text = question.text;
-//    totalHeight = totalHeight + expectedLabelSize.height;
-//    totalHeight = totalHeight + 8;
-//
     
 }
 
 
 - (void)shareQuiz:(UIButton *)sender {
+ 
+    [(ViewController *)self.controller shareResultWithData:(Personas *)self.data];
+    
 }
+
+- (void)tryAgainQuiz:(UIButton *)sender {
+    [(ViewController *)self.controller retryQuizAgain:sender];
+}
+
 @end

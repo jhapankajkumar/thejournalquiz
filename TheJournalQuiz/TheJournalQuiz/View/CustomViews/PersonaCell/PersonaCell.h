@@ -10,9 +10,9 @@
 #import "GenericTableViewCell.h"
 
 @interface PersonaCell : GenericTableViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *resultImage;
-@property (weak, nonatomic) IBOutlet UILabel *resultHeadLine;
-@property (weak, nonatomic) IBOutlet UILabel *resultText;
+@property (strong, nonatomic)  UIImageView *resultImage;
+@property (strong, nonatomic)  UILabel *resultHeadLine;
+@property (strong, nonatomic)  UILabel *resultText;
 
 
 @end

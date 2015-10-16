@@ -62,17 +62,11 @@
     
     //registering tableview cells
     [_quizListTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    //[_quizListTableView registerNib:[UINib nibWithNibName:@"MultipleChoiceImageTableViewCell" bundle:nil] forCellReuseIdentifier:@"MultipleChoiceImageTableViewCell"];
+
     
     [_quizListTableView registerClass:NSClassFromString(@"MultipleChoiceImageTableViewCell") forCellReuseIdentifier:@"MultipleChoiceImageTableViewCell"];
-    
-    [_quizListTableView registerNib:[UINib nibWithNibName:@"YesNoButtonTableViewCell" bundle:nil] forCellReuseIdentifier:@"YesNoButtonTableViewCell"];
-    [_quizListTableView registerNib:[UINib nibWithNibName:@"YesNoImageTableViewCell" bundle:nil] forCellReuseIdentifier:@"YesNoImageTableViewCell"];
-    //[_quizListTableView registerNib:[UINib nibWithNibName:@"MultipleChoiceButtonTableViewCell" bundle:nil] forCellReuseIdentifier:@"MultipleChoiceButtonTableViewCell"];
-    
     [_quizListTableView registerClass:NSClassFromString(@"MultipleChoiceButtonTableViewCell") forCellReuseIdentifier:@"MultipleChoiceButtonTableViewCell"];
-    
-    [_quizListTableView registerNib:[UINib nibWithNibName:@"PersonaCell" bundle:nil] forCellReuseIdentifier:@"PersonaCell"];
+    [_quizListTableView registerClass:NSClassFromString(@"PersonaCell") forCellReuseIdentifier:@"PersonaCell"];
 }
 
 -(void)setUpTableViewCellInformation {
@@ -81,33 +75,16 @@
     nibOrClassNameArray = [NSMutableArray new];
     
     for (Question *questions in self.quizData.questions){
-        if (questions.answers.count==4 || questions.answers.count==3) {
-            
-            Answers *answer =(Answers *) [questions.answers objectAtIndex:0];
-            if (answer.image) {
-                [nibOrClassNameArray addObject:@"MultipleChoiceImageTableViewCell"];
-                //[dataItemArray addObject:questions];
-            }
-            else {
-                [nibOrClassNameArray addObject:@"MultipleChoiceButtonTableViewCell"];
-                //[dataItemArray addObject:questions];
-            }
-        }
-        else if (questions.answers.count == 2) {
-            Answers *answer =(Answers *) [questions.answers objectAtIndex:0];
-            if (answer.image) {
-                [nibOrClassNameArray addObject:@"MultipleChoiceImageTableViewCell"];
-                //[dataItemArray addObject:questions];
-            }
-            else {
-                [nibOrClassNameArray addObject:@"MultipleChoiceButtonTableViewCell"];
-                //[dataItemArray addObject:questions];
-            }
-        }
-        else {
-            NSLog(@"No Count %@",questions);
-        }
         
+            Answers *answer =(Answers *) [questions.answers objectAtIndex:0];
+            if (answer.image) {
+                [nibOrClassNameArray addObject:@"MultipleChoiceImageTableViewCell"];
+                //[dataItemArray addObject:questions];
+            }
+            else {
+                [nibOrClassNameArray addObject:@"MultipleChoiceButtonTableViewCell"];
+                //[dataItemArray addObject:questions];
+            }
         [dataItemArray addObject:questions];
     }
     
@@ -219,11 +196,29 @@
     return [score floatValue];
 }
 
--(void)tryAgainQuiz:(UIButton *) sender {
+-(void)retryQuizAgain:(UIButton *) sender {
     
     [self.answerDictionary removeAllObjects];
     [self.scoreDictionary removeAllObjects];
+    [self.quizListTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
     [self.quizListTableView reloadData];
+}
+
+-(void)shareResultWithData:(Personas *)resultData {
+    
+    
+    
+   NSArray *objectsToShare = @[resultData.image.src,resultData.social];
+    
+    UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
+    
+    NSArray *excludedActivities = @[
+                                    UIActivityTypePostToWeibo,
+                                    UIActivityTypeAddToReadingList, UIActivityTypePostToFlickr,
+                                    UIActivityTypePostToVimeo, UIActivityTypePostToTencentWeibo];
+    controller.excludedActivityTypes = excludedActivities;
+    
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 
@@ -259,10 +254,7 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-}
+
 
 
 //-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
