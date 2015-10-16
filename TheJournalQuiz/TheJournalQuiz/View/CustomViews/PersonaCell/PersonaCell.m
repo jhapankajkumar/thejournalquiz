@@ -63,6 +63,7 @@
         
         _resultImage = [[UIImageView alloc] initWithFrame:CGRectZero];
         _resultImage.layer.cornerRadius =  5.0;
+        [_resultImage setContentMode:UIViewContentModeScaleAspectFit];
         //_questionImage.contentMode = UIViewContentModeScaleAspectFill;
         
         // Add to Table View Cell
@@ -99,7 +100,7 @@
     CGSize expectedLabelSize;
     
     //if all question has been answered
-    if (viewController.answerDictionary.allKeys.count != viewController.questionCount) {
+    if (viewController.answerDictionary.allKeys.count == viewController.questionCount) {
         
         //Headline Text
         CGRect rect =  [persona.title boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : QUESION_LABEL_FONT} context:nil];
@@ -175,7 +176,7 @@
     Personas *persona = (Personas*)aData;
     
     //if all question has been answered
-    if (viewController.answerDictionary.allKeys.count != viewController.questionCount) {
+    if (viewController.answerDictionary.allKeys.count == viewController.questionCount) {
         
         
         //Headline Text
@@ -192,7 +193,7 @@
         totalHeight = totalHeight + EXTRA_SPACE;
         
         //Get Persona Image
-        self.resultImage.frame = CGRectMake(X_PADDING, totalHeight, CHOICE_LABEL_DEFAULT_WIDTH , THUMB_HEIGHT);
+        self.resultImage.frame = CGRectMake(X_PADDING+X_PADDING, totalHeight, CHOICE_LABEL_DEFAULT_WIDTH-20 , THUMB_HEIGHT);
         totalHeight = totalHeight + THUMB_HEIGHT;
         totalHeight = totalHeight + EXTRA_SPACE;
         
@@ -268,7 +269,7 @@
         totalHeight = totalHeight +  expectedLabelSize.height;
         totalHeight = totalHeight + EXTRA_SPACE;
         
-        self.resultImage.frame = CGRectMake(X_PADDING, totalHeight, CHOICE_LABEL_DEFAULT_WIDTH, THUMB_HEIGHT);
+        self.resultImage.frame = CGRectMake(X_PADDING+X_PADDING, totalHeight, CHOICE_LABEL_DEFAULT_WIDTH-20, THUMB_HEIGHT);
         self.resultImage.image = [UIImage imageNamed:@"placeholder.png"];
     }
     

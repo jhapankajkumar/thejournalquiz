@@ -21,6 +21,7 @@
 @property (nonatomic,strong) ResponseData *quizData;
 
 @property (nonatomic) NSInteger questionCount;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicator;
 
 -(void)answerSelectedFromCell:(GenericTableViewCell *)genericCell atIndePath:(NSIndexPath *)indexPath forQuestion:(Question *)aQuestion withAnswer:(Answers *)answer;
 

@@ -30,16 +30,17 @@
     
     [self initialSetup];
     DataFetchManager *manager =     [[DataFetchManager  alloc]init];
-    
+    self.quizListTableView.hidden = true;
     [manager getQuizDataFromServerWithCompletionBlock:^(ResponseData* responseData, BOOL success, NSError *error) {
-        
         if (success) {
             self.quizData = responseData;
             [self setUpTableViewCellInformation];
             self.questionCount = self.quizData.questions.count;
+            self.quizListTableView.hidden  = false;
+            self.loadingIndicator.hidden = true;
         }
         else {
-            
+            self.loadingIndicator.hidden = true;
         }
     }];
     
@@ -61,7 +62,7 @@
 -(void)initialSetup {
     
     //registering tableview cells
-    [_quizListTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    //[_quizListTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 
     
     [_quizListTableView registerClass:NSClassFromString(@"MultipleChoiceImageTableViewCell") forCellReuseIdentifier:@"MultipleChoiceImageTableViewCell"];
@@ -173,11 +174,10 @@
         }
         for (Personas* persona in self.quizData.personas) {
             if (persona.personaID==personaID) {
-                
                 [dataItemArray removeLastObject];
                 [dataItemArray addObject:persona];
                 [self.quizListTableView beginUpdates];
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.quizData.questions.count-1 inSection:0];
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.quizData.questions.count inSection:0];
                 [self.quizListTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                 [self.quizListTableView endUpdates];
             }
@@ -200,7 +200,7 @@
     
     [self.answerDictionary removeAllObjects];
     [self.scoreDictionary removeAllObjects];
-    [self.quizListTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+    [self.quizListTableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
     [self.quizListTableView reloadData];
 }
 
@@ -208,7 +208,7 @@
     
     
     
-   NSArray *objectsToShare = @[resultData.image.src,resultData.social];
+   NSArray *objectsToShare = @[resultData.social,resultData.image.src];
     
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
     
@@ -218,7 +218,52 @@
                                     UIActivityTypePostToVimeo, UIActivityTypePostToTencentWeibo];
     controller.excludedActivityTypes = excludedActivities;
     
+    [controller setCompletionHandler:^(NSString *activityType, BOOL completed)
+     {
+         NSMutableString *messageString = [[NSMutableString alloc]initWithCapacity:0];
+         if ([activityType isEqualToString:@"com.apple.UIKit.activity.SaveToCameraRoll"])
+         {
+             [messageString appendString:@"Image Saved"];
+         }
+         else if ([activityType isEqualToString:@"com.apple.UIKit.activity.PostToTwitter"])
+         {
+             [messageString appendString:@"Image posted to twitter"];
+         }
+         else if ([activityType isEqualToString:@"com.apple.UIKit.activity.Mail"])
+         {
+             [messageString appendString:@"Image sent by email"];
+         }
+         else if ([activityType isEqualToString:@"com.apple.UIKit.activity.CopyToPasteboard"])
+         {
+             [messageString appendString:@"Image copied to pasteboard"];
+         }
+         else if ([activityType isEqualToString:@"com.apple.UIKit.activity.AssignToContact"])
+         {
+             [messageString appendString:@"Image assigned to contact"];
+         }
+         else if ([activityType isEqualToString:@"com.apple.UIKit.activity.Message"])
+         {
+             [messageString appendString:@"Image sent via message"];
+         }
+         else if ([activityType isEqualToString:@"com.apple.UIKit.activity.Print"])
+         {
+             [messageString appendString:@"Image sent to printer"];
+         }
+         
+         if (completed == TRUE)
+         {
+             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Success!" message:messageString delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+             [alert show];
+
+         }
+         
+         
+         
+     }];
+    // Present the controller
     [self presentViewController:controller animated:YES completion:nil];
+    
+    
 }
 
 
@@ -257,24 +302,24 @@
 
 
 
-//-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-//{
-//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 40)];
-//    /* Create custom view to display section header... */
-//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, tableView.frame.size.width, 30)];
-//    [label setFont:[UIFont boldSystemFontOfSize:18]];
-//    NSString *string = self.quizData.title;
-//    /* Section header is in 0th index... */
-//    [label setText:string];
-//    [view addSubview:label];
-//    [view setBackgroundColor:[UIColor colorWithRed:166/255.0 green:177/255.0 blue:186/255.0 alpha:1.0]]; //your background color...
-//    return view;
-//}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    
-    return self.quizData.title;
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 20)];
+    /* Create custom view to display section header... */
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, tableView.frame.size.width, 20)];
+    [label setFont:[UIFont boldSystemFontOfSize:18]];
+    NSString *string = self.quizData.title;
+    /* Section header is in 0th index... */
+    [label setText:string];
+    [view addSubview:label];
+    [view setBackgroundColor:[UIColor colorWithRed:166/255.0 green:177/255.0 blue:186/255.0 alpha:1.0]]; //your background color...
+    return view;
 }
+
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+//    
+//    return self.quizData.title;
+//}
 
 #pragma mark - Table view delegate
 
