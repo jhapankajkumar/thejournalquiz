@@ -399,7 +399,7 @@
         _choiceThreeView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
         _choiceFourView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
         
-        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers firstObject]];
+        [(ViewController*)homeViewController selectedAnswer:[question.answers firstObject] atIndePath:self.indexPath forQuestion:question];
     }
 }
 
@@ -412,7 +412,7 @@
         _choiceThreeView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
         _choiceFourView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
         Question *question = (Question *)self.data;
-        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers objectAtIndex:1]];
+        [(ViewController*)homeViewController selectedAnswer:[question.answers objectAtIndex:1] atIndePath:self.indexPath forQuestion:question];
     }
     
 }
@@ -426,7 +426,7 @@
         _choiceOneView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
         _choiceFourView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
         Question *question = (Question *)self.data;
-        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers objectAtIndex:2]];
+        [(ViewController*)homeViewController selectedAnswer:[question.answers objectAtIndex:2] atIndePath:self.indexPath forQuestion:question ];
     }
 }
 
@@ -439,7 +439,7 @@
         _choiceThreeView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
         _choiceOneView.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
         Question *question = (Question *)self.data;
-        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers objectAtIndex:3]];
+        [(ViewController*)homeViewController selectedAnswer:[question.answers objectAtIndex:3] atIndePath:self.indexPath forQuestion:question];
     }
     
 }

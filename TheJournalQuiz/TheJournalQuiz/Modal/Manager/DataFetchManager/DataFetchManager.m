@@ -25,21 +25,20 @@
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:url];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     [manager.requestSerializer setAuthorizationHeaderFieldWithUsername:ClientID password:Password];
-    NSError *err;
-    NSMutableURLRequest *req = [manager.requestSerializer requestWithMethod:@"GET" URLString:BaseURL parameters:nil error:&err];
-    // 2
+    NSError *error;
+    NSMutableURLRequest *req = [manager.requestSerializer requestWithMethod:@"GET" URLString:BaseURL parameters:nil error:&error];
+
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:req];
     operation.responseSerializer = [AFJSONResponseSerializer serializer];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+        //check if data is recieved from server
         BOOL   status =  [[responseObject objectForKey:@"status"] boolValue];
-        if (status) {
-                NSDictionary *response = (NSDictionary *)responseObject;
-                ResponseResult *result = [[ResponseResult alloc] initWithDictionary: response error:nil];
-                //NSLog(@"Result %@",result);
-
+        //if status is true
+        if (status == true) {
+            NSDictionary *response = (NSDictionary *)responseObject;
+            ResponseResult *result = [[ResponseResult alloc] initWithDictionary: response error:nil];
             dispatch_async(dispatch_get_main_queue(), ^{
-              completionBlock(result.response,YES,nil);
+                completionBlock(result.response,YES,nil);
             });
         }
         

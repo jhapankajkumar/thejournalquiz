@@ -32,7 +32,7 @@
     DataFetchManager *manager =     [[DataFetchManager  alloc]init];
     self.quizListTableView.hidden = true;
     [manager getQuizDataFromServerWithCompletionBlock:^(ResponseData* responseData, BOOL success, NSError *error) {
-        if (success) {
+        if (!success) {
             self.quizData = responseData;
             [self setUpTableViewCellInformation];
             self.questionCount = self.quizData.questions.count;
@@ -40,6 +40,8 @@
             self.loadingIndicator.hidden = true;
         }
         else {
+            UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Quiz" message:@"Oops something went wrong, please check you internet connection and try later" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alertView show];
             self.loadingIndicator.hidden = true;
         }
     }];
@@ -100,7 +102,7 @@
     [self.quizListTableView reloadData];
 }
 
--(void)answerSelectedFromCell:(GenericTableViewCell *)genericCell atIndePath:(NSIndexPath *)indexPath forQuestion:(Question *)aQuestion withAnswer:(Answers *)answer {
+-(void)selectedAnswer:(Answers *)answer  atIndePath:(NSIndexPath *)indexPath forQuestion:(Question *)aQuestion {
     
     //get User answer if any saved .
     UserAnswer *userAnswer = [self.answerDictionary objectForKey:[self getStringFromIntegerValue:aQuestion.questionID]];
@@ -256,9 +258,6 @@
              [alert show];
 
          }
-         
-         
-         
      }];
     // Present the controller
     [self presentViewController:controller animated:YES completion:nil];

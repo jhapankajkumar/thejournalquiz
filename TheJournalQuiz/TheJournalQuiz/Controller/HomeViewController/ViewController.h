@@ -23,9 +23,12 @@
 @property (nonatomic) NSInteger questionCount;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicator;
 
--(void)answerSelectedFromCell:(GenericTableViewCell *)genericCell atIndePath:(NSIndexPath *)indexPath forQuestion:(Question *)aQuestion withAnswer:(Answers *)answer;
 
+-(void)selectedAnswer:(Answers *)answer  atIndePath:(NSIndexPath *)indexPath forQuestion:(Question *)aQuestion;
+//Method to retry quiz
 -(void)retryQuizAgain:(UIButton *) sender ;
+
+//Method to share quize result data
 -(void)shareResultWithData:(Personas *)resultData;
 @end
 

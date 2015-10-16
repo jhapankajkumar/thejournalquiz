@@ -333,7 +333,7 @@
     Question *question = (Question *)self.data;
     if (homeViewController.answerDictionary.allKeys.count != homeViewController.questionCount) {
         [self setColorLabelsIfChoiceOneSelected];
-        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers firstObject]];
+        [(ViewController*)homeViewController selectedAnswer:[question.answers firstObject] atIndePath:self.indexPath forQuestion:question];
     }
 }
 -(void)choiceTwoSelected:(UITapGestureRecognizer *)gesture {
@@ -341,7 +341,7 @@
     if (homeViewController.answerDictionary.allKeys.count != homeViewController.questionCount) {
         [self setColorLabelsIfChoiceTwoSelected];
         Question *question = (Question *)self.data;
-        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers objectAtIndex:1]];
+        [(ViewController*)homeViewController selectedAnswer:[question.answers objectAtIndex:1] atIndePath:self.indexPath forQuestion:question];
     }
     
 }
@@ -350,7 +350,7 @@
     if (homeViewController.answerDictionary.allKeys.count != homeViewController.questionCount) {
         [self setColorLabelsIfChoiceThreeSelected];
         Question *question = (Question *)self.data;
-        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers objectAtIndex:2]];
+        [(ViewController*)homeViewController selectedAnswer:[question.answers objectAtIndex:2] atIndePath:self.indexPath forQuestion:question];
     }
 }
 
@@ -359,7 +359,7 @@
     if (homeViewController.answerDictionary.allKeys.count!=homeViewController.questionCount) {
         [self setColorLabelsIfChoiceFourSelected];
         Question *question = (Question *)self.data;
-        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers objectAtIndex:3]];
+        [(ViewController*)homeViewController selectedAnswer:[question.answers objectAtIndex:3] atIndePath:self.indexPath forQuestion:question];
     }
 }
 
