@@ -27,6 +27,13 @@
 #define THUMB_HEIGHT                (THUMB_WIDTH) * 210/320
 
 
+@interface PersonaCell () {
+    UIButton *shareButton;
+    UIButton *tryAgainQuizButton;
+}
+
+@end
+
 @interface PersonaCell ()
 @property (nonatomic,strong) ViewController* homeViewController;
 @end
@@ -115,6 +122,11 @@
     CGFloat totalHeight = 10;
     CGSize maximumLabelSize = CGSizeMake(screenWidth - 20,FLT_MAX);
     CGSize expectedLabelSize;
+        for (id subView in self.contentView.subviews) {
+            if ([subView isKindOfClass:[UIButton class]]) {
+                [subView removeFromSuperview];
+            }
+        }
     
     ViewController *viewController = (ViewController *)controller;
     Personas *persona = (Personas*)aData;
@@ -172,18 +184,18 @@
         self.resultText.frame = CGRectMake(8, totalHeight, screenWidth, expectedLabelSize.height);
         totalHeight = totalHeight + 10 + expectedLabelSize.height;
         
-        UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         shareButton.frame = CGRectMake(8, totalHeight, 100, 35);
         [shareButton setTitle:@"Share" forState:UIControlStateNormal];
         [shareButton addTarget:self action:@selector(shareQuiz:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:shareButton];
         
-        UIButton *tryAgaginQuiz = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        tryAgaginQuiz.frame = CGRectMake(screenWidth-108, totalHeight, 100, 35);
-        [tryAgaginQuiz setTitle:@"Try Again" forState:UIControlStateNormal];
-        [tryAgaginQuiz addTarget:controller action:@selector(tryAgainQuiz:) forControlEvents:UIControlEventTouchUpInside];
+        tryAgainQuizButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        tryAgainQuizButton.frame = CGRectMake(screenWidth-108, totalHeight, 100, 35);
+        [tryAgainQuizButton setTitle:@"Try Again" forState:UIControlStateNormal];
+        [tryAgainQuizButton addTarget:controller action:@selector(tryAgainQuiz:) forControlEvents:UIControlEventTouchUpInside];
         
-        [self.contentView addSubview:tryAgaginQuiz];
+        [self.contentView addSubview:tryAgainQuizButton];
         
         //Share Button/ Try Again Button
     }

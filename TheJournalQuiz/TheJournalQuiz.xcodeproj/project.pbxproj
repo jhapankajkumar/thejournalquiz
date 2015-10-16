@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		565866A11BCFCBB700A98774 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 565866A01BCFCBB700A98774 /* placeholder.png */; };
 		63BD0613FE61F8CB575C7D9A /* libPods-TheJournalQuiz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F05E433E2E3417FE2A16C1F1 /* libPods-TheJournalQuiz.a */; };
-		A98C39471BCEC4BB00EEFF85 /* OCMapperConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C39461BCEC4BB00EEFF85 /* OCMapperConfig.m */; };
 		A98C39501BCEC71E00EEFF85 /* ResponseData.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C394E1BCEC71E00EEFF85 /* ResponseData.m */; };
 		A98C39531BCEC73A00EEFF85 /* ResponseResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C39521BCEC73A00EEFF85 /* ResponseResult.m */; };
 		A98C395C1BCEE98200EEFF85 /* YesNoButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A98C395B1BCEE98200EEFF85 /* YesNoButtonTableViewCell.m */; };
@@ -52,8 +51,6 @@
 		14A8F925F9FE94DE9D8607D3 /* Pods-TheJournalQuiz.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheJournalQuiz.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TheJournalQuiz/Pods-TheJournalQuiz.debug.xcconfig"; sourceTree = "<group>"; };
 		38FB49272D18F01DE730A57F /* Pods-TheJournalQuiz.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheJournalQuiz.release.xcconfig"; path = "Pods/Target Support Files/Pods-TheJournalQuiz/Pods-TheJournalQuiz.release.xcconfig"; sourceTree = "<group>"; };
 		565866A01BCFCBB700A98774 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
-		A98C39451BCEC4BB00EEFF85 /* OCMapperConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMapperConfig.h; sourceTree = "<group>"; };
-		A98C39461BCEC4BB00EEFF85 /* OCMapperConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCMapperConfig.m; sourceTree = "<group>"; };
 		A98C394D1BCEC71E00EEFF85 /* ResponseData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResponseData.h; sourceTree = "<group>"; };
 		A98C394E1BCEC71E00EEFF85 /* ResponseData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResponseData.m; sourceTree = "<group>"; };
 		A98C39511BCEC73A00EEFF85 /* ResponseResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResponseResult.h; sourceTree = "<group>"; };
@@ -138,15 +135,6 @@
 				38FB49272D18F01DE730A57F /* Pods-TheJournalQuiz.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		A98C39441BCEC4BB00EEFF85 /* OCMapperConfig */ = {
-			isa = PBXGroup;
-			children = (
-				A98C39451BCEC4BB00EEFF85 /* OCMapperConfig.h */,
-				A98C39461BCEC4BB00EEFF85 /* OCMapperConfig.m */,
-			);
-			path = OCMapperConfig;
 			sourceTree = "<group>";
 		};
 		A98C394C1BCEC71E00EEFF85 /* ResponseData */ = {
@@ -335,7 +323,6 @@
 			isa = PBXGroup;
 			children = (
 				A98C39711BCF098C00EEFF85 /* UtilityClass */,
-				A98C39441BCEC4BB00EEFF85 /* OCMapperConfig */,
 				A9E417EC1BCEB4060015F040 /* Constant */,
 			);
 			path = HelperClasses;
@@ -657,7 +644,6 @@
 				A98C39531BCEC73A00EEFF85 /* ResponseResult.m in Sources */,
 				A98C39501BCEC71E00EEFF85 /* ResponseData.m in Sources */,
 				A9E4180A1BCEBD9B0015F040 /* Question.m in Sources */,
-				A98C39471BCEC4BB00EEFF85 /* OCMapperConfig.m in Sources */,
 				A98C39611BCEE9D600EEFF85 /* YesNoImageTableViewCell.m in Sources */,
 				A98C395C1BCEE98200EEFF85 /* YesNoButtonTableViewCell.m in Sources */,
 				A9E4180D1BCEBDA80015F040 /* Image.m in Sources */,

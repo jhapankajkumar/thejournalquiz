@@ -8,12 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import "Answers.h"
+#import <JSONModel/JSONModel.h>
 
-@interface Question : NSObject
+@protocol Question @end
+
+@interface Question : JSONModel
+
 @property (nonatomic,assign) NSInteger questionID;
 @property (nonatomic,strong) NSString  *id_type;
 @property (nonatomic,strong) NSString  *text;
-@property (nonatomic,strong) NSMutableArray  *answer;
-@property (nonatomic,strong) Image  *image;
+@property (nonatomic,strong) NSMutableArray<Answers>*  answers;
+@property (nonatomic,strong) Image <Optional>  *image;
+
 
 @end

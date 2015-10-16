@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <JSONModel/JSONModel.h>
 
-@interface Image : NSObject
+@interface Image : JSONModel
+
 @property(nonatomic,assign) NSInteger imageId;
 @property(nonatomic,strong) NSString * object_id;
 @property(nonatomic,strong) NSString * object_type;

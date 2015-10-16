@@ -9,5 +9,10 @@
 #import "Personas.h"
 
 @implementation Personas
-
++(JSONKeyMapper*)keyMapper
+{
+    return [[JSONKeyMapper alloc] initWithDictionary:@{
+                                                       @"id": @"personaID"
+                                                       }];
+}
 @end

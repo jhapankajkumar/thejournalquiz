@@ -99,7 +99,7 @@
         // new implementation it will always remian open
     }
     
-    for (Answers *answer in question.answer ){
+    for (Answers *answer in question.answers ){
         CGRect rect =  [answer.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:QUESTION_FONT_SIZE] } context:nil];
         expectedLabelSize = rect.size;
         
@@ -156,7 +156,7 @@
     totalHeight = totalHeight + expectedLabelSize.height;
     totalHeight = totalHeight + 8;
     
-    if (question.answer.count==3) {
+    if (question.answers.count==3) {
         _choiceFour.hidden = true;
     }
     else {
@@ -190,10 +190,10 @@
         
         totalHeight = totalHeight + 8 ;
         
-        if (question.answer && question.answer.count) {
+        if (question.answers && question.answers.count) {
             // Iterate through the home related objects and fill the view
-            for (int i= 0; i<question.answer.count;i++) {
-                Answers *answer = [question.answer objectAtIndex:i];
+            for (int i= 0; i<question.answers.count;i++) {
+                Answers *answer = [question.answers objectAtIndex:i];
                 
                 CGRect rect =  [answer.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:QUESTION_FONT_SIZE] } context:nil];
                 expectedLabelSize = rect.size;
@@ -272,8 +272,8 @@
     for (NSString  *questionID in homeViewController.answerDictionary.allKeys) {
         if ([questionID integerValue] == question.questionID) {
             UserAnswer *userAnswer = [homeViewController.answerDictionary objectForKey:questionID];
-            for (int i = 0; i<question.answer.count; i++) {
-                Answers *answer  = [question.answer objectAtIndex:i];
+            for (int i = 0; i<question.answers.count; i++) {
+                Answers *answer  = [question.answers objectAtIndex:i];
                 if (userAnswer.answerId == answer.answerId) {
                     switch (i) {
                         case 0:
@@ -331,7 +331,7 @@
         _choiceThree.backgroundColor = RGB(249, 249, 249);
         _choiceFour.backgroundColor = RGB(249, 249, 249);
         
-        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answer firstObject]];
+        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers firstObject]];
    // }
 }
 -(void)choiceTwoSelected:(UITapGestureRecognizer *)gesture {
@@ -343,7 +343,7 @@
     _choiceThree.backgroundColor = RGB(249, 249, 249);
     _choiceFour.backgroundColor = RGB(249, 249, 249);
     Question *question = (Question *)self.data;
-    [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answer objectAtIndex:1]];
+    [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers objectAtIndex:1]];
     }
     
 }
@@ -356,7 +356,7 @@
     _choiceOne.backgroundColor = RGB(249, 249, 249);
     _choiceFour.backgroundColor = RGB(249, 249, 249);
     Question *question = (Question *)self.data;
-    [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answer objectAtIndex:2]];
+    [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers objectAtIndex:2]];
     }
 }
 
@@ -369,7 +369,7 @@
     _choiceThree.backgroundColor = RGB(249, 249, 249);
     _choiceOne.backgroundColor = RGB(249, 249, 249);
     Question *question = (Question *)self.data;
-    [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answer objectAtIndex:2]];
+    [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers objectAtIndex:2]];
     }
 
 }

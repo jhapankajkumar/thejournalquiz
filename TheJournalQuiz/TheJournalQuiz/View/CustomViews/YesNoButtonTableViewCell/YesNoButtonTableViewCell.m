@@ -73,7 +73,7 @@
         // new implementation it will always remian open
     }
     
-    for (Answers *answer in question.answer ){
+    for (Answers *answer in question.answers ){
         CGRect rect =  [answer.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:QUESTION_FONT_SIZE] } context:nil];
         expectedLabelSize = rect.size;
         
@@ -151,10 +151,10 @@
         //add extra space
         totalHeight = totalHeight + 8 ;
         
-        if (question.answer && question.answer.count) {
+        if (question.answers && question.answers.count) {
             // Iterate through the home related objects and fill the view
-            for (int i= 0; i<question.answer.count;i++) {
-                Answers *answer = [question.answer objectAtIndex:i];
+            for (int i= 0; i<question.answers.count;i++) {
+                Answers *answer = [question.answers objectAtIndex:i];
                 
                 //set Question headline
                 CGRect rect =  [question.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : [UIFont systemFontOfSize:QUESTION_FONT_SIZE] } context:nil];
@@ -209,8 +209,8 @@
     for (NSString  *questionID in homeViewController.answerDictionary.allKeys) {
         if ([questionID integerValue] == question.questionID) {
             UserAnswer *userAnswer = [homeViewController.answerDictionary objectForKey:questionID];
-            for (int i = 0; i<question.answer.count; i++) {
-                Answers *answer  = [question.answer objectAtIndex:i];
+            for (int i = 0; i<question.answers.count; i++) {
+                Answers *answer  = [question.answers objectAtIndex:i];
                 if (userAnswer.answerId == answer.answerId) {
                     switch (i) {
                         case 0:
@@ -251,7 +251,7 @@
         UILabel *choiceOneLabel =(UILabel *) gesture.view;
         choiceOneLabel.backgroundColor = [UIColor greenColor];
         _choiceTwo.backgroundColor = RGB(249, 249, 249);
-        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answer firstObject]];
+        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers firstObject]];
     }
 }
 
@@ -262,7 +262,7 @@
         choiceOneLabel.backgroundColor = [UIColor greenColor];
         _choiceOne.backgroundColor = RGB(249, 249, 249);
         Question *question = (Question *)self.data;
-        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answer objectAtIndex:1]];
+        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers objectAtIndex:1]];
     }
 }
 

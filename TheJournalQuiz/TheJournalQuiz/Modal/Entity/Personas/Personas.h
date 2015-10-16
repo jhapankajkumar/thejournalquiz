@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "Image.h"
+#import <JSONModel/JSONModel.h>
+@protocol Personas @end
+@interface Personas : JSONModel
 
-@interface Personas : NSObject
 @property(nonatomic,assign) NSInteger  personaID;
 @property(nonatomic,strong) NSString * id_type;
 @property(nonatomic,strong) NSString * title;
@@ -17,6 +19,6 @@
 @property(nonatomic,strong) NSString * social;
 @property(nonatomic,assign) BOOL  max;
 @property(nonatomic,assign) BOOL  min;
-@property (nonatomic,strong) Image *image;
+@property (nonatomic,strong) Image<Optional> *image;
 
 @end

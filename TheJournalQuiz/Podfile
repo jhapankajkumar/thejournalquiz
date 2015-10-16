@@ -7,7 +7,7 @@ target 'TheJournalQuiz' do
 
 pod 'AFNetworking', '~> 2.6.1'
 pod 'SDWebImage', '~> 3.7.3'
-pod 'OCMapper', '~> 2.1'
+pod 'JSONModel', '~> 1.1.0'
 
 end
 

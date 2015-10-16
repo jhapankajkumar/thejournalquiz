@@ -72,9 +72,9 @@
     nibOrClassNameArray = [NSMutableArray new];
     
     for (Question *questions in self.quizData.questions){
-        if (questions.answer.count==4 || questions.answer.count==3) {
+        if (questions.answers.count==4 || questions.answers.count==3) {
             
-            Answers *answer =(Answers *) [questions.answer objectAtIndex:0];
+            Answers *answer =(Answers *) [questions.answers objectAtIndex:0];
             if (answer.image) {
                 [nibOrClassNameArray addObject:@"MultipleChoiceImageTableViewCell"];
                 //[dataItemArray addObject:questions];
@@ -84,8 +84,8 @@
                 //[dataItemArray addObject:questions];
             }
         }
-        else if (questions.answer.count == 2) {
-            Answers *answer =(Answers *) [questions.answer objectAtIndex:0];
+        else if (questions.answers.count == 2) {
+            Answers *answer =(Answers *) [questions.answers objectAtIndex:0];
             if (answer.image) {
                 [nibOrClassNameArray addObject:@"YesNoImageTableViewCell"];
                 //[dataItemArray addObject:questions];
@@ -140,7 +140,7 @@
             Question *question = [self getQuestionFromQuestionID:userAnswer.questionId];
             
             //get Answer
-            Answers *answer = [self getAnswerFromAnswerArray:question.answer usignAnswerID:userAnswer.answerId];
+            Answers *answer = [self getAnswerFromAnswerArray:question.answers usignAnswerID:userAnswer.answerId];
             
             //get current answer score
             NSNumber *score =  [NSNumber numberWithDouble:answer.score];

@@ -9,5 +9,15 @@
 #import "Answers.h"
 
 @implementation Answers
++(JSONKeyMapper*)keyMapper
+{
+    return [[JSONKeyMapper alloc] initWithDictionary:@{
+                                                       @"id": @"answerId"
+                                                       }];
+}
 
++(BOOL)propertyIsOptional:(NSString*)propertyName
+{
+    return YES;
+}
 @end

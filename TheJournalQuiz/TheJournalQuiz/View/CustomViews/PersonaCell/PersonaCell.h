@@ -13,7 +13,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *resultImage;
 @property (weak, nonatomic) IBOutlet UILabel *resultHeadLine;
 @property (weak, nonatomic) IBOutlet UILabel *resultText;
-@property (weak, nonatomic) IBOutlet UIButton *shareResult;
-- (IBAction)shareResult:(id)sender;
+
 
 @end

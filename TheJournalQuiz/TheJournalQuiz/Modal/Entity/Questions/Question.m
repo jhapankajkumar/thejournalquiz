@@ -10,4 +10,10 @@
 
 @implementation Question
 
++(JSONKeyMapper*)keyMapper
+{
+    return [[JSONKeyMapper alloc] initWithDictionary:@{
+                                                       @"id": @"questionID"
+                                                       }];
+}
 @end

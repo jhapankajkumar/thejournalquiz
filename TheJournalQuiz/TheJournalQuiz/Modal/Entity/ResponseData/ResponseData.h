@@ -7,8 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <JSONModel/JSONModel.h>
+#import "Personas.h"
+#import "Question.h"
 
-@interface ResponseData : NSObject
+@interface ResponseData : JSONModel
 
 @property (nonatomic,assign) NSInteger responseID;
 @property (nonatomic,strong) NSString * id_type;
@@ -17,7 +20,6 @@
 @property (nonatomic,strong) NSString * created;
 @property (nonatomic,strong) NSString * updated;
 @property (nonatomic,strong) NSString * author;
-@property (nonatomic,strong) NSMutableArray * personas;
-@property (nonatomic,strong) NSMutableArray * questions;
-
+@property (nonatomic,strong) NSMutableArray<Personas> * personas;
+@property (nonatomic,strong) NSMutableArray<Question> * questions;
 @end

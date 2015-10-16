@@ -9,7 +9,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>OCMapper.xcscheme</key>
+		<key>JSONModel.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -27,22 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>09FA060F1A0492FB25232F489AC4E573</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0CBB734A8DECFD0F86F90C6EAAB1D005</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>410B25DF16EA5C5B3E2698F74F9625FB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>734399286FECC871358F8426EE4AADC0</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>804479336B0CD4C10630842C3A8FA4B4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>99EE3198522763456540E7D1CA24E229</key>
+		<key>DB716956F5386A430BCF1B41C8D40664</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -9,5 +9,10 @@
 #import "ResponseData.h"
 
 @implementation ResponseData
-    
++(JSONKeyMapper*)keyMapper
+{
+    return [[JSONKeyMapper alloc] initWithDictionary:@{
+                                                       @"id": @"responseID"
+                                                       }];
+}
 @end

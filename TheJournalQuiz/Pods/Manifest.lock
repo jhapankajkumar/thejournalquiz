@@ -20,19 +20,19 @@ PODS:
   - AFNetworking/UIKit (2.6.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - OCMapper (2.1)
+  - JSONModel (1.1.0)
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
   - SDWebImage/Core (3.7.3)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.6.1)
-  - OCMapper (~> 2.1)
+  - JSONModel (~> 1.1.0)
   - SDWebImage (~> 3.7.3)
 
 SPEC CHECKSUMS:
   AFNetworking: 8e4e60500beb8bec644cf575beee72990a76d399
-  OCMapper: fa22e7b51de7cc38e66b993037076d28a0f31b29
+  JSONModel: ec77e9865236a7a09d9cf7668df6b4b328d9ec1d
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
 
 COCOAPODS: 0.39.0

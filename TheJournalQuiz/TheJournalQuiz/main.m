@@ -2,7 +2,7 @@
 //  main.m
 //  TheJournalQuiz
 //
-//  Created by Kumar on 14/10/15.
+//  Created by Kumar on 16/10/15.
 //  Copyright (c) 2015 Kumar. All rights reserved.
 //
 

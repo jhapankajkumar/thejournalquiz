@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "Image.h"
+#import <JSONModel/JSONModel.h>
 
-@interface Answers : NSObject
+@protocol Answers @end
+@interface Answers : JSONModel
 
 @property(nonatomic,assign) NSInteger  answerId;
 @property(nonatomic,strong) NSString * id_type;
@@ -18,6 +20,6 @@
 @property(nonatomic,assign) BOOL  correct;
 @property(nonatomic) double  score;
 @property(nonatomic,strong) NSMutableArray * persona_ids;
-@property (nonatomic,strong) Image *image;
+@property (nonatomic,strong) Image< Optional> *image;
 
 @end

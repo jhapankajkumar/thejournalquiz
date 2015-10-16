@@ -152,11 +152,11 @@
 //        //self.answerViewLeadingConstraints.constant -=133;
 //    }
     
-    if (question.answer && question.answer.count) {
+    if (question.answers && question.answers.count) {
         
         // Iterate through the home related objects and fill the view
-        for (int i= 0; i<question.answer.count;i++) {
-            Answers *answer = [question.answer objectAtIndex:i];
+        for (int i= 0; i<question.answers.count;i++) {
+            Answers *answer = [question.answers objectAtIndex:i];
             switch (i) {
                 case 0:
                 {
@@ -234,8 +234,8 @@
     for (NSString  *questionID in homeViewController.answerDictionary.allKeys) {
         if ([questionID integerValue] == question.questionID) {
             UserAnswer *userAnswer = [homeViewController.answerDictionary objectForKey:questionID];
-            for (int i = 0; i<question.answer.count; i++) {
-                Answers *answer  = [question.answer objectAtIndex:i];
+            for (int i = 0; i<question.answers.count; i++) {
+                Answers *answer  = [question.answers objectAtIndex:i];
                 if (userAnswer.answerId == answer.answerId) {
                     switch (i) {
                         case 0:
@@ -271,7 +271,7 @@
         UIView *choiceOneView =(UIView *) gesture.view;
         choiceOneView.backgroundColor = [UIColor greenColor];
         _choiceTwoView.backgroundColor = RGB(249, 249, 249);
-        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answer firstObject]];
+        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers firstObject]];
     }
 }
 
@@ -282,7 +282,7 @@
         choiceTwoView.backgroundColor = [UIColor greenColor];
         _choiceOneView.backgroundColor = RGB(249, 249, 249);
         Question *question = (Question *)self.data;
-        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answer objectAtIndex:1]];
+        [(ViewController*)homeViewController answerSelectedFromCell:self atIndePath:self.indexPath forQuestion:question withAnswer:[question.answers objectAtIndex:1]];
     }
     
 }

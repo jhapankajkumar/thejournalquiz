@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "ResponseData.h"
-
-@interface ResponseResult : NSObject
+#import <JSONModel.h>
+@interface ResponseResult : JSONModel
 
 @property (nonatomic, strong)  NSNumber* rendered;
 @property (nonatomic, assign)  BOOL  status;

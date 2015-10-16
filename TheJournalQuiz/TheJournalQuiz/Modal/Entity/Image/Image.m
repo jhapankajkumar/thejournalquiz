@@ -9,5 +9,10 @@
 #import "Image.h"
 
 @implementation Image
-
++(JSONKeyMapper*)keyMapper
+{
+    return [[JSONKeyMapper alloc] initWithDictionary:@{
+                                                       @"id": @"imageId"
+                                                       }];
+}
 @end
