@@ -16,13 +16,6 @@
 #import "UserAnswer.h"
 #import "UtilityManager.h"
 
-
-
-
-
-
-
-
 @implementation MultipleChoiceImageTableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

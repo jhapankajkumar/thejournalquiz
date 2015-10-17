@@ -17,14 +17,6 @@
 #import "ViewController.h"
 #import "UtilityManager.h"
 
-
-@interface PersonaCell () {
-    UIButton *shareButton;
-    UIButton *tryAgainQuizButton;
-}
-
-@end
-
 @interface PersonaCell ()
 @property (nonatomic,strong) ViewController* homeViewController;
 @end
@@ -69,6 +61,14 @@
         // Add to Table View Cell
         [self.contentView addSubview:_resultImage];
         
+        
+        _shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        _shareButton.frame = CGRectZero;
+        [self.contentView addSubview:_shareButton];
+        
+        _tryAgainQuizButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        _tryAgainQuizButton.frame = CGRectZero;
+        [self.contentView addSubview:_tryAgainQuizButton];
         
         _loadingIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         [self.contentView addSubview:_loadingIndicator];
@@ -171,11 +171,11 @@
     CGFloat totalHeight = EXTRA_SPACE;
     CGSize maximumLabelSize = CGSizeMake(CHOICE_LABEL_DEFAULT_WIDTH,FLT_MAX);
     CGSize expectedLabelSize;
-        for (id subView in self.contentView.subviews) {
-            if ([subView isKindOfClass:[UIButton class]]) {
-                [subView removeFromSuperview];
-            }
-        }
+//        for (id subView in self.contentView.subviews) {
+//            if ([subView isKindOfClass:[UIButton class]]) {
+//                [subView removeFromSuperview];
+//            }
+//        }
     
     ViewController *viewController = (ViewController *)controller;
     Personas *persona = (Personas*)aData;
@@ -244,29 +244,24 @@
         totalHeight = totalHeight + EXTRA_SPACE;
         
         
-        shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        shareButton.frame = CGRectMake(X_PADDING, totalHeight, CHOICE_LABEL_DEFAULT_WIDTH, MINIMUM_LABEL_HEIGHT);
-        [shareButton setTitle:@"Share your result" forState:UIControlStateNormal];
-        shareButton.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
-        [shareButton.titleLabel setFont:QUESION_LABEL_FONT];
-        [shareButton addTarget:self action:@selector(shareQuiz:) forControlEvents:UIControlEventTouchUpInside];
-        [self.contentView addSubview:shareButton];
+        
+        _shareButton.frame = CGRectMake(X_PADDING, totalHeight, CHOICE_LABEL_DEFAULT_WIDTH, MINIMUM_LABEL_HEIGHT);
+        [_shareButton setTitle:@"Share your result" forState:UIControlStateNormal];
+        _shareButton.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        [_shareButton.titleLabel setFont:QUESION_LABEL_FONT];
+        [_shareButton addTarget:self action:@selector(shareQuiz:) forControlEvents:UIControlEventTouchUpInside];
         
         totalHeight = totalHeight + MINIMUM_LABEL_HEIGHT;
         totalHeight = totalHeight + EXTRA_SPACE;
         
-        
-        tryAgainQuizButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        tryAgainQuizButton.frame = CGRectMake(X_PADDING, totalHeight,CHOICE_LABEL_DEFAULT_WIDTH, MINIMUM_LABEL_HEIGHT);
-        [tryAgainQuizButton setTitle:@"Try Again" forState:UIControlStateNormal];
-        tryAgainQuizButton.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
-        [tryAgainQuizButton.titleLabel setFont:QUESION_LABEL_FONT];
-        [tryAgainQuizButton addTarget:self action:@selector(tryAgainQuiz:) forControlEvents:UIControlEventTouchUpInside];
+        _tryAgainQuizButton.frame = CGRectMake(X_PADDING, totalHeight,CHOICE_LABEL_DEFAULT_WIDTH, MINIMUM_LABEL_HEIGHT);
+        [_tryAgainQuizButton setTitle:@"Try Again" forState:UIControlStateNormal];
+        _tryAgainQuizButton.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        [_tryAgainQuizButton.titleLabel setFont:QUESION_LABEL_FONT];
+        [_tryAgainQuizButton addTarget:self action:@selector(tryAgainQuiz:) forControlEvents:UIControlEventTouchUpInside];
         
         totalHeight = totalHeight + MINIMUM_LABEL_HEIGHT;
         totalHeight = totalHeight + EXTRA_SPACE;
-        
-        [self.contentView addSubview:tryAgainQuizButton];
         
         //Share Button/ Try Again Button
     }
@@ -291,7 +286,6 @@
 
 
 - (void)shareQuiz:(UIButton *)sender {
-
     [(ViewController *)self.controller shareResultWithData:(Personas *)self.data];
 }
 

@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TheJournalQuiz/View/CustomViews/MultipleChoiceImageTableViewCell/MultipleChoiceImageTableViewCell.m"
-            timestampString = "466730992.679467"
+            timestampString = "466763657.876505"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "449"
-            endingLineNumber = "449"
+            startingLineNumber = "442"
+            endingLineNumber = "442"
             landmarkName = "-choiceFourSelected:"
             landmarkType = "5">
          </BreakpointContent>
@@ -32,6 +32,22 @@
             startingLineNumber = "285"
             endingLineNumber = "285"
             landmarkName = "-choiceTwoSelected:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TheJournalQuiz/View/CustomViews/PersonaCell/PersonaCell.m"
+            timestampString = "466763719.911988"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "248"
+            endingLineNumber = "248"
+            landmarkName = "-createCellForData:tableView:indexPath:controller:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

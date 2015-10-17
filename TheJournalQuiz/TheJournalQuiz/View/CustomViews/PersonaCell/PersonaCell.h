@@ -12,6 +12,8 @@
 @interface PersonaCell : GenericTableViewCell
 @property (strong, nonatomic)  UIImageView *resultImage;
 @property (strong, nonatomic)  UILabel *resultHeadLine;
+@property (strong, nonatomic) UIButton *shareButton;
+@property (strong, nonatomic) UIButton *tryAgainQuizButton;
 @property (strong, nonatomic)  UILabel *resultText;
 @property (nonatomic,strong) UIActivityIndicatorView *loadingIndicator;
 
