@@ -236,6 +236,7 @@
         shareButton.frame = CGRectMake(X_PADDING, totalHeight, CHOICE_LABEL_DEFAULT_WIDTH, MINIMUM_LABEL_HEIGHT);
         [shareButton setTitle:@"Share your result" forState:UIControlStateNormal];
         shareButton.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        [shareButton.titleLabel setFont:QUESION_LABEL_FONT];
         [shareButton addTarget:self action:@selector(shareQuiz:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:shareButton];
         
@@ -247,6 +248,7 @@
         tryAgainQuizButton.frame = CGRectMake(X_PADDING, totalHeight,CHOICE_LABEL_DEFAULT_WIDTH, MINIMUM_LABEL_HEIGHT);
         [tryAgainQuizButton setTitle:@"Try Again" forState:UIControlStateNormal];
         tryAgainQuizButton.backgroundColor = CHOICE_LABEL_DEFAULT_COLOR;
+        [tryAgainQuizButton.titleLabel setFont:QUESION_LABEL_FONT];
         [tryAgainQuizButton addTarget:self action:@selector(tryAgainQuiz:) forControlEvents:UIControlEventTouchUpInside];
         
         totalHeight = totalHeight + MINIMUM_LABEL_HEIGHT;
