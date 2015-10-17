@@ -39,6 +39,13 @@
     [self.quizListTableView reloadData];
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    if (_quizData) {
+        [self.loadingIndicator stopAnimating];
+        [self.loadingIndicator setHidden:true];
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -49,6 +56,7 @@
     //registering tableview cells
     //[_quizListTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     self.quizListTableView.hidden = true;
+    self.loadingIndicator.hidesWhenStopped  = true;
     [_quizListTableView registerClass:NSClassFromString(@"MultipleChoiceImageTableViewCell") forCellReuseIdentifier:@"MultipleChoiceImageTableViewCell"];
     [_quizListTableView registerClass:NSClassFromString(@"MultipleChoiceButtonTableViewCell") forCellReuseIdentifier:@"MultipleChoiceButtonTableViewCell"];
     [_quizListTableView registerClass:NSClassFromString(@"PersonaCell") forCellReuseIdentifier:@"PersonaCell"];
@@ -91,12 +99,12 @@
             [self setUpTableViewCellInformation];
             self.questionCount = self.quizData.questions.count;
             self.quizListTableView.hidden  = false;
-            self.loadingIndicator.hidden = true;
+            [self.loadingIndicator stopAnimating];
         }
         else {
             UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"Quiz" message:@"Oops something went wrong, please check you internet connection and try later" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alertView show];
-            self.loadingIndicator.hidden = true;
+            [self.loadingIndicator stopAnimating];
         }
     }];
 }
@@ -230,34 +238,40 @@
     
     [controller setCompletionHandler:^(NSString *activityType, BOOL completed)
      {
+         
+         
          NSMutableString *messageString = [[NSMutableString alloc]initWithCapacity:0];
          if ([activityType isEqualToString:@"com.apple.UIKit.activity.SaveToCameraRoll"])
          {
-             [messageString appendString:@"Image Saved"];
+             [messageString appendString:@" Saved"];
          }
          else if ([activityType isEqualToString:@"com.apple.UIKit.activity.PostToTwitter"])
          {
-             [messageString appendString:@"Image posted to twitter"];
+             [messageString appendString:@" Posted to twitter"];
          }
          else if ([activityType isEqualToString:@"com.apple.UIKit.activity.Mail"])
          {
-             [messageString appendString:@"Image sent by email"];
+             [messageString appendString:@" Sent by email"];
          }
          else if ([activityType isEqualToString:@"com.apple.UIKit.activity.CopyToPasteboard"])
          {
-             [messageString appendString:@"Image copied to pasteboard"];
+             [messageString appendString:@" Copied to pasteboard"];
          }
          else if ([activityType isEqualToString:@"com.apple.UIKit.activity.AssignToContact"])
          {
-             [messageString appendString:@"Image assigned to contact"];
+             [messageString appendString:@" Assigned to contact"];
          }
          else if ([activityType isEqualToString:@"com.apple.UIKit.activity.Message"])
          {
-             [messageString appendString:@"Image sent via message"];
+             [messageString appendString:@" Sent via message"];
          }
          else if ([activityType isEqualToString:@"com.apple.UIKit.activity.Print"])
          {
-             [messageString appendString:@"Image sent to printer"];
+             [messageString appendString:@" Sent to printer"];
+         }
+         else if ([activityType isEqualToString:@"com.linkedin.LinkedIn.ShareExtension"])
+         {
+             [messageString appendString:@" Sent to LinkedIn"];
          }
          
          if (completed == TRUE)

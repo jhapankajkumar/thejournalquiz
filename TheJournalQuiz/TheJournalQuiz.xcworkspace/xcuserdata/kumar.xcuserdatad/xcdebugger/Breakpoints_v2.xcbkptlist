@@ -41,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TheJournalQuiz/View/CustomViews/PersonaCell/PersonaCell.m"
-            timestampString = "466763719.911988"
+            filePath = "TheJournalQuiz/Controller/HomeViewController/ViewController.m"
+            timestampString = "466765134.233612"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "248"
-            endingLineNumber = "248"
-            landmarkName = "-createCellForData:tableView:indexPath:controller:"
+            startingLineNumber = "243"
+            endingLineNumber = "243"
+            landmarkName = "-shareResultWithData:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
