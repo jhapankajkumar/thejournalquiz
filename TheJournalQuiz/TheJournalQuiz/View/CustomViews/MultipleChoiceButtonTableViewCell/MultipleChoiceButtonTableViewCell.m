@@ -103,7 +103,7 @@
     CGFloat screenWidth = aTableView.superview.frame.size.width;
     Question *question = (Question*)aData;
     // Init with base padding
-    float totalHeight = EXTRA_SPACE;
+    float totalHeight = EXTRA_SPACE + EXTRA_SPACE;
     
     CGSize maximumLabelSize = CGSizeMake(screenWidth-20,FLT_MAX);
     CGSize expectedLabelSize;
@@ -131,7 +131,7 @@
         totalHeight += EXTRA_SPACE;
     }
     
-    return totalHeight + EXTRA_SPACE;
+    return totalHeight + EXTRA_SPACE + EXTRA_SPACE;
 }
 
 - (void)createCellForData:(id)aData tableView:(UITableView *)aTableView indexPath:(NSIndexPath *)anIndexPath controller:(id)controller {
@@ -145,7 +145,7 @@
     self.indexPath = anIndexPath;
     homeViewController = (ViewController *)controller;
     
-    CGFloat totalHeight = EXTRA_SPACE;
+    CGFloat totalHeight = EXTRA_SPACE + EXTRA_SPACE;
     CGSize maximumLabelSize = CGSizeMake(screenWidth - 20,FLT_MAX);
     CGSize expectedLabelSize;
     
@@ -185,7 +185,7 @@
         //_questionImage.image = [UIImage imageNamed:@"placeholder.png"];
         //Downloading Question image
         [self.questionImage sd_setImageWithURL:[NSURL URLWithString:imageURLString]
-                              placeholderImage:[UIImage imageNamed:@"placeholder.png"]
+                              placeholderImage:PLACE_HOLDER_IMAGE
                                      completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                                          
                                          if (image &&  [image isKindOfClass:[UIImage class]]) {

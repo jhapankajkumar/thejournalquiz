@@ -201,7 +201,7 @@
         __weak __typeof(&*self)weakcell = self;
         //Downloading Question image
         [self.resultImage sd_setImageWithURL:[NSURL URLWithString:imageURLString]
-                              placeholderImage:[UIImage imageNamed:@"placeholder.png"]
+                              placeholderImage:PLACE_HOLDER_IMAGE
                                      completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                                          
                                          if (image &&  [image isKindOfClass:[UIImage class]]) {
@@ -270,7 +270,7 @@
         totalHeight = totalHeight + EXTRA_SPACE;
         
         self.resultImage.frame = CGRectMake(X_PADDING+X_PADDING, totalHeight, CHOICE_LABEL_DEFAULT_WIDTH-20, THUMB_HEIGHT);
-        self.resultImage.image = [UIImage imageNamed:@"placeholder.png"];
+        self.resultImage.image = PLACE_HOLDER_IMAGE;
     }
     
 }

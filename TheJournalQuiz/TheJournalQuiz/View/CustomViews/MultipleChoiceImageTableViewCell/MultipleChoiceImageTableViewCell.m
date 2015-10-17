@@ -39,6 +39,7 @@
         [_choiceOneView addSubview:_choiceOneImage];
         [self.contentView addSubview:_choiceOneView];
         
+
         _choiceTwoView = [[UIView alloc] initWithFrame:CGRectZero];
         _choiceTwoView.layer.cornerRadius = 5.0;
         _choiceTwoView.userInteractionEnabled = YES;
@@ -95,12 +96,14 @@
     
     CGFloat screenWidth = aTableView.superview.frame.size.width;
     Question *question = (Question*)aData;
+   
     // Init with base padding
-    float totalHeight = EXTRA_SPACE;
+    float totalHeight = EXTRA_SPACE + EXTRA_SPACE;
     
     CGSize maximumLabelSize = CGSizeMake(screenWidth-20,FLT_MAX);
     CGSize expectedLabelSize;
     
+    //get size based on text
     CGRect rect =  [question.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : QUESION_LABEL_FONT} context:nil];
     
     expectedLabelSize = rect.size;
@@ -109,17 +112,19 @@
     // Add Padding
     totalHeight += EXTRA_SPACE;
     
+    //if there is image for question, add height
     if (question.image && question.image.src) {
-        totalHeight = totalHeight + THUMB_HEIGHT+ EXTRA_SPACE;
+        totalHeight = totalHeight + THUMB_HEIGHT + EXTRA_SPACE;
     }
     
+    //check if question is two answer type or 4 answer type
     if (question.answers.count==4) {
         totalHeight = totalHeight + CHOICE_VIEW_HEIGHT + EXTRA_SPACE + CHOICE_VIEW_HEIGHT + EXTRA_SPACE;
     }
     else {
         totalHeight = totalHeight + CHOICE_VIEW_HEIGHT + EXTRA_SPACE ;
     }
-    totalHeight += EXTRA_SPACE;
+    totalHeight += EXTRA_SPACE + EXTRA_SPACE;
     return totalHeight;
 }
 
@@ -135,7 +140,7 @@
     homeViewController = (ViewController *)controller;
     
     
-    CGFloat totalHeight = EXTRA_SPACE;
+    CGFloat totalHeight = EXTRA_SPACE + EXTRA_SPACE;
     CGSize maximumLabelSize = CGSizeMake(screenWidth - 20,FLT_MAX);
     CGSize expectedLabelSize;
     
@@ -147,23 +152,23 @@
     totalHeight = totalHeight + expectedLabelSize.height;
     totalHeight = totalHeight + EXTRA_SPACE;
     
+    //Question Image setup
     if (question.image && question.image.src ) {
         self.questionImage.hidden = NO;
         self.questionImage.frame = CGRectMake(X_PADDING, totalHeight, THUMB_WIDTH-20, THUMB_HEIGHT);
-        // set the gradient
+        // set the space
         totalHeight = totalHeight + THUMB_HEIGHT+ EXTRA_SPACE;
         
+        //get image url
         NSString *imageURLString = [[UtilityManager sharedInstance] getImageURLForWidth:THUMB_WIDTH-20 height:THUMB_HEIGHT fromURL:question.image.src];
         //Downloading Question image
         [self.questionImage sd_setImageWithURL:[NSURL URLWithString:imageURLString]
-                              placeholderImage:[UIImage imageNamed:@"placeholder.png"]
+                              placeholderImage:PLACE_HOLDER_IMAGE
                                      completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                                         
                                          if (image &&  [image isKindOfClass:[UIImage class]]) {
                                              MultipleChoiceImageTableViewCell *localCell = (MultipleChoiceImageTableViewCell*)[weakSelf.tableView cellForRowAtIndexPath:anIndexPath];
                                              if (localCell && [localCell isKindOfClass:[MultipleChoiceImageTableViewCell class]]) {
                                                  [localCell.questionImage setImage:image];
-                                                 //[localCell.questionImage setGradientBackgroundWithStartColor:[UIColor clearColor] endColor:RGBA(0, 0, 0, 0.9)];
                                              }
                                          }
                                          else
@@ -173,6 +178,7 @@
                                          
                                      }];
     }
+    //if there is no quiestion image
     else {
        self.questionImage.hidden = YES;
     }
@@ -186,8 +192,9 @@
         _choiceFourView.hidden = false;
     }
     
+    // answer view setup
         if (question.answers && question.answers.count) {
-            // Iterate through the home related objects and fill the view
+            // Iterate through the answers
             for (int i= 0; i<question.answers.count;i++) {
                 Answers *answer = [question.answers objectAtIndex:i];
                 switch (i) {
@@ -199,7 +206,7 @@
                         
                         //Downloading Question image
                         [_choiceOneImage sd_setImageWithURL:[NSURL URLWithString:imageURLString]
-                                              placeholderImage:[UIImage imageNamed:@"placeholder.png"]
+                                              placeholderImage:PLACE_HOLDER_IMAGE
                                                      completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                                                          
                                                          if (image &&  [image isKindOfClass:[UIImage class]] ) {
@@ -221,14 +228,16 @@
                     case 1:
                     {
                         _choiceTwoView.frame = CGRectMake(X_PADDING + CHOICE_VIEW_WIDTH + X_PADDING, totalHeight, CHOICE_VIEW_WIDTH, CHOICE_VIEW_HEIGHT);
+                        
                         _choiceTwoImage.frame = CGRectMake(X_PADDING, Y_PADDING, IMAGE_RESIZE_VALUE.width, IMAGE_RESIZE_VALUE.height);
+                        
                         totalHeight = totalHeight + CHOICE_VIEW_HEIGHT + EXTRA_SPACE ;
                         
                         NSString *imageURLString = [[UtilityManager sharedInstance]getImageURLForWidth:IMAGE_RESIZE_VALUE.width height:IMAGE_RESIZE_VALUE.height fromURL:answer.image.src];
                         
                         //Downloading Question image
                         [_choiceTwoImage sd_setImageWithURL:[NSURL URLWithString:imageURLString]
-                                              placeholderImage:[UIImage imageNamed:@"placeholder.png"]
+                                              placeholderImage:PLACE_HOLDER_IMAGE
                                                      completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                                                          
                                                          if (image &&  [image isKindOfClass:[UIImage class]]) {
@@ -236,7 +245,7 @@
                                                              MultipleChoiceImageTableViewCell *localCell = (MultipleChoiceImageTableViewCell*)[weakSelf.tableView cellForRowAtIndexPath:anIndexPath];
                                                              if (localCell && [localCell isKindOfClass:[MultipleChoiceImageTableViewCell class]]) {
                                                                  [localCell.choiceTwoImage setImage:image];
-                                                                 //[localCell.questionImage setGradientBackgroundWithStartColor:[UIColor clearColor] endColor:RGBA(0, 0, 0, 0.9)];
+                                                                 
                                                              }
                                                          }
                                                          else
@@ -255,7 +264,7 @@
                         NSString *imageURLString = [[UtilityManager sharedInstance]getImageURLForWidth:IMAGE_RESIZE_VALUE.width height:IMAGE_RESIZE_VALUE.height fromURL:answer.image.src];
                         //Downloading Question image
                         [_choiceThreeImage sd_setImageWithURL:[NSURL URLWithString:imageURLString]
-                                              placeholderImage:[UIImage imageNamed:@"placeholder.png"]
+                                              placeholderImage:PLACE_HOLDER_IMAGE
                                                      completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                                                          
                                                          if (image &&  [image isKindOfClass:[UIImage class]]) {
@@ -263,7 +272,6 @@
                                                              MultipleChoiceImageTableViewCell *localCell = (MultipleChoiceImageTableViewCell*)[weakSelf.tableView cellForRowAtIndexPath:anIndexPath];
                                                              if (localCell && [localCell isKindOfClass:[MultipleChoiceImageTableViewCell class]]) {
                                                                  [localCell.choiceThreeImage setImage:image];
-                                                                 //[localCell.questionImage setGradientBackgroundWithStartColor:[UIColor clearColor] endColor:RGBA(0, 0, 0, 0.9)];
                                                              }
                                                          }
                                                          else
@@ -280,12 +288,11 @@
                         
                         _choiceFourImage.frame = CGRectMake(X_PADDING, Y_PADDING, IMAGE_RESIZE_VALUE.width, IMAGE_RESIZE_VALUE.height);
 
-                        
                         totalHeight = totalHeight + CHOICE_VIEW_HEIGHT + EXTRA_SPACE;
                         NSString *imageURLString = answer.image.src;
                         //Downloading Question image
                         [_choiceFourImage sd_setImageWithURL:[NSURL URLWithString:imageURLString]
-                                              placeholderImage:[UIImage imageNamed:@"placeholder.png"]
+                                              placeholderImage:PLACE_HOLDER_IMAGE
                                                      completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                                                          
                                                          if (image &&  [image isKindOfClass:[UIImage class]]) {
@@ -293,12 +300,12 @@
                                                              MultipleChoiceImageTableViewCell *localCell = (MultipleChoiceImageTableViewCell*)[weakSelf.tableView cellForRowAtIndexPath:anIndexPath];
                                                              if (localCell && [localCell isKindOfClass:[MultipleChoiceImageTableViewCell class]]) {
                                                                  [localCell.choiceFourImage setImage:resizedimage];
-                                                                 //[localCell.questionImage setGradientBackgroundWithStartColor:[UIColor clearColor] endColor:RGBA(0, 0, 0, 0.9)];
+                                                                 
                                                              }
                                                          }
                                                          else
                                                          {
-                                                             //Need to
+                                                             //do nothing
                                                          }
                                                          
                                                      }];

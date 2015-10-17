@@ -147,7 +147,6 @@
 			children = (
 				A9F870EF1BD184F300331754 /* PersonaCell */,
 				A9F2D35C1BCF784D001A0CB1 /* GenericTableViewCell */,
-				A98C39561BCEE96300EEFF85 /* HeaderTableViewCell */,
 				A98C39571BCEE96300EEFF85 /* MultipleChoiceImageTableViewCell */,
 				A98C39551BCEE91000EEFF85 /* MultipleChoiceButtonTableViewCell */,
 			);
@@ -161,13 +160,6 @@
 				A98C39631BCEEA0600EEFF85 /* MultipleChoiceButtonTableViewCell.m */,
 			);
 			path = MultipleChoiceButtonTableViewCell;
-			sourceTree = "<group>";
-		};
-		A98C39561BCEE96300EEFF85 /* HeaderTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = HeaderTableViewCell;
 			sourceTree = "<group>";
 		};
 		A98C39571BCEE96300EEFF85 /* MultipleChoiceImageTableViewCell */ = {
