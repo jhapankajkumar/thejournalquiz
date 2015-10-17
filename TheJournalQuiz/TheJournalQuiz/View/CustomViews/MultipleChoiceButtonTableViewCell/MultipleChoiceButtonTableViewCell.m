@@ -207,9 +207,9 @@
         for (int i= 0; i<question.answers.count;i++) {
             Answers *answer = [question.answers objectAtIndex:i];
             
-            CGRect rect =  [answer.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : ANSWER_LABEL_FONT } context:nil];
-            expectedLabelSize = rect.size;
-            if (expectedLabelSize.height<MINIMUM_LABEL_HEIGHT) {
+            CGRect rectAns =  [answer.text boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : ANSWER_LABEL_FONT } context:nil];
+            expectedLabelSize = rectAns.size;
+            if (expectedLabelSize.height < MINIMUM_LABEL_HEIGHT) {
                 expectedLabelSize.height = MINIMUM_LABEL_HEIGHT;
             }
             

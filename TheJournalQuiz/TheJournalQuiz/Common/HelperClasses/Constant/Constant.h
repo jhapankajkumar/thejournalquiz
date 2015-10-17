@@ -12,11 +12,13 @@
 #define PERSONA_INFORMATION_TEXT  @"Answer all the questions to see your result!"
 
 #define RGB(r, g, b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0]
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 //This is Question Headline Font size
-#define QUESTION_LABEL_FONT_SIZE                22
+#define QUESTION_LABEL_FONT_SIZE              IS_IPHONE ? 20 : 28
 //This is Answer Label font size
-#define ANSWER_LABEL_FONT_SIZE                  18
+#define ANSWER_LABEL_FONT_SIZE                IS_IPHONE ? 16 : 24
 
 //Vertical margin between answers
 #define EXTRA_SPACE                             10
