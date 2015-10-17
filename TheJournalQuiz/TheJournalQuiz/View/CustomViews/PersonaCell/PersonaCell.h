@@ -13,6 +13,7 @@
 @property (strong, nonatomic)  UIImageView *resultImage;
 @property (strong, nonatomic)  UILabel *resultHeadLine;
 @property (strong, nonatomic)  UILabel *resultText;
+@property (nonatomic,strong) UIActivityIndicatorView *loadingIndicator;
 
 
 @end

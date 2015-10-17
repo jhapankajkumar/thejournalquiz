@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Kumar. All rights reserved.
 //
 
-#import "ResponseData.h"
+#import "QuizData.h"
 
-@implementation ResponseData
+@implementation QuizData
 
 +(JSONKeyMapper*)keyMapper
 {

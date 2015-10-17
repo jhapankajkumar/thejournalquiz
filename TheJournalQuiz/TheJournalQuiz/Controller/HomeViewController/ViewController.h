@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@class ResponseData;
+@class QuizData;
 @class GenericTableViewCell;
 @class Question;
 @class Answers;
@@ -18,7 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *quizListTableView;
 @property (nonatomic,strong) NSMutableDictionary *answerDictionary;
 @property (nonatomic,strong) NSMutableDictionary *scoreDictionary;
-@property (nonatomic,strong) ResponseData *quizData;
+@property (nonatomic,strong) QuizData *quizData;
 
 @property (nonatomic) NSInteger questionCount;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicator;

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @class  Question;
-@class  ResponseData;
+@class  QuizData;
 
 @interface DataFetchManager : NSObject
 
@@ -20,5 +20,5 @@
  - restult -  quize data received from sever
  - error - This gives an error in case user regestration fails, or if some thing is not set.
  */
--(void)getQuizDataFromServerWithCompletionBlock:(void(^) (ResponseData* result,BOOL results, NSError *error))completionBlock;
+-(void)getQuizDataFromServerWithCompletionBlock:(void(^) (QuizData* result,BOOL results, NSError *error))completionBlock;
 @end

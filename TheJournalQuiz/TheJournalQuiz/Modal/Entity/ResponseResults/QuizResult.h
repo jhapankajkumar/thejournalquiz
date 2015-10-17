@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ResponseData.h"
+#import "QuizData.h"
 #import <JSONModel.h>
-@interface ResponseResult : JSONModel
+@interface QuizResult : JSONModel
 
 @property (nonatomic, strong)  NSNumber* rendered;
 @property (nonatomic, assign)  BOOL  status;
-@property (nonatomic, strong)  ResponseData*  response;
+@property (nonatomic, strong)  QuizData*  response;
 
 @end

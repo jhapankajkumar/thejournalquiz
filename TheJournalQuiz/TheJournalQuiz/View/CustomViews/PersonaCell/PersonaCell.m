@@ -1,4 +1,4 @@
-//
+
 //  PersonaCell.m
 //  TheJournalQuiz
 //
@@ -69,6 +69,10 @@
         // Add to Table View Cell
         [self.contentView addSubview:_resultImage];
         
+        
+        _loadingIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [self.contentView addSubview:_loadingIndicator];
+        
         //self.contentView.backgroundColor = [UIColor redColor];
         
     }
@@ -136,6 +140,7 @@
         
     }
     else {
+        //hide loading indicator
         //Headline Text
         CGRect rect =  [PERSONA_INFORMATION_TEXT boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : QUESION_LABEL_FONT } context:nil];
         
@@ -196,9 +201,14 @@
         self.resultImage.frame = CGRectMake(X_PADDING+X_PADDING, totalHeight, CHOICE_LABEL_DEFAULT_WIDTH-20 , THUMB_HEIGHT);
         totalHeight = totalHeight + THUMB_HEIGHT;
         totalHeight = totalHeight + EXTRA_SPACE;
+        _loadingIndicator.hidden  = false;
+        _loadingIndicator.center = self.resultImage.center;
+        [_loadingIndicator startAnimating];
+        
         
         NSString *imageURLString = [[UtilityManager sharedInstance]getImageURLForWidth:CHOICE_LABEL_DEFAULT_WIDTH height:THUMB_HEIGHT fromURL:persona.image.src];
         __weak __typeof(&*self)weakcell = self;
+        
         //Downloading Question image
         [self.resultImage sd_setImageWithURL:[NSURL URLWithString:imageURLString]
                               placeholderImage:PLACE_HOLDER_IMAGE
@@ -207,9 +217,11 @@
                                          if (image &&  [image isKindOfClass:[UIImage class]]) {
                                              image = [[UtilityManager sharedInstance] imageResize:image andResizeTo:CGSizeMake(CHOICE_LABEL_DEFAULT_WIDTH, THUMB_HEIGHT)];
                                              
-                                             PersonaCell *localCell = (PersonaCell*)[weakcell.tableView cellForRowAtIndexPath:anIndexPath];
-                                             if (localCell && [localCell isKindOfClass:[PersonaCell class]]) {
-                                                 [localCell.resultImage setImage:image];
+                                            // PersonaCell *localCell = (PersonaCell*)[weakcell.tableView cellForRowAtIndexPath:anIndexPath];
+                                             if (weakcell && [weakcell isKindOfClass:[PersonaCell class]]) {
+                                                 [weakcell.resultImage setImage:image];
+                                                 [weakcell.loadingIndicator stopAnimating];
+                                                  weakcell.loadingIndicator.hidden = true;
                                              }
                                          }
                                          else
@@ -260,6 +272,7 @@
     }
     else {
         self.resultText.hidden = true;
+        _loadingIndicator.hidden = true;
         //Headline Text
         CGRect rect =  [PERSONA_INFORMATION_TEXT boundingRectWithSize:maximumLabelSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName : QUESION_LABEL_FONT } context:nil];
         expectedLabelSize = rect.size;
@@ -274,14 +287,12 @@
         self.resultImage.frame = CGRectMake(X_PADDING+X_PADDING, totalHeight, CHOICE_LABEL_DEFAULT_WIDTH-20, THUMB_HEIGHT);
         self.resultImage.image = PLACE_HOLDER_IMAGE;
     }
-    
 }
 
 
 - (void)shareQuiz:(UIButton *)sender {
- 
+
     [(ViewController *)self.controller shareResultWithData:(Personas *)self.data];
-    
 }
 
 - (void)tryAgainQuiz:(UIButton *)sender {

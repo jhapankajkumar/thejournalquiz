@@ -13,13 +13,13 @@
 #import "DataFetchManager.h"
 #import <AFNetworking.h>
 #import <AFHTTPRequestOperation.h>
-#import "ResponseData.h"
-#import "ResponseResult.h"
+#import "QuizData.h"
+#import "QuizResult.h"
 
 
 @implementation DataFetchManager
 
--(void)getQuizDataFromServerWithCompletionBlock:(void(^) (ResponseData* result,BOOL results, NSError *error))completionBlock {
+-(void)getQuizDataFromServerWithCompletionBlock:(void(^) (QuizData* result,BOOL results, NSError *error))completionBlock {
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         NSURL *url = [NSURL URLWithString:BaseURL];
@@ -37,7 +37,7 @@
             //if status is true
             if (status == true) {
                 NSDictionary *response = (NSDictionary *)responseObject;
-                ResponseResult *result = [[ResponseResult alloc] initWithDictionary: response error:nil];
+                QuizResult *result = [[QuizResult alloc] initWithDictionary: response error:nil];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     completionBlock(result.response,YES,nil);
                 });

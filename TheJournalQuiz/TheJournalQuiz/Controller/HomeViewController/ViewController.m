@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "DataFetchManager.h"
-#import "ResponseData.h"
+#import "QuizData.h"
 #import "Question.h"
 #import "GenericTableViewCell.h"
 #import "UserAnswer.h"
@@ -85,7 +85,7 @@
 -(void)getQuizdataFromServer {
     DataFetchManager *manager =     [[DataFetchManager  alloc]init];
     //get qize data from server
-    [manager getQuizDataFromServerWithCompletionBlock:^(ResponseData* responseData, BOOL success, NSError *error) {
+    [manager getQuizDataFromServerWithCompletionBlock:^(QuizData* responseData, BOOL success, NSError *error) {
         if (success) {
             self.quizData = responseData;
             [self setUpTableViewCellInformation];

@@ -15,6 +15,7 @@
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+
 //This is Question Headline Font size
 #define QUESTION_LABEL_FONT_SIZE              IS_IPHONE ? 20 : 28
 //This is Answer Label font size

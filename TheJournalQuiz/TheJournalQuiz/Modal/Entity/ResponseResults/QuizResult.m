@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Kumar. All rights reserved.
 //
 
-#import "ResponseResult.h"
+#import "QuizResult.h"
 
-@implementation ResponseResult
+@implementation QuizResult
 
 @end

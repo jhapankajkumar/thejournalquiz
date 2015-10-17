@@ -11,7 +11,7 @@
 #import "Personas.h"
 #import "Question.h"
 
-@interface ResponseData : JSONModel
+@interface QuizData : JSONModel
 
 @property (nonatomic,assign) NSInteger responseID;
 @property (nonatomic,strong) NSString * id_type;
